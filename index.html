@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#07051a">
+<title>Summoner: Hellbound Grimoire</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css?v=13">
+</head>
+<body>
+<canvas id="game"></canvas>
+
+<!-- ================= HUD ================= -->
+<div id="hud" class="hidden">
+  <div class="hud-tl">
+    <div class="portrait"><canvas id="portrait" width="76" height="76"></canvas><div class="lvl" id="hudLvl">1</div></div>
+    <div class="bars">
+      <div class="bar hp"><div class="fill" id="hpFill"></div><div class="shield" id="shFill"></div><span id="hpTxt"></span></div>
+      <div class="bar mp"><div class="fill" id="mpFill"></div><span id="mpTxt"></span></div>
+      <div class="bar xp"><div class="fill" id="xpFill"></div></div>
+      <div class="bar soul" title="Soul gauge: fills from kills. When full, choose a boost."><div class="fill" id="soulFill"></div><span>SOUL</span></div>
+      <div class="bar od" title="Overdrive: fills from kills and boss damage. When full, summon your whole grimoire for free."><div class="fill" id="odFill"></div><span id="odTxt">OVERDRIVE</span></div>
+      <div class="cap">Capacity <b id="capTxt"></b><span id="boostIcons"></span></div>
+    </div>
+  </div>
+  <div class="hud-top">
+    <div class="stage-name" id="stageName"></div>
+    <div class="timer" id="timer"></div>
+    <div class="bossbar hidden" id="bossBar">
+      <div class="bname" id="bossName"></div>
+      <div class="btrack"><div class="bfill" id="bossFill"></div></div>
+    </div>
+    <div class="tutbox hidden" id="tutBox"><div id="tutText"></div><div class="tut-foot"><span id="tutDots"></span><button class="link" id="btnTutSkip">Skip tutorial</button></div></div>
+  </div>
+  <div class="hud-tr">
+    <div class="tr-row">
+      <div class="stat stone">◆ <span id="stoneTxt">0</span></div>
+      <div class="stat">☠ <span id="killTxt">0</span></div>
+      <button class="icon-btn" id="btnMute" title="Mute">♪</button>
+      <button class="icon-btn" id="btnPause" title="Pause">❚❚</button>
+    </div>
+    <canvas id="minimap" width="170" height="170"></canvas>
+  </div>
+  <div class="hud-bottom">
+    <div class="hotbar" id="hotbar"></div>
+    <div class="skills" id="skills"></div>
+  </div>
+  <div id="joyBase"><div id="joyKnob"></div></div>
+  <div id="banner" class="banner"></div>
+  <div id="bossIntro" class="boss-intro"><div class="bi-title" id="biTitle"></div><div class="bi-name" id="biName"></div></div>
+  <div id="toasts"></div>
+  <div id="boostModal" class="boost-modal hidden">
+    <div class="bm-head">Your soul resonates. Choose a boost</div>
+    <div class="bm-cards" id="boostCards"></div>
+  </div>
+</div>
+
+<!-- ================= SCREENS ================= -->
+<div id="screens">
+
+  <section class="screen" id="scr-title">
+    <div class="title-wrap">
+      <div class="title-kicker">A Summoner's Tale</div>
+      <h1 class="logo">SUMMONER</h1>
+      <div class="logo-sub">Hellbound Grimoire</div>
+      <div class="menu-col">
+        <button class="btn primary" id="btnContinue">Continue <small id="continueInfo"></small></button>
+        <button class="btn" id="btnNew">New Game</button>
+        <button class="btn ghost" data-help>How to Play</button>
+        <button class="btn ghost" data-settings>Settings</button>
+      </div>
+      <p class="foot kb-only" id="titleFoot"></p>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-newgame">
+    <div class="panel narrow">
+      <h2>Choose your path</h2>
+      <p class="muted" id="overwriteWarn"></p>
+      <div class="mode-row">
+        <button class="mode-card" data-mode="normal">
+          <div class="mode-name">Normal</div>
+          <div class="mode-desc">A fair adventure. Level up, unlock new summon ranks and conquer the abyss.</div>
+        </button>
+        <button class="mode-card hell" data-mode="hell">
+          <div class="mode-name">Hell Mode</div>
+          <div class="mode-desc">Leveling is <b>10× slower</b>. Enemies have +70% HP and +50% damage. Magic stones drop twice as often. Only the truly dedicated will see a dragon.</div>
+        </button>
+      </div>
+      <button class="btn ghost" data-back="title">Back</button>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-map">
+    <div class="topbar">
+      <div class="tb-left">
+        <div class="tb-level">Lv <b id="mapLvl">1</b></div>
+        <div class="tb-xp"><div class="fill" id="mapXp"></div></div>
+        <div class="tb-stones">◆ <b id="mapStones">0</b></div>
+        <div class="mode-badge" id="mapMode"></div>
+      </div>
+      <div class="tb-right">
+        <button class="btn small" id="btnGrimoire">Grimoire</button>
+        <button class="btn small" id="btnCodex">Codex</button>
+        <button class="btn small ghost" data-help>Help</button>
+        <button class="btn small ghost" data-settings>Settings</button>
+        <button class="btn small ghost" id="btnToTitle">Title</button>
+      </div>
+    </div>
+    <div class="region-bar" id="regionBar"></div>
+    <div class="map-area">
+      <div class="map" id="map">
+        <svg id="mapLines" viewBox="0 0 100 100" preserveAspectRatio="none"></svg>
+      </div>
+      <aside class="stage-info panel" id="stageInfo"></aside>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-grimoire">
+    <div class="topbar">
+      <div class="tb-left"><h2 class="inline">Grimoire</h2><div class="tb-stones">◆ <b id="grimStones">0</b></div></div>
+      <div class="tabs" id="grimTabs">
+        <button class="tab active" data-tab="cards">Cards</button>
+        <button class="tab" data-tab="fusion">Fusion</button>
+        <button class="tab" data-tab="talents">Talents</button>
+        <button class="tab" data-tab="relics">Relics</button>
+        <button class="tab" data-tab="equip">Equipment</button>
+      </div>
+      <div class="tb-right"><button class="btn small" id="btnGrimBack">Back to Map</button></div>
+    </div>
+    <div class="grim-body">
+      <div class="grim-hotbar panel">
+        <div class="gh-title">Battle hotbar <span class="muted">— select a slot, then press <b>Equip</b> on a card. Press ✕ to clear a slot.</span></div>
+        <div class="gh-slots" id="grimSlots"></div>
+        <div class="gh-stats" id="grimStats"></div>
+      </div>
+      <div id="grimContent"></div>
+    </div>
+  </section>
+
+  <section class="screen" id="scr-codex">
+    <div class="topbar">
+      <div class="tb-left"><h2 class="inline">Codex</h2></div>
+      <div class="tabs" id="codexTabs">
+        <button class="tab active" data-tab="bestiary">Bestiary</button>
+        <button class="tab" data-tab="ach">Achievements</button>
+        <button class="tab" data-tab="records">Records</button>
+        <button class="tab" data-tab="wardrobe">Wardrobe</button>
+      </div>
+      <div class="tb-right"><button class="btn small" id="btnCodexBack">Back to Map</button></div>
+    </div>
+    <div class="grim-body" id="codexContent"></div>
+  </section>
+
+  <section class="screen dim" id="scr-settings">
+    <div class="panel wide">
+      <h2>Settings</h2>
+      <div class="set-grid">
+        <div class="set-col">
+          <h3>Audio</h3>
+          <label class="set-row">Master volume <input type="range" min="0" max="1" step="0.05" data-set="master"></label>
+          <label class="set-row">Music volume <input type="range" min="0" max="1" step="0.05" data-set="music"></label>
+          <label class="set-row">Sound effects <input type="range" min="0" max="1" step="0.05" data-set="sfx"></label>
+          <h3>Display</h3>
+          <label class="set-row">Graphics quality
+            <select data-set="quality"><option value="auto">Auto</option><option value="high">High</option><option value="medium">Medium</option><option value="low">Low</option></select>
+          </label>
+          <label class="set-row">Screen shake <input type="range" min="0" max="1" step="0.1" data-set="shake"></label>
+          <label class="set-row">Damage numbers <input type="checkbox" data-set="dmgNums"></label>
+          <label class="set-row">Minimap <input type="checkbox" data-set="minimap"></label>
+          <label class="set-row">Touch controls
+            <select data-set="touch"><option value="auto">Auto-detect</option><option value="on">Always on</option><option value="off">Off</option></select>
+          </label>
+          <h3>Help</h3>
+          <button class="btn small ghost" id="btnReplayTut">Replay tutorial on Stage 1</button>
+          <h3>Save transfer</h3>
+          <p class="muted save-note">Move your progress to another browser, your phone or the online version: copy the code here, then paste it there and press Load.</p>
+          <textarea id="saveCode" rows="3" spellcheck="false" placeholder="Paste a save code here"></textarea>
+          <div class="save-btns">
+            <button class="btn small" id="btnExportSave">Copy my save code</button>
+            <button class="btn small ghost" id="btnImportSave">Load pasted code</button>
+          </div>
+          <div class="save-btns">
+            <button class="btn small" id="btnSaveFile">Save to file</button>
+            <label class="btn small ghost file-btn">Load from file<input type="file" id="loadFile" accept=".json,application/json" hidden></label>
+            <button class="btn small ghost" id="btnRestore">Restore backup</button>
+          </div>
+          <div class="save-msg" id="saveMsg" role="status"></div>
+        </div>
+        <div class="set-col">
+          <h3>Controls <span class="muted small-note">click a key to rebind · Esc cancels · Backspace clears</span></h3>
+          <div class="binds" id="binds"></div>
+          <button class="btn small ghost" id="btnResetKeys">Reset controls to default</button>
+        </div>
+      </div>
+      <div class="menu-row"><button class="btn primary" id="btnSettingsBack">Done</button></div>
+    </div>
+  </section>
+
+  <section class="screen dim" id="scr-dialogue">
+    <div class="dlg" id="dlg">
+      <div class="dlg-who" id="dlgWho"></div>
+      <div class="dlg-text" id="dlgText"></div>
+      <div class="dlg-foot"><span class="muted" id="dlgHint">Click or press Space to continue</span><button class="link" id="btnDlgSkip">Skip</button></div>
+    </div>
+  </section>
+
+  <section class="screen dim" id="scr-pause">
+    <div class="panel narrow center">
+      <h2>Paused</h2>
+      <div class="menu-col">
+        <button class="btn primary" id="btnResume">Resume</button>
+        <button class="btn ghost" data-help>How to Play</button>
+        <button class="btn ghost" data-settings>Settings</button>
+        <button class="btn danger" id="btnRetreat">Retreat to Map</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen dim" id="scr-result">
+    <div class="panel narrow center">
+      <h2 class="result-title" id="resTitle"></h2>
+      <div class="muted" id="resStage"></div>
+      <div class="res-grid" id="resGrid"></div>
+      <div id="resExtra"></div>
+      <div class="menu-row">
+        <button class="btn primary" id="btnResContinue">Continue</button>
+        <button class="btn ghost" id="btnResRetry">Retry</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen dim" id="scr-help">
+    <div class="panel narrow">
+      <h2>How to Play</h2>
+      <div class="help-grid" id="helpGrid"></div>
+      <ul class="tips">
+        <li>Allen is weak. He only throws stones. Your <b>summons</b> are your army.</li>
+        <li>Every card has a <b>special skill</b>: hold the skill key and press its slot key (touch: long-press the card).</li>
+        <li>Each summon takes grimoire <b>capacity</b>. Leveling raises capacity, HP and mana.</li>
+        <li>New summon <b>ranks</b> unlock as you level: Insect → Beast → Bird → Grass → Stone → Fish → Spirit → Dragon.</li>
+        <li>Kills fill the <b>Soul gauge</b>. When full, choose a boost for the rest of the stage.</li>
+        <li>Spend <b>◆ magic stones</b> in the Grimoire: enhance cards, <b>fuse</b> two Lv 5 cards into a new creature, and buy <b>talents</b>.</li>
+        <li>Each stage has 2 optional <b>challenges</b> for bonus stars. Clear Stage 3 to open the endless <b>Abyss Tower</b>.</li>
+      </ul>
+      <button class="btn" id="btnHelpBack">Back</button>
+    </div>
+  </section>
+
+</div>
+
+<script src="js/data.js?v=13"></script>
+<script src="js/content2.js?v=13"></script>
+<script src="js/settings.js?v=13"></script>
+<script src="js/fx.js?v=13"></script>
+<script src="js/audio.js?v=13"></script>
+<script src="js/draw.js?v=13"></script>
+<script src="js/game.js?v=13"></script>
+<script src="js/draw2.js?v=13"></script>
+<script src="js/cards3.js?v=13"></script>
+<script src="js/features.js?v=13"></script>
+<script src="js/content3.js?v=13"></script>
+<script src="js/content4.js?v=13"></script>
+<script src="js/ui.js?v=13"></script>
+<script src="js/touch.js?v=13"></script>
+<script src="js/main.js?v=13"></script>
+</body>
+</html>
