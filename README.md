@@ -35,6 +35,24 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 - Generated music and sound (Web Audio), procedural art (Canvas 2D), dynamic lighting and weather
 - Saves automatically in the browser, with backups, save files and copy/paste save codes
 
+## Tests
+
+85 automated tests cover every feature: content integrity (all 100 cards, enemies, bosses, stages), saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
+
+**In a browser:** open `tests/index.html` (locally through `npm start`, or online at https://00-mj-built-with-ai.github.io/summoner-hellbound/tests/). Add `?only=boss` to run a subset.
+
+**From the command line** (Node 18+; uses your installed Edge or Chrome):
+
+```bash
+npm install
+```
+
+```bash
+npm test
+```
+
+`npm test -- boss` runs only tests whose name contains "boss". The command exits with code 1 if anything fails.
+
 ## Code layout
 
 | File | Contents |

@@ -1,0 +1,14 @@
+{
+  "name": "summoner-hellbound",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Neon-fantasy summoner action game for the browser",
+  "type": "module",
+  "scripts": {
+    "start": "python -m http.server 5200",
+    "test": "node tests/run-tests.mjs"
+  },
+  "devDependencies": {
+    "playwright": "^1.48.0"
+  }
+}

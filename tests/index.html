@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Summoner Tests</title>
+<style>
+  #trPanel { position: fixed; inset: 0; z-index: 99999; overflow-y: auto; background: #0a0718; color: #ece6ff; font: 14px/1.45 Inter, system-ui, sans-serif; padding: 20px max(16px, env(safe-area-inset-right, 0px)) 40px max(16px, env(safe-area-inset-left, 0px)); user-select: text; }
+  #trPanel h1 { font: 800 24px Cinzel, Georgia, serif; color: #ffd66b; margin: 0 0 4px; letter-spacing: .04em; }
+  #trPanel .tr-sub { color: #a99fd0; margin: 0 0 14px; max-width: 70ch; }
+  #trSummary { position: sticky; top: -20px; padding: 12px 14px; margin: 0 -4px 16px; border-radius: 12px; background: #16102e; border: 1px solid rgba(167,123,255,0.4); font-variant-numeric: tabular-nums; z-index: 1; }
+  #trSummary b.ok { color: #5dff9a; } #trSummary b.bad { color: #ff6b85; }
+  .tr-group { border: 1px solid rgba(167,123,255,0.25); border-radius: 12px; margin-bottom: 12px; overflow: hidden; }
+  .tr-group.has-bad { border-color: rgba(255,107,133,0.6); }
+  .tr-group h2 { margin: 0; padding: 9px 14px; font-size: 14px; background: rgba(167,123,255,0.08); display: flex; justify-content: space-between; }
+  .tr-group h2 span { color: #a99fd0; font-variant-numeric: tabular-nums; }
+  .tr-row { display: grid; grid-template-columns: 14px 1fr auto; gap: 8px 10px; align-items: center; padding: 6px 14px; border-top: 1px solid rgba(167,123,255,0.1); }
+  .tr-dot { width: 10px; height: 10px; border-radius: 50%; background: #5dff9a; }
+  .tr-row.fail .tr-dot { background: #ff4d6d; } .tr-row.warn .tr-dot { background: #ffcf5a; }
+  .tr-row.fail .tr-name { color: #ffb3c0; font-weight: 700; }
+  .tr-ms { color: #7a70a0; font-size: 12px; font-variant-numeric: tabular-nums; }
+  .tr-row pre { grid-column: 2 / -1; margin: 2px 0 4px; padding: 8px 10px; border-radius: 8px; background: #1a0a14; color: #ffb3c0; white-space: pre-wrap; word-break: break-word; font: 12px ui-monospace, Consolas, monospace; overflow-x: auto; }
+  .tr-row.warn pre { background: #1a1608; color: #ffe08a; }
+  #gameHost { position: fixed; inset: 0; visibility: hidden; }
+</style>
+</head>
+<body>
+<div id="gameHost"></div>
+<div id="trPanel">
+  <h1>Summoner: feature tests</h1>
+  <p class="tr-sub">Loads the real game with temporary storage (your save is never touched) and checks every system: content, saves, progression, combat, every card and boss, modes, menus, input, rendering and audio. Add <code>?only=boss</code> to the address to run a subset.</p>
+  <div id="trSummary">Loading the game…</div>
+  <div id="trResults"></div>
+</div>
+<script src="runner.js"></script>
+<script src="spec-content.js"></script>
+<script src="spec-save.js"></script>
+<script src="spec-progression.js"></script>
+<script src="spec-combat.js"></script>
+<script src="spec-modes.js"></script>
+<script src="spec-ui.js"></script>
+</body>
+</html>
