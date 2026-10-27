@@ -158,7 +158,7 @@ group('Act V', () => {
     expect(errs, 'failures').toEqual([]);
   });
   test('the new enemies fight and draw', () => {
-    H.save({ level: 60, cardLv: 30, hotbar: ['fang_wolf', 'gale_hawk', null, null, null, null] });
+    H.save({ level: 70, cardLv: 40, hotbar: ['chaos_wyrm', 'void_seraph', 'bahamut', 'fenrir', 'metatron', 'gale_hawk'] });
     H.start(44);
     for (const t of ['ink_blot', 'quill_wraith', 'page_golem', 'echo_witch', 'dream_moth', 'null_spire']) H.spawnNear(t, 2, 160);
     H.sim(6, { god: true, summon: true, render: true });

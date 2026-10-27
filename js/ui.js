@@ -477,9 +477,9 @@ function renderRushInfo() {
 function tierSelectorHTML() {
   if (!SAVE.tierMax) return '';
   const t = Math.min(SAVE.tier || 0, SAVE.tierMax);
-  return `<div class="tier-sel" title="Hell Tier: enemies +25% HP and damage per tier, rewards +30% per tier. Clear Throne of the Fallen on your highest tier to unlock the next.">
+  return `<div class="tier-sel" title="Hell Tier: enemies +25% HP and damage per tier, rewards up to ×10 at tier 20, and stages get shorter. Clear Throne of the Fallen on your highest tier to unlock the next.">
     <span class="tier-l">Hell Tier</span><button class="tbtn" data-tier="-1" ${t <= 0 ? 'disabled' : ''}>◂</button><b class="tier-n">${t}</b><button class="tbtn" data-tier="1" ${t >= SAVE.tierMax ? 'disabled' : ''}>▸</button>
-    <span class="tier-d">${t ? `enemies +${t * 25}% · rewards +${t * 30}%` : 'normal difficulty'}</span></div>`;
+    <span class="tier-d">${t ? `enemies +${t * 25}% · rewards ×${tierReward(t).toFixed(1)} · stage time ${Math.round(100 / (1 + 0.1 * t))}%` : 'normal difficulty'}</span></div>`;
 }
 function bindTier(root) {
   root.querySelectorAll('[data-tier]').forEach(b => b.onclick = () => {
@@ -786,6 +786,7 @@ function cardStatsHTML(id) {
   const rows = [['HP', Math.round(c.hp * m)]];
   if (c.ai === 'heal') rows.push(['Heal/s', fmt(c.heal * m)]);
   else if (c.ai === 'buffer') rows.push(['Shield', Math.round(c.shield * m)]);
+  else if (c.ai === 'priest') rows.push(['Heal', fmt(c.heal * 2 * m)], ['Shield', Math.round((c.shield || 0) * m)]);
   else if (c.ai === 'dragon') rows.push(['Flame', fmt(c.dmg * m)], ['Bite', Math.round(c.bite * m)]);
   else rows.push(['Attack', fmt(c.dmg * m)]);
   rows.push(['Mana', c.cost], ['Cooldown', fmt(c.cd * (1 - 0.06 * Math.min(5, tl('quickcast')))) + 's'], ['Capacity', fmt((c.weight || 1) * (c.count || 1))]);
@@ -927,7 +928,7 @@ function buildCodex() {
     const keys = [...Object.keys(ENEMIES).filter(k => !ENEMIES[k].hidden), ...bossKeys.filter(k => !BOSSES[k].event)];
     const seen = keys.filter(k => SAVE.bestiary[k]).length;
     root.innerHTML = `<p class="muted intro">${seen} / ${keys.length} discovered. Defeat a creature to record it.</p>`;
-    for (const [title, list] of [['Monsters', Object.keys(ENEMIES)], ['Bosses', bossKeys]]) {
+    for (const [title, list] of [['Monsters', Object.keys(ENEMIES).filter(k => !ENEMIES[k].hidden)], ['Bosses', bossKeys]]) {
       const h = document.createElement('h3'); h.className = 'codex-h'; h.textContent = title; root.appendChild(h);
       const grid = document.createElement('div'); grid.className = 'beasts';
       for (const k of list) {

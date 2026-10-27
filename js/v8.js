@@ -308,7 +308,7 @@ function walletItems() {
   const items = [['◆', SAVE.stones.toLocaleString(), 'Magic stones'], ['✧', SAVE.essence, 'Abyss Essence']];
   for (const k in MATS) items.push([MATS[k].icon, SAVE.mats[k] || 0, MATS[k].name]);
   if (ev) items.push([ev.currency.icon, evState(ev.id).cur, ev.currency.name]);
-  items.push(['◈', SAVE.rift ? SAVE.rift.shards : 0, 'Rift shards'], ['🎫', SAVE.arena ? SAVE.arena.tickets : 0, 'Arena tickets'], ['🎴', SAVE.altar ? SAVE.altar.free || 0 : 0, 'Free Altar draws']);
+  items.push(['⬡', SAVE.rift ? SAVE.rift.shards : 0, 'Rift shards'], ['🎫', SAVE.arena ? SAVE.arena.tickets : 0, 'Arena tickets'], ['🎴', SAVE.altar ? SAVE.altar.free || 0 : 0, 'Free Altar draws']);
   if (pgTotal() > 0) items.push(['✪', pgFree(), 'Paragon points to spend']);
   return items;
 }
@@ -336,6 +336,24 @@ buildTalentsTab = function (root) {
     <div class="talents paragon">${PARAGON.map(p => { const lv = pgLv(p.id); return `<div class="talent"><div class="t-icon">${p.icon}</div><div class="t-body"><div class="t-name">${p.name} <span class="muted">${lv}</span></div><div class="t-desc">${p.desc(lv * p.per)}</div>
       <div class="save-btns"><button class="btn small" data-pg="${p.id}" data-n="1" ${free > 0 && lv < p.max ? '' : 'disabled'}>+1</button><button class="btn small ghost" data-pg="${p.id}" data-n="10" ${free > 0 && lv < p.max ? '' : 'disabled'}>+10</button></div></div></div>`; }).join('')}</div>`);
   root.querySelectorAll('[data-pg]').forEach(b => b.onclick = () => { if (spendParagon(b.dataset.pg, +b.dataset.n)) { SFX.level(); rebuildGrimoireKeepScroll(); } });
+};
+
+// ================= What's new for this release (returning players see it once) =================
+WHATS_NEW.splice(0, WHATS_NEW.length,
+  ['No level cap', 'You and your cards now level forever. Every level past 70 gives a Paragon point (Grimoire → Talents). Cards reach 20 stars and can be awakened 10 times.'],
+  ['30 talents up to rank 20', '20 new talents, and every talent now goes to rank 20.'],
+  ['Harder for more rewards', 'Pick Hard, Nightmare or Hell on any stage for up to ×4 rewards. Hell Tiers now go to 20, pay up to ×10 and make stages shorter.'],
+  ['Faster runs', 'Choose a Fast or Blitz pace, play at 1.5× or 2× speed (G), or skip straight to the boss on 3-starred stages.'],
+  ['Automation', 'Auto summon keeps the number of each card you choose on the field. Auto skills follow slots 1–6 and fire every time they are ready. Find it in Pause → Automation.'],
+  ['20 mythic legends', 'Fenrir, Kraken, Kitsune, Bahamut, Metatron, Chimera and more, plus 10 legendary fusions. Every creature now looks more epic.'],
+);
+const _v8_showWhatsNew = showWhatsNew;
+showWhatsNew = function (force) {
+  if (SAVE && !force && (SAVE.seenRelease || 0) >= 8) return false;
+  if (SAVE && (SAVE.seenRelease || 0) < 8) SAVE.seenRelease = 0;   // let the v7 check pass, then mark this release
+  const r = _v8_showWhatsNew(force);
+  if (SAVE) { SAVE.seenRelease = 8; saveGame(); }
+  return r;
 };
 
 ACHIEVEMENTS.push(

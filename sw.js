@@ -26,7 +26,7 @@ self.addEventListener('fetch', ev => {
   if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.includes('/tests/')) return;
   // pages: network first so you get updates when online, cached copy when offline
   if (req.mode === 'navigate') {
-    ev.respondWith(fetch(req).catch(async () => (await caches.match(req)) || caches.match('index.html')));
+    ev.respondWith(fetch(req, { cache: 'no-cache' }).catch(async () => (await caches.match(req)) || caches.match('index.html')));
     return;
   }
   // versioned files never change, so the cache wins; anything new is cached on first use

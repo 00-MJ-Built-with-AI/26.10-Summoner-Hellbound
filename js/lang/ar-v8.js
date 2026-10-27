@@ -67,6 +67,8 @@ Object.assign(AR_UI, {
   'Auto-pick upgrades, auto Enhance and Overdrive, auto summon and auto special skills for slots 1–6.': 'اختيار الترقيات تلقائيًا، والتعزيز والفيض التلقائي، والاستدعاء التلقائي، والمهارات الخاصة التلقائية للخانات 1–6.',
 });
 AR_PATTERNS.push(
+  [/^enemies \+(\d+)% · rewards ×([\d.]+) · stage time (\d+)%$/, 'الأعداء +$1% · المكافآت ×$2 · وقت المرحلة $3%'], [/^normal difficulty$/, 'صعوبة عادية'],
+  [/^Hell Tier: enemies \+25% HP and damage per tier, rewards up to ×10 at tier 20, and stages get shorter\. Clear Throne of the Fallen on your highest tier to unlock the next\.$/, 'طبقة الجحيم: الأعداء +25% صحة وضرر لكل طبقة، والمكافآت حتى ×10 في الطبقة 20، والمراحل تقصر. أنهِ عرش الساقط على أعلى طبقة لديك لتفتح التالية.'],
   [/^Catch (\d+) Treasure Goblins$/, 'أمسك $1 عفاريت كنز'], [/^Summon (\d+) creatures$/, 'استدعِ $1 مخلوقًا'],
   [/^Awaken ([IVX]+) ◆([\d,]+) ✧(\d+)$/, 'أيقظ $1 ◆$2 ✧$3'], [/^✦ Awakened ([IVX]+) \(max\)$/, '✦ مستيقظ $1 (الأقصى)'], [/^Awakening (\d+)\/(\d+): every level adds \+15% HP and damage$/, 'الإيقاظ $1/$2: كل مستوى يضيف +15% صحة وضرر'],
   [/^Slot (\d+): auto special skill (on|off)$/, (m, n, s) => `الخانة ${n}: المهارة الخاصة التلقائية ${s === 'on' ? 'مفعّلة' : 'متوقفة'}`], [/^Game speed ([\d.]+)×$/, 'سرعة اللعب $1×'],
@@ -77,6 +79,14 @@ AR_PATTERNS.push(
   [/^(Normal|Hard|Nightmare|Hell)$/, (m, d) => AR_DIFFS[DIFFS.findIndex(x => x.name === d)]], [/^(Fast|Blitz)$/, (m, d) => AR_PACES[PACES.findIndex(x => x.name === d)]],
 );
 // data swaps that need the v8 objects (run from i18n's applyArabicData)
+AR_WHATSNEW.splice(0, AR_WHATSNEW.length,
+  ['بلا حد للمستوى', 'أنت وبطاقاتك ترتفعون في المستوى إلى ما لا نهاية. كل مستوى بعد 70 يمنح نقطة باراغون (الغريموار ← المواهب). البطاقات تصل إلى 20 نجمة ويمكن إيقاظها 10 مرات.'],
+  ['30 موهبة حتى الرتبة 20', '20 موهبة جديدة، وكل موهبة تصل الآن إلى الرتبة 20.'],
+  ['أصعب مقابل مكافآت أكبر', 'اختر صعب أو كابوس أو جحيم في أي مرحلة لمكافآت حتى ×4. طبقات الجحيم تصل الآن إلى 20 وتدفع حتى ×10 وتجعل المراحل أقصر.'],
+  ['جولات أسرع', 'اختر إيقاعًا سريعًا أو خاطفًا، والعب بسرعة 1.5× أو 2× (G)، أو انتقل مباشرة إلى الزعيم في المراحل ذات النجوم الثلاث.'],
+  ['الأتمتة', 'الاستدعاء التلقائي يبقي العدد الذي تختاره من كل بطاقة في الساحة. المهارات التلقائية تتبع الخانات 1–6 وتنطلق كلما كانت جاهزة. تجدها في الإيقاف المؤقت ← الأتمتة.'],
+  ['20 أسطورة', 'فنرير والكراكن والكيتسوني وباهاموت وميتاترون والكيميرا وغيرها، مع 10 اندماجات أسطورية. وكل المخلوقات صارت أكثر روعة.'],
+);
 function applyArabicV8() {
   for (const t of TALENTS) if (t.extra && AR_TL_EXTRA[t.extra]) t.extra = AR_TL_EXTRA[t.extra];
   for (const p of PARAGON) { if (AR_PARAGON[p.id]) p.name = AR_PARAGON[p.id]; const k = AR_PARAGON_DESC[p.id], sign = p.id === 'haste' ? '−' : '+'; if (k) p.desc = v => `${sign}${(v * 100).toFixed(1)}% ${k}`; }

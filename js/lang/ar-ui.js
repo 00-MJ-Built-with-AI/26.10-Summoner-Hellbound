@@ -116,7 +116,7 @@ const AR_PATTERNS = [
 
 // ----- second pass: long help texts, mode panels and composite strings -----
 Object.assign(AR_UI, {
-  'English': 'English', 'Hell Tier': 'طبقة الجحيم', 'Summons': 'المستدعون', 'New summon': 'استدعاء جديد', 'Flame': 'لهب', 'Pause · Mute': 'إيقاف مؤقت · كتم', 'Pactkeeper outfit': 'زي حافظ العهود',
+  'Heal': 'العلاج', 'English': 'English', 'Hell Tier': 'طبقة الجحيم', 'Summons': 'المستدعون', 'New summon': 'استدعاء جديد', 'Flame': 'لهب', 'Pause · Mute': 'إيقاف مؤقت · كتم', 'Pactkeeper outfit': 'زي حافظ العهود',
   'Dropped by an unknown boss': 'يسقطه زعيم مجهول', 'Click a slot to place the selected card, or to clear it.': 'انقر خانة لوضع البطاقة المختارة، أو لتفريغها.',
   'All keys can be changed in Settings. Numpad keys work with Num Lock on or off.': 'يمكن تغيير كل المفاتيح من الإعدادات. مفاتيح لوحة الأرقام تعمل مع Num Lock مفعّلًا أو لا.',
   'A new trial every day: a stage you have cleared, with two fixed curses. Clear it once today to open the reward chest. You can retry as often as you like.': 'محنة جديدة كل يوم: مرحلة أنهيتها، مع لعنتين ثابتتين. أنهِها مرة اليوم لتفتح صندوق المكافأة. يمكنك المحاولة بقدر ما تشاء.',

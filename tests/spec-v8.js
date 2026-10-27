@@ -121,6 +121,31 @@ group('Automation v8 and settings', () => {
   });
 });
 
+group('Display checks', () => {
+  test('no card shows NaN or undefined in its Grimoire stats', () => {
+    H.save({ level: 70, cardLv: 30, fusions: true });
+    const bad = CARD_IDS.filter(id => /NaN|undefined/.test(cardStatsHTML(id)));
+    expect(bad, 'cards with broken stats').toEqual([]);
+  });
+  test('the Bestiary still opens after an arena fight', () => {
+    H.save({ level: 30, cardLv: 10, hotbar: ['fang_wolf', null, null, null, null, null] });
+    ensureArena(); enterArena(arenaOpponents()[0]);
+    W.ended = true;
+    codexTab = 'bestiary'; showScreen('codex');
+    expect(document.querySelectorAll('#codexContent .beast').length > 50, 'bestiary drawn').toBe(true);
+  });
+  test('no menu screen shows NaN or undefined', () => {
+    H.save({ level: 85, cleared: 48, stones: 99999, cardLv: 30, fusions: true });
+    const hits = [], scan = w => { const t = document.createTreeWalker(document.getElementById('screens'), NodeFilter.SHOW_TEXT); for (let n = t.nextNode(); n; n = t.nextNode()) if (/\bNaN\b|undefined/.test(n.nodeValue)) hits.push(w + ': ' + n.nodeValue.trim()); };
+    for (const s of ['title', 'map', 'settings', 'help']) { showScreen(s); scan(s); }
+    for (const m of ['tower', 'rush', 'daily', 'sanctum', 'quests', 'worldboss', 'rift', 0, 30]) { selectStage(m); scan('panel ' + m); }
+    for (const t of ['cards', 'fusion', 'talents', 'relics', 'equip']) { grimTab = t; showScreen('grimoire'); scan('grimoire ' + t); }
+    for (const t of ['bestiary', 'ach', 'records', 'wardrobe', 'stats']) { codexTab = t; showScreen('codex'); scan('codex ' + t); }
+    for (const t of ['buildings', 'altar', 'calendar', 'weekly', 'arena']) { vilTab = t; showScreen('village'); scan('village ' + t); }
+    expect(hits, 'screens with broken numbers').toEqual([]);
+  });
+});
+
 group('Mythic legends and visuals', () => {
   test('20 legends + 10 legendary fusions: all fight, skill and draw', () => {
     expect(LEGENDS.length + LEGEND_FUSIONS.length, 'new cards').toBe(30);
