@@ -6,7 +6,7 @@ group('Save system', () => {
     const s = defaultSave('normal');
     for (const k of ['level', 'exp', 'stones', 'cards', 'hotbar', 'cleared', 'best', 'stars', 'talents', 'fused', 'relics', 'relicSlots', 'essence', 'awakened', 'loadouts', 'mats', 'equip', 'quests', 'worldBoss', 'sanctum', 'cosmetics', 'counters', 'history'])
       expect(s[k] !== undefined, 'field ' + k).toBeTruthy();
-    expect(s.cleared.length, 'cleared slots').toBe(28);
+    expect(s.cleared.length, 'cleared slots').toBe(38);
     expect(s.loadouts.length, 'loadouts').toBe(5);
     expect(Object.keys(s.cards).length, 'card entries').toBe(CARD_IDS.length);
   });
@@ -34,7 +34,7 @@ group('Save system', () => {
     expect(m.arena.rating, 'arena rating').toBe(1000);
     expect(m.level, 'level kept').toBe(7);
     expect(m.cards.spark_beetle.lv, 'card kept').toBe(3);
-    expect(m.cleared.length, 'stage slots').toBe(28);
+    expect(m.cleared.length, 'stage slots').toBe(38);
     expect(m.stars[0][0], 'clear star').toBe(true);
     expect(m.tutorialDone, 'tutorial skipped for veterans').toBe(true);
     expect(m.loadouts.length, 'loadouts').toBe(5);

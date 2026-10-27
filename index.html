@@ -8,7 +8,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css?v=16">
+<link rel="stylesheet" href="css/style.css?v=18">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
 </head>
 <body>
 <canvas id="game"></canvas>
@@ -174,6 +178,21 @@
           <label class="set-row">Touch controls
             <select data-set="touch"><option value="auto">Auto-detect</option><option value="on">Always on</option><option value="off">Off</option></select>
           </label>
+          <h3>Co-op</h3>
+          <label class="set-row">Player 2
+            <select data-set="p2"><option value="off">Off</option><option value="keys">Keyboard (IJKL, H dash, U skill)</option><option value="pad">Controller</option></select>
+          </label>
+          <p class="muted save-note">Player 2 plays your companion (Roran if none is picked). With one controller, Player 1 keeps keyboard and mouse.</p>
+          <h3>Accessibility</h3>
+          <label class="set-row">Colorblind palette
+            <select data-set="cb"><option value="off">Off</option><option value="protan">Protanopia (red-weak)</option><option value="deutan">Deuteranopia (green-weak)</option><option value="tritan">Tritanopia (blue-weak)</option></select>
+          </label>
+          <label class="set-row">Reduce flashing <input type="checkbox" data-set="calm"></label>
+          <label class="set-row">Menu text size <input type="range" min="0.9" max="1.4" step="0.05" data-set="uiScale"></label>
+          <label class="set-row">High-contrast menus <input type="checkbox" data-set="contrast"></label>
+          <label class="set-row">Assist mode <input type="checkbox" data-set="assist"></label>
+          <p class="muted save-note">Assist mode: enemies are 30% slower, summons auto-aim and you can't fall in story stages. Stars and records aren't earned while it's on.</p>
+          <label class="set-row">Vibration (phones) <input type="checkbox" data-set="vibrate"></label>
           <h3>Help</h3>
           <button class="btn small ghost" id="btnReplayTut">Replay tutorial on Stage 1</button>
           <h3>Save transfer</h3>
@@ -252,21 +271,25 @@
 
 </div>
 
-<script src="js/data.js?v=16"></script>
-<script src="js/content2.js?v=16"></script>
-<script src="js/settings.js?v=16"></script>
-<script src="js/fx.js?v=16"></script>
-<script src="js/audio.js?v=16"></script>
-<script src="js/draw.js?v=16"></script>
-<script src="js/game.js?v=16"></script>
-<script src="js/draw2.js?v=16"></script>
-<script src="js/cards3.js?v=16"></script>
-<script src="js/features.js?v=16"></script>
-<script src="js/content3.js?v=16"></script>
-<script src="js/content4.js?v=16"></script>
-<script src="js/ui.js?v=16"></script>
-<script src="js/touch.js?v=16"></script>
-<script src="js/runup.js?v=16"></script>
-<script src="js/main.js?v=16"></script>
+<script src="js/data.js?v=18"></script>
+<script src="js/content2.js?v=18"></script>
+<script src="js/settings.js?v=18"></script>
+<script src="js/fx.js?v=18"></script>
+<script src="js/audio.js?v=18"></script>
+<script src="js/draw.js?v=18"></script>
+<script src="js/game.js?v=18"></script>
+<script src="js/draw2.js?v=18"></script>
+<script src="js/cards3.js?v=18"></script>
+<script src="js/features.js?v=18"></script>
+<script src="js/content3.js?v=18"></script>
+<script src="js/content4.js?v=18"></script>
+<script src="js/ui.js?v=18"></script>
+<script src="js/touch.js?v=18"></script>
+<script src="js/act4.js?v=18"></script>
+<script src="js/runup.js?v=18"></script>
+<script src="js/coop.js?v=18"></script>
+<script src="js/extras.js?v=18"></script>
+<script src="js/meta.js?v=18"></script>
+<script src="js/main.js?v=18"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 'use strict';
 // ---------- Acts II & III: Celestial rank, new enemies, bosses, stages, relics, companions, trials ----------
 
-const LEVEL_CAP = 40;
+const LEVEL_CAP = 50;
 PLAYER.cap = L => Math.min(20, 4 + Math.floor((L - 1) / 2));
 PLAYER.hp = L => 90 + 14 * (L - 1) + 32 * Math.max(0, L - 20);
 PLAYER.expNext = L => Math.floor(30 * Math.pow(L, 1.7) * (L > 20 ? 1 + (L - 20) * 0.35 : 1));

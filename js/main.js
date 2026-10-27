@@ -59,7 +59,7 @@ function migrateSave(o) {
   if (o.stats.playTime === undefined) o.stats.playTime = 0;
   if (!o.counters.rankKills) o.counters.rankKills = {};
   for (const k of ['shard', 'horn', 'star']) if (o.mats[k] === undefined) o.mats[k] = 0;
-  if (o.level >= LEVEL_CAP && !o.tierMax) o.tierMax = 1;
+  if (o.level >= 40 && !o.tierMax) o.tierMax = 1;
   for (const k in d.arena) if (o.arena[k] === undefined) o.arena[k] = d.arena[k];
   o.v = 6;
   return o;

@@ -24,14 +24,20 @@ Then open http://localhost:5200.
 | Enhance / Swap / Recall | Q / E / R | D-pad up / right / down |
 | Grimoire Overdrive | F or Numpad + | D-pad left |
 | Pause | Esc or P | Start |
+| Photo mode | V | |
+| Player 2 (co-op) | I J K L move · H dash · U skill | second controller |
 
-All keys can be rebound in Settings. Phones and tablets get touch controls automatically.
+All keys can be rebound in Settings. Phones and tablets get touch controls automatically. Turn on Player 2 in Settings → Co-op.
 
 ## What's in it
 
-- **28 stages** in three acts, each ending in a boss, plus 10 Awakened rematches
+- **38 stages** in four acts, each ending in a boss, with Awakened rematches and 5 multi-phase Act IV bosses with cinematic intros and a true ending (level cap 50)
 - **100 summon cards**: Insect, Beast, Bird, Grass, Stone, Fish, Spirit, Dragon and Celestial ranks, plus 36 fusions
-- Special skills, card leveling, enhancement, awakening and rank synergies
+- Special skills, card leveling, enhancement, awakening with two evolution paths per card, and rank synergies
+- **Run upgrades**: every run level in a stage offers 3 of 42 upgrades (common, rare, legendary)
+- **Village**: 6 buildings with permanent bonuses, the Summoning Altar, a 28-day login calendar, weekly challenges and an arena against 30 rival summoners
+- Local co-op (Player 2 plays a companion), photo mode with filters and 10-second clips, play stats in the Codex
+- Installs as an app and works offline; accessibility options (colorblind palettes, reduced flashing, text size, high contrast, assist mode) and phone vibration
 - Relics, talents, equipment crafted from boss materials, and 3 companions
 - Abyss Tower (endless), Boss Rush, Daily Trial, weekly World Boss, quest board, Hell Tiers 1–10
 - Generated music and sound (Web Audio), procedural art (Canvas 2D), dynamic lighting and weather
@@ -39,7 +45,7 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 
 ## Tests
 
-86 automated tests cover every feature: content integrity (all 100 cards, enemies, bosses, stages), saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
+113 automated tests cover every feature: content integrity (all 100 cards, enemies, bosses, 38 stages), run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
 
 **In a browser:** open `tests/index.html` (locally through `npm start`, or online at https://00-mj-built-with-ai.github.io/summoner-hellbound/tests/). Add `?only=boss` to run a subset.
 

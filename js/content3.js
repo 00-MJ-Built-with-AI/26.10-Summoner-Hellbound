@@ -69,7 +69,7 @@ const TIER_MAX = 10;
 const tierHp = () => 1 + 0.25 * (W.tier || 0);
 const tierReward = tier => 1 + 0.3 * tier;
 function checkTierUnlock() {
-  if (SAVE.level >= LEVEL_CAP && SAVE.tierMax < 1) {
+  if (SAVE.level >= 40 && SAVE.tierMax < 1) {
     SAVE.tierMax = 1;
     toast('Hell Tier 1 unlocked! Pick your tier above the map.', 'ach');
   }
