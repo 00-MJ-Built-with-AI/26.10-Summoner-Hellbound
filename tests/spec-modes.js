@@ -119,9 +119,9 @@ group('Modes', () => {
   });
   test('Hell Tier unlocks the next tier when the final stage is cleared on the top tier', () => {
     H.save({ level: 40, cleared: 28, cardLv: 15 });
-    SAVE.tierMax = 1; SAVE.tier = 1;
+    SAVE.tierMax = 10; SAVE.tier = 10;
     H.start(27);
     H.killBoss();
-    expect(SAVE.tierMax, 'tier 2 unlocked').toBe(2);
+    expect(SAVE.tierMax, 'tier 11 unlocked').toBe(11);
   });
 });

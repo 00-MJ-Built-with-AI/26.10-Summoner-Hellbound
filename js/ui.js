@@ -477,7 +477,7 @@ function renderRushInfo() {
 function tierSelectorHTML() {
   if (!SAVE.tierMax) return '';
   const t = Math.min(SAVE.tier || 0, SAVE.tierMax);
-  return `<div class="tier-sel" title="Hell Tier: enemies +25% HP and damage per tier, rewards ×10 at tier 10 and ×20 at tier 20, and stages get shorter. Clear Throne of the Fallen on your highest tier to unlock the next.">
+  return `<div class="tier-sel" title="Hell Tier: enemies +25% HP and damage per tier, rewards ×10 at tier 10 and ×20 at tier 20, and stages get shorter. Tiers 1–10 open at level 40; clear Throne of the Fallen on your highest tier to unlock 11–20.">
     <span class="tier-l">Hell Tier</span><button class="tbtn" data-tier="-1" ${t <= 0 ? 'disabled' : ''}>◂</button><b class="tier-n">${t}</b><button class="tbtn" data-tier="1" ${t >= SAVE.tierMax ? 'disabled' : ''}>▸</button>
     <span class="tier-d">${t ? `enemies +${t * 25}% · rewards ×${tierReward(t).toFixed(1)} · stage time ${Math.round(100 / (1 + 0.1 * t))}%` : 'normal difficulty'}</span></div>`;
 }

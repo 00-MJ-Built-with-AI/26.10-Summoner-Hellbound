@@ -18,7 +18,7 @@ group('Progression', () => {
     expect(SAVE.level > 70, 'past 70').toBe(true);
     const hp = PLAYER.hp(SAVE.level), lv = SAVE.level; gainExp(PLAYER.expNext(lv) + 1);
     expect(SAVE.level > lv, 'keeps leveling').toBe(true); expect(PLAYER.hp(SAVE.level) > hp, 'HP grows').toBe(true);
-    expect(SAVE.tierMax, 'tier unlocked').toBe(1);
+    expect(SAVE.tierMax, 'tiers 1–10 unlocked').toBe(10);
   });
   test('cards level up from kills made by their summons', () => {
     H.save({ level: 5 });

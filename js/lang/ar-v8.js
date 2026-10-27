@@ -68,7 +68,7 @@ Object.assign(AR_UI, {
 });
 AR_PATTERNS.push(
   [/^enemies \+(\d+)% · rewards ×([\d.]+) · stage time (\d+)%$/, 'الأعداء +$1% · المكافآت ×$2 · وقت المرحلة $3%'], [/^normal difficulty$/, 'صعوبة عادية'],
-  [/^Hell Tier: enemies \+25% HP and damage per tier, rewards ×10 at tier 10 and ×20 at tier 20, and stages get shorter\. Clear Throne of the Fallen on your highest tier to unlock the next\.$/, 'طبقة الجحيم: الأعداء +25% صحة وضرر لكل طبقة، والمكافآت ×10 في الطبقة 10 و×20 في الطبقة 20، والمراحل تقصر. أنهِ عرش الساقط على أعلى طبقة لديك لتفتح التالية.'],
+  [/^Hell Tier: enemies \+25% HP and damage per tier, rewards ×10 at tier 10 and ×20 at tier 20, and stages get shorter\. Tiers 1–10 open at level 40; clear Throne of the Fallen on your highest tier to unlock 11–20\.$/, 'طبقة الجحيم: الأعداء +25% صحة وضرر لكل طبقة، والمكافآت ×10 في الطبقة 10 و×20 في الطبقة 20، والمراحل تقصر. الطبقات 1–10 تُفتح في المستوى 40؛ أنهِ عرش الساقط على أعلى طبقة لديك لتفتح 11–20.'],
   [/^Catch (\d+) Treasure Goblins$/, 'أمسك $1 عفاريت كنز'], [/^Summon (\d+) creatures$/, 'استدعِ $1 مخلوقًا'],
   [/^Awaken ([IVX]+) ◆([\d,]+) ✧(\d+)$/, 'أيقظ $1 ◆$2 ✧$3'], [/^✦ Awakened ([IVX]+) \(max\)$/, '✦ مستيقظ $1 (الأقصى)'], [/^Awakening (\d+)\/(\d+): every level adds \+15% HP and damage$/, 'الإيقاظ $1/$2: كل مستوى يضيف +15% صحة وضرر'],
   [/^Slot (\d+): auto special skill (on|off)$/, (m, n, s) => `الخانة ${n}: المهارة الخاصة التلقائية ${s === 'on' ? 'مفعّلة' : 'متوقفة'}`], [/^Game speed ([\d.]+)×$/, 'سرعة اللعب $1×'],

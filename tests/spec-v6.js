@@ -175,7 +175,7 @@ group('Act IV', () => {
     H.save({ level: 40 });
     SAVE.tierMax = 0;
     H.start(1); gainExp(1);
-    expect(SAVE.tierMax, 'tier 1 at level 40').toBe(1);
+    expect(SAVE.tierMax, 'tiers 1–10 at level 40').toBe(10);
   });
 });
 

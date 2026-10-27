@@ -65,7 +65,7 @@ function migrateSave(o) {
   if (o.stats.playTime === undefined) o.stats.playTime = 0;
   if (!o.counters.rankKills) o.counters.rankKills = {};
   for (const k of ['shard', 'horn', 'star']) if (o.mats[k] === undefined) o.mats[k] = 0;
-  if (o.level >= 40 && !o.tierMax) o.tierMax = 1;
+  if (o.level >= 40 && (o.tierMax || 0) < 10) o.tierMax = 10;   // tiers 1–10 open together at level 40
   for (const k in d.arena) if (o.arena[k] === undefined) o.arena[k] = d.arena[k];
   for (const k of ["owned", "eq"]) if (!o.skins[k]) o.skins[k] = {};
   for (const k in d.rift) if (o.rift[k] === undefined) o.rift[k] = d.rift[k];

@@ -45,6 +45,15 @@ group('v9 controls', () => {
     expect(W.summons.filter(s => s.id === 'fang_wolf' && !s.od).length, '2 × 2 = 4 wolves').toBe(4);
     SETTINGS.capMult = 1;
   });
+  test('Hell Tiers 1–10 open for any save at level 40+, and the selector reaches ×10', () => {
+    const old = defaultSave('normal'); old.level = 85; old.tierMax = 1; old.tier = 1;
+    const m = migrateSave(old);
+    expect(m.tierMax, 'existing save opens 1–10').toBe(10);
+    SAVE = m; selectedRegion = 0; selectedStage = 0; showScreen('map');
+    for (let k = 0; k < 15; k++) { const b = document.querySelector('[data-tier="1"]'); if (b && !b.disabled) b.click(); }
+    expect(SAVE.tier, 'tier 10 selected').toBe(10);
+    expect(document.querySelector('.tier-d').textContent.includes('rewards ×10.0'), 'shows ×10').toBe(true);
+  });
   test('tall settings screen can scroll to the top and bottom', () => {
     showScreen('settings');
     const s = $('scr-settings'), p = s.querySelector('.panel');

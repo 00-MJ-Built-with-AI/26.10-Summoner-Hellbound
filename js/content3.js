@@ -65,13 +65,14 @@ function useOverdrive() {
 }
 
 // ================= Hell Tiers (no reset: harder enemies, better rewards) =================
-const TIER_MAX = 20;
+const TIER_MAX = 20, TIER_FREE = 10;
 const tierHp = () => 1 + 0.25 * (W.tier || 0);
 const tierReward = tier => (tier <= 10 ? 1 + 0.9 * tier : 10 + (tier - 10));   // ×10 at tier 10, ×20 at tier 20
 function checkTierUnlock() {
-  if (SAVE.level >= 40 && SAVE.tierMax < 1) {
-    SAVE.tierMax = 1;
-    toast('Hell Tier 1 unlocked! Pick your tier above the map.', 'ach');
+  // tiers 1–10 open together at level 40; 11–20 unlock one by one (clear Throne of the Fallen on your top tier)
+  if (SAVE.level >= 40 && SAVE.tierMax < TIER_FREE) {
+    SAVE.tierMax = TIER_FREE;
+    toast(`Hell Tiers 1–${TIER_FREE} unlocked! Pick your tier above the map.`, 'ach');
   }
 }
 
