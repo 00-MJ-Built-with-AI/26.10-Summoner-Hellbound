@@ -199,3 +199,122 @@ group('Help, rumble and What\'s new', () => {
     $('btnInfoOk').click();
   });
 });
+
+group('Automation', () => {
+  test('auto-pick run upgrades by priority: no pop-up, the highest-ranked offer is taken', () => {
+    H.save({ level: 20, hotbar: ['fang_wolf', 'spark_beetle', null, null, null, null] });
+    SAVE.auto.run = true;
+    SAVE.auto.runOrder = ['vigor', 'might'];
+    H.start(2);
+    const real = rollRunChoices;
+    rollRunChoices = () => [RU_BY_ID.might, RU_BY_ID.reach, RU_BY_ID.vigor];
+    try { gainExp(W.sm.exp * W.mode.exp * W.rewardMult * runExpNext(0) + 0.01); } finally { rollRunChoices = real; }
+    expect(W.choosing, 'no pop-up left open').toBe(null);
+    expect(W.ru.vigor, 'top priority taken').toBe(1);
+    expect(runOrder().length, 'full list kept').toBe(RUN_UPGRADES.length);
+  });
+  test('auto-pick soul boosts by priority', () => {
+    H.save({ level: 20 });
+    SAVE.auto.soul = true; SAVE.auto.soulOrder = ['iron_skin'];
+    H.start(2);
+    W.soul = W.soulMax; addSoul(1);
+    expect(W.choosing, 'closed').toBe(null);
+    expect(W.picks, 'one boost taken').toBe(1);
+  });
+  test('auto Enhance (Q) and auto Overdrive (F) fire on their own in a fight', () => {
+    H.save({ level: 30, cardLv: 15, hotbar: ['fang_wolf', 'gale_hawk', 'iron_boar', null, null, null] });
+    SAVE.auto.q = true; SAVE.auto.f = true;
+    H.start(5);
+    W.player.mp = 9999; for (let k = 0; k < 3; k++) trySummon(k);
+    H.spawnNear('goblin', 16, 140);
+    W.od = OD_MAX;
+    H.sim(1, { god: true });
+    expect(W.player.enhT > 0, 'Enhance cast').toBe(true);
+    expect(W.odT > 0, 'Overdrive fired').toBe(true);
+  });
+  test('auto special skill per card, toggled from the hotbar', () => {
+    H.save({ level: 30, cardLv: 15, hotbar: ['fang_wolf', 'gale_hawk', null, null, null, null] });
+    H.start(5);
+    const a = [...document.querySelectorAll('#hotbar .auto-b')];
+    expect(a.length, 'badges').toBe(2);
+    a[0].click();
+    expect(SAVE.auto.skills.fang_wolf, 'toggled on').toBe(true);
+    W.player.mp = 9999; trySummon(0);
+    const wolf = W.summons.find(s => s.id === 'fang_wolf');
+    for (let k = 0; k < 10; k++) { const e = spawnEnemy('goblin', wolf.x + 60 + (k % 3) * 12, wolf.y + Math.floor(k / 3) * 12); e.spawnT = 1; }
+    const used = SAVE.counters.skills;
+    H.sim(1.5, { god: true });
+    expect(SAVE.counters.skills > used, 'skill cast automatically').toBe(true);
+    expect((W.cskCd.gale_hawk || 0) > 0, 'other card untouched').toBe(false);
+  });
+  test('priority editor reorders with arrows and presets', () => {
+    H.save({ level: 20 });
+    openPriorityEditor('run');
+    const first = runOrder()[0], second = runOrder()[1];
+    document.querySelector('#infoCard [data-down="0"]').click();
+    expect(runOrder()[0], 'moved down').toBe(second);
+    expect(runOrder()[1], 'swapped').toBe(first);
+    document.querySelector('#infoCard [data-preset="safety"]').click();
+    expect(RU_BY_ID[runOrder()[0]].r, 'safety preset starts with a legendary survival pick').toBe('legendary');
+    $('btnInfoOk').click();
+  });
+});
+
+group('Online (with a fake server)', () => {
+  function fakeNet() {
+    const db = { saves: {}, boards: {}, arena: {} };
+    return {
+      db, async init(cb) { cb({ uid: 'u1', name: 'Tester' }); },
+      async signIn() {}, async signOut() {},
+      async getSave(uid) { return db.saves[uid] || null; }, async putSave(uid, r) { db.saves[uid] = r; },
+      async submit(b, uid, e) { const t = db.boards[b] || (db.boards[b] = {}); if (t[uid] && t[uid].score >= e.score) return false; t[uid] = e; return true; },
+      async top(b) { return Object.entries(db.boards[b] || {}).map(([uid, e]) => Object.assign({ uid }, e)).sort((x, y) => y.score - x.score); },
+      async putArena(uid, r) { db.arena[uid] = r; },
+      async findArena() { return [{ uid: 'p2', name: 'Rival Ana', rating: 1010, lv: 20, deck: ['fang_wolf', 'gale_hawk'], cardLv: 10 }, { uid: 'p3', name: 'Bad Deck', rating: 1000, lv: 5, deck: ['not_a_card'] }]; },
+    };
+  }
+  test('signing in uploads the save; a newer cloud save asks which to keep', async () => {
+    const real = NET; NET = fakeNet(); ONLINE.ready = false; ONLINE.user = null;
+    try {
+      H.save({ level: 12 });
+      await onlineInit(); await new Promise(r => setTimeout(r, 0));
+      expect(NET.db.saves.u1 && NET.db.saves.u1.level, 'uploaded').toBe(12);
+      const cloud = JSON.parse(NET.db.saves.u1.data); cloud.level = 30; cloud.savedAt = Date.now() + 60000;
+      NET.db.saves.u1 = { data: JSON.stringify(cloud), savedAt: cloud.savedAt, level: 30, cleared: 0 };
+      await firstSync();
+      expect(!!$('btnKeepLocal'), 'choice shown').toBe(true);
+      $('btnInfoOk').click();
+      expect(SAVE.level, 'cloud save adopted').toBe(30);
+    } finally { NET = real; ONLINE.user = null; ONLINE.ready = false; }
+  });
+  test('leaderboards: results submit scores and the Codex tab lists them', async () => {
+    const real = NET; NET = fakeNet(); ONLINE.user = { uid: 'u1', name: 'Tester' };
+    try {
+      H.save({ level: 20, cleared: 3 });
+      H.start(0, 'tower'); W.floor = 7;
+      W.player.hp = 0; playerDie(); H.sim(4, { until: () => STATE !== 'play' });
+      await new Promise(r => setTimeout(r, 0));
+      expect(NET.db.boards[boardKey('tower', true)].u1.score, 'weekly tower score').toBe(7);
+      codexTab = 'boards'; showScreen('codex');
+      await new Promise(r => setTimeout(r, 0));
+      expect(document.querySelectorAll('#codexContent .board tbody tr').length, 'rows').toBe(1);
+    } finally { NET = real; ONLINE.user = null; }
+  });
+  test('the arena mixes in real players and skips broken loadouts', async () => {
+    const real = NET; NET = fakeNet(); ONLINE.user = { uid: 'u1', name: 'Tester' }; ONLINE.rivals = null;
+    try {
+      H.save({ level: 20 });
+      ensureArena();
+      const list = await fetchOnlineRivals();
+      expect(list.length, 'one valid real player').toBe(1);
+      const ops = arenaOpponents();
+      expect(ops[0].online && ops[0].name, 'real player first').toBe('Rival Ana');
+      expect(enterArena(ops[0]), 'can fight them').toBe(true);
+    } finally { NET = real; ONLINE.user = null; ONLINE.rivals = null; }
+  });
+  test('with no Firebase config the game stays offline and says so', () => {
+    expect(NET, 'offline').toBe(null);
+    showScreen('settings');
+    expect($('accountBox').textContent.includes('not set up'), 'explains').toBe(true);
+  });
+});

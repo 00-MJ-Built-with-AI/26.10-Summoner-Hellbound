@@ -229,7 +229,8 @@ function renderLighting(ctx, cx, cy, z, t) {
 // ================= bloom =================
 const BLOOM = { c: null, x: null };
 function renderBloom(ctx) {
-  const w = Math.max(1, Math.floor(VW / 4)), h = Math.max(1, Math.floor(VH / 4));
+  if (!ctx.canvas.width || !ctx.canvas.height) return;   // window minimised or hidden: nothing to glow
+  const w =Math.max(1, Math.floor(VW / 4)), h = Math.max(1, Math.floor(VH / 4));
   if (!BLOOM.c || BLOOM.c.width !== w || BLOOM.c.height !== h) { BLOOM.c = document.createElement('canvas'); BLOOM.c.width = w; BLOOM.c.height = h; BLOOM.x = BLOOM.c.getContext('2d'); }
   const b = BLOOM.x;
   b.globalCompositeOperation = 'source-over';

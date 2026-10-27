@@ -663,3 +663,31 @@ body.calm .banner, body.calm .boss-intro { animation-duration: 0s !important; }
 .wn-list { display: flex; flex-direction: column; gap: 10px; margin: 8px 0 4px; }
 .wn { display: flex; flex-direction: column; gap: 2px; } .wn b { color: var(--gold); } .wn span { font-size: 13px; color: #d8d0f5; }
 .help-offer .btn { margin-top: 6px; }
+
+/* ===== v7: online ===== */
+.online-tag { font-size: 11px; font-weight: 800; color: #5dff9a; }
+.board-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.rec-table.board tr.me td { color: var(--gold); font-weight: 800; }
+#accountBox input[type=text] { background: #120c2a; color: inherit; border: 1px solid var(--line-2); border-radius: 8px; padding: 4px 8px; font: inherit; }
+
+/* ===== v7: automation ===== */
+.slot .auto-b { position: absolute; left: 3px; bottom: 3px; width: 18px; height: 18px; padding: 0; border-radius: 5px; border: 1px solid rgba(255,255,255,0.3); background: rgba(10,6,26,0.85); color: rgba(255,255,255,0.45); font: 900 10px Inter, sans-serif; pointer-events: auto; cursor: pointer; z-index: 2; }
+.slot .auto-b.on { background: #5dff9a; color: #04140a; border-color: #5dff9a; box-shadow: 0 0 8px #5dff9a; }
+#skills .auto-on { box-shadow: 0 0 0 2px #5dff9a, 0 0 14px rgba(93,255,154,0.5); }
+#skills .auto-on::after { content: "AUTO"; position: absolute; top: -9px; left: 50%; transform: translateX(-50%); font: 900 8px Inter, sans-serif; color: #04140a; background: #5dff9a; border-radius: 4px; padding: 0 3px; }
+.auto-panel { display: flex; flex-direction: column; gap: 8px; }
+.auto-panel h4 { margin: 8px 0 0; }
+.auto-row { align-items: flex-start; gap: 12px; } .auto-row .muted { font-size: 12px; }
+.auto-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; }
+.auto-card { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line-2); font-size: 12px; cursor: pointer; }
+.auto-card canvas { width: 34px; height: 34px; }
+.auto-skill-row { display: flex; align-items: center; gap: 6px; font-size: 12px; margin: 4px 0; cursor: pointer; }
+.prio-tools { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.prio-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.prio-list li { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line-2); background: rgba(12,8,30,0.85); cursor: grab; font-size: 12px; }
+.prio-list li.ru-rare { border-color: rgba(90,184,255,0.6); } .prio-list li.ru-legendary { border-color: rgba(255,207,90,0.7); }
+.prio-list li.drag { opacity: .5; }
+.prio-list .pn { width: 22px; text-align: right; font-weight: 900; color: var(--gold); flex: none; }
+.prio-list .pi { width: 22px; text-align: center; font-size: 16px; flex: none; }
+.prio-list .pt { flex: 1; min-width: 0; } .prio-list small { color: var(--muted); }
+.prio-list .pb { display: flex; gap: 2px; flex: none; } .prio-list .pb .btn { padding: 2px 7px; }

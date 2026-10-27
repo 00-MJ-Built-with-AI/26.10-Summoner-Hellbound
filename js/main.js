@@ -29,6 +29,7 @@ function defaultSave(mode) {
     evo: {}, altar: { pity: 0, draws: 0 }, village: {}, login: { day: 0, last: '' }, weeklyCh: { week: '', list: [] },
     arena: { rating: 1000, best: 1000, wins: 0, losses: 0, week: '', weekStart: 1000, tickets: 5, ticketDay: '' }, playStats: {}, trueEndingSeen: false,
     skins: { owned: {}, eq: {} }, events: {}, help: {}, tipsSeen: {}, rift: { best: 0, shards: 0, perks: {}, runs: 0 }, lang: null,
+    auto: { run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {} },
   };
 }
 function loadSave() {
@@ -135,6 +136,8 @@ cv.addEventListener('contextmenu', ev => ev.preventDefault());
 // ---------------- loop ----------------
 let last = performance.now(), menuT = 0, autosaveT = 10;
 function frame(now) {
+  requestAnimationFrame(frame);   // scheduled first, so one bad frame can never stop the game loop
+  if ((!VW || !VH || !cv.width) && window.innerWidth > 0 && window.innerHeight > 0) resize();
   const rawFrame = (now - last) / 1000;
   const dt = Math.min(0.05, rawFrame);
   last = now;
@@ -151,7 +154,6 @@ function frame(now) {
     menuT += dt;
     renderMenuBG(menuT, dt);
   }
-  requestAnimationFrame(frame);
 }
 
 resize();
