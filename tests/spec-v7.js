@@ -1,0 +1,201 @@
+'use strict';
+// v7 features: level 70 + Primordial rank, Halloween event, skins, Rift, Act V, adaptive help, rumble, What's new
+
+group('Level 70 and Primordial rank', () => {
+  test('level cap 70, Primordial (SS) unlocks at 60 with 4 cards that fight', () => {
+    expect(LEVEL_CAP, 'cap').toBe(70);
+    expect(CARD_PROG.maxLv, 'card cap').toBe(40);
+    const prim = CARD_IDS.filter(id => CARDS[id].rank === 'primordial');
+    expect(prim.length, 'primordial cards').toBe(4);
+    H.save({ level: 59 });
+    expect(prim.some(cardUnlocked), 'locked at 59').toBe(false);
+    H.save({ level: 60, cardLv: 30, hotbar: [...prim, null, null] });
+    expect(prim.every(cardUnlocked), 'unlocked at 60').toBe(true);
+    H.start(40);
+    H.spawnNear('goblin', 20, 150);
+    H.sim(6, { god: true, summon: true, skills: true, render: true });
+    expect(W.kills > 0, 'kills').toBe(true);
+  });
+  test('levels keep rising past 50 to 70, with more capacity', () => {
+    H.save({ level: 50 });
+    const cap50 = pstat(false).cap;
+    H.start(1);
+    for (let i = 0; i < 40 && SAVE.level < 70; i++) gainExp(PLAYER.expNext(SAVE.level));
+    expect(SAVE.level, 'reached 70').toBe(70);
+    expect(pstat(false).cap > cap50, 'more capacity').toBe(true);
+  });
+});
+
+group('Seasonal event', () => {
+  test('Halloween runs Oct 27 – Nov 7 and candy drops in battles', () => {
+    EVENT_NOW = new Date(2026, 10, 9);
+    expect(activeEvent(), 'over after Nov 7').toBe(null);
+    EVENT_NOW = new Date(2026, 9, 30);
+    const ev = activeEvent();
+    expect(ev && ev.id, 'active').toBe('halloween2026');
+    H.save({ level: 20 });
+    H.start(3);
+    const e = H.spawnNear('goblin', 1)[0]; e.elite = true;
+    killEnemy(e, null);
+    expect(evState(ev.id).cur, 'candy from an elite').toBe(3);
+    EVENT_NOW = null;
+  });
+  test('Pumpkin Hollow: the Pumpkin King fights in 2 phases and pays candy', () => {
+    EVENT_NOW = new Date(2026, 9, 30);
+    H.save({ level: 30, cardLv: 20, hotbar: ['fang_wolf', 'gale_hawk', 'iron_boar', null, null, null] });
+    const ev = activeEvent();
+    enterEvent(ev);
+    expect(W.isEvent && W.st.boss, 'event stage').toBe('pumpkin_king');
+    H.spawnNear('pumpkin_imp', 3); H.spawnNear('ghostling', 3); H.spawnNear('scarecrow', 1);
+    H.sim(3, { god: true, summon: true, render: true });
+    W.time = W.st.duration;
+    H.sim(6, { god: true, until: () => W.boss });
+    const b = W.boss;
+    b.hp = b.maxHp * 0.4; H.sim(2, { god: true, render: true });
+    expect(b.phaseI, 'phase 2').toBe(1);
+    const before = evState(ev.id).cur;
+    b.hp = 1; damageEnemy(b, 999, null);
+    H.sim(5, { god: true, until: () => STATE !== 'play' });
+    expect(STATE, 'result').toBe('result');
+    expect(evState(ev.id).cur > before, 'candy paid').toBe(true);
+    expect(skinOwned('jack'), 'Jack skin earned').toBe(true);
+    expect(SAVE.cleared.some(Boolean), 'no map stage cleared').toBe(false);
+    EVENT_NOW = null;
+  });
+  test('event shop: buy once items, repeat items and cosmetics', () => {
+    H.save({ level: 10 });
+    const ev = EVENTS[0], st = evState(ev.id);
+    st.cur = 2000;
+    const item = id => ev.shop.find(x => x.id === id);
+    expect(evBuy(ev, item('hw_outfit')), 'outfit').toBe(true);
+    expect(evBuy(ev, item('hw_outfit')), 'only once').toBe(false);
+    expect(OUTFITS.find(o => o.id === 'jackcloak').ok(), 'outfit owned').toBe(true);
+    expect(evBuy(ev, item('hw_skin1')), 'skin').toBe(true);
+    expect(skinOwned('pumpkin'), 'skin owned').toBe(true);
+    expect(evBuy(ev, item('hw_draw')) && evBuy(ev, item('hw_draw')), 'repeatable').toBe(true);
+    expect(SAVE.altar.free, 'free draws').toBe(6);
+  });
+});
+
+group('Summon skins', () => {
+  test('20 skins, earned not bought; equipping changes how the card is drawn', () => {
+    expect(SKINS.length, 'skins').toBe(20);
+    H.save({ level: 20, cardLv: 10, hotbar: ['fang_wolf', null, null, null, null, null] });
+    SAVE.skins.owned.pumpkin = true; SAVE.skins.eq.fang_wolf = 'pumpkin';
+    expect(skinFilter('fang_wolf', 0).includes('hue-rotate'), 'filter').toBe(true);
+    SAVE.skins.eq.gale_hawk = 'gold';
+    expect(skinOf('gale_hawk'), 'not owned yet').toBe(null);
+    H.start(2); W.player.mp = 999; trySummon(0);
+    H.sim(1, { god: true, render: true });
+    GF.rank = 'all'; GF.q = ''; grimTab = 'cards'; showScreen('grimoire');
+    expect(document.querySelectorAll('#grimContent .skin-sel').length > 0, 'skin pickers').toBe(true);
+    codexTab = 'wardrobe'; showScreen('codex');
+    expect(document.querySelectorAll('#codexContent .skin').length, 'wardrobe lists skins').toBe(20);
+  });
+});
+
+group('The Rift', () => {
+  test('starts with 2 random cards, drafts after each floor and restores the real hotbar', () => {
+    H.save({ level: 40, cleared: 18, cardLv: 20, hotbar: ['fang_wolf', 'gale_hawk', null, null, null, null] });
+    const real = [...SAVE.hotbar];
+    expect(enterRift(), 'entered').toBe(true);
+    expect(SAVE.hotbar.filter(Boolean).length, 'two cards').toBe(2);
+    W.time = W.st.duration; director(1 / 60);
+    expect(W.choosingKind, 'draft offered').toBe('draft');
+    const pick = W.choosing[0];
+    pickBoost(0);
+    expect(SAVE.hotbar.includes(pick), 'drafted card in hotbar').toBe(true);
+    H.sim(2, { god: true });
+    expect(W.rift.floor, 'floor 2').toBe(2);
+    W.player.hp = 0; playerDie();
+    H.sim(4, { until: () => STATE !== 'play' });
+    expect(STATE, 'result').toBe('result');
+    expect(SAVE.hotbar, 'real hotbar back').toEqual(real);
+    expect(SAVE.rift.shards >= 1, 'shards banked').toBe(true);
+  });
+  test('boss floor every 5 floors, and perks cost shards', () => {
+    H.save({ level: 40, cleared: 18, cardLv: 20 });
+    expect(riftStage(5).bossFloor && riftStage(10).bossFloor && !riftStage(4).bossFloor, 'boss floors').toBe(true);
+    SAVE.rift.shards = 100;
+    expect(buyRiftPerk('start'), 'perk').toBe(true);
+    expect(SAVE.rift.shards, 'paid').toBe(70);
+    enterRift();
+    expect(SAVE.hotbar.filter(Boolean).length, 'perk: 3 cards').toBe(3);
+    W.rift.floor = 4; riftNextFloor();
+    H.sim(8, { god: true, until: () => W.boss });
+    expect(!!W.boss, 'floor 5 boss').toBe(true);
+    W.boss.hp = 1; damageEnemy(W.boss, 999, null);
+    expect(W.choosingKind, 'draft after boss').toBe('draft');
+    restoreRiftHotbar();
+  });
+});
+
+group('Act V', () => {
+  test('10 stages in a 5th region for levels 50–70, with 5 multi-phase bosses', () => {
+    expect(REGIONS[4].act, 'region').toBe('Act V');
+    const bad = [];
+    for (let i = 38; i < 48; i++) { const s = STAGES[i]; if (s.region !== 4 || !BOSSES[s.boss] || !(DARKNESS[i] >= 0)) bad.push(i); if (s.rec < 50 || s.rec > 70) bad.push(i + ' rec'); }
+    for (const id of ['ink_colossus', 'mirror_queen', 'storm_titan', 'dream_eater', 'the_unwritten']) if (!BOSSES[id].phases || typeof DR[BOSSES[id].draw] !== 'function' || !RELIC_BY_BOSS[id]) bad.push(id);
+    expect(bad, 'problems').toEqual([]);
+  });
+  test('every Act V boss fights through its phases; the last one plays the ending', () => {
+    const errs = [];
+    for (const [id, idx] of [['ink_colossus', 39], ['mirror_queen', 41], ['storm_titan', 43], ['dream_eater', 45], ['the_unwritten', 47]]) {
+      try {
+        H.save({ level: 70, cleared: idx, cardLv: 35, hotbar: ['chaos_wyrm', 'void_seraph', 'fang_wolf', 'seraph', null, null] });
+        H.start(idx);
+        W.time = W.st.duration;
+        H.sim(6, { god: true, until: () => W.boss });
+        const e = W.boss;
+        for (const ph of e.bd.phases) { e.hp = e.maxHp * ph.at - 1; H.sim(2, { god: true, summon: true, render: true }); }
+        if (e.phaseI !== BOSSES[id].phases.length) errs.push(id + ' phases');
+        e.hp = 1; damageEnemy(e, 999, null);
+        H.sim(5, { god: true, until: () => STATE !== 'play' });
+        if (!SAVE.cleared[idx]) errs.push(id + ' not cleared');
+        if (idx === 47 && W.pendingEnding !== 'ending5') errs.push('no ending');
+      } catch (er) { errs.push(id + ': ' + er.message); }
+    }
+    expect(errs, 'failures').toEqual([]);
+  });
+  test('the new enemies fight and draw', () => {
+    H.save({ level: 60, cardLv: 30, hotbar: ['fang_wolf', 'gale_hawk', null, null, null, null] });
+    H.start(44);
+    for (const t of ['ink_blot', 'quill_wraith', 'page_golem', 'echo_witch', 'dream_moth', 'null_spire']) H.spawnNear(t, 2, 160);
+    H.sim(6, { god: true, summon: true, render: true });
+    expect(W.kills > 0, 'kills').toBe(true);
+  });
+});
+
+group('Help, rumble and What\'s new', () => {
+  test('after 3 falls on a stage, a one-time boost is offered and used on the next try', () => {
+    H.save({ level: 5, cleared: 2 });
+    for (let k = 0; k < 3; k++) { H.start(2); W.player.hp = 0; playerDie(); H.sim(4, { until: () => STATE !== 'play' }); }
+    const btn = $('btnHelpYes');
+    expect(!!btn, 'offer shown').toBe(true);
+    btn.click();
+    H.start(2);
+    expect(W.helpBoost, 'boost active').toBe(true);
+    W.ended = true;
+    H.start(2);
+    expect(!!W.helpBoost, 'only once').toBe(false);
+  });
+  test('controller rumble fires with vibration when a pad is used', () => {
+    H.save({ level: 5 });
+    const effects = [];
+    const pad = { connected: true, axes: [0, 0, 0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0 })), vibrationActuator: { playEffect: (t, o) => effects.push(o) } };
+    navigator.getGamepads = () => [pad];
+    INPUT.padMode = true; SETTINGS.vibrate = true; RUMBLE.t = 0;
+    H.start(1);
+    hitAlly(W.player, 5, null);
+    expect(effects.length > 0, 'rumbled').toBe(true);
+  });
+  test("What's new shows once for returning players, never for brand-new ones", () => {
+    H.save({ level: 5 });
+    SAVE.stats.runs = 0; delete SAVE.seenRelease;
+    expect(showWhatsNew(), 'new player: no popup').toBe(false);
+    SAVE.stats.runs = 10; delete SAVE.seenRelease;
+    expect(showWhatsNew(), 'returning player: popup').toBe(true);
+    expect(showWhatsNew(), 'only once').toBe(false);
+    $('btnInfoOk').click();
+  });
+});

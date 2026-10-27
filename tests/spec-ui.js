@@ -21,11 +21,11 @@ group('Menus', () => {
     expect(STATE, 'went to the map').toBe('map');
     expect(!!loadSave(), 'saved').toBeTruthy();
   });
-  test('the map shows 4 acts, locks regions and opens every mode panel', () => {
+  test('the map shows 5 acts, locks regions and opens every mode panel', () => {
     H.save({ level: 30, cleared: 9 });
     selectedRegion = null; showScreen('map');
     const tabs = [...document.querySelectorAll('.rtab:not(.mode)')];
-    expect(tabs.length, 'region tabs').toBe(4);
+    expect(tabs.length, 'region tabs').toBe(5);
     expect(tabs[2].classList.contains('locked'), 'Act III locked').toBe(true);
     expect(document.querySelectorAll('#map .node').length, 'Act II nodes').toBe(10);
     const bad = [];

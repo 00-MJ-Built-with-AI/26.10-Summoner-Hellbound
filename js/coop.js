@@ -111,6 +111,7 @@ function heroSkill(s) {
 // shared camera: follow the midpoint and zoom out so both players stay on screen
 const _co_updateWorld = updateWorld;
 updateWorld = function (rawDt) {
+  const cx0 = W.camX, cy0 = W.camY;   // start from last frame's camera, not the one already pulled toward Allen
   _co_updateWorld(rawDt);
   const h = coopOn() && W.active ? p2Hero() : null, p = W.player;
   if (!h || h.down || p.dead || W.focus) return;
@@ -118,7 +119,7 @@ updateWorld = function (rawDt) {
   const fit = Math.min(1, (VW / ZOOM * 0.4) / Math.max(1, dx), (VH / ZOOM * 0.38) / Math.max(1, dy));
   W.zk = Math.min(W.zk, Math.max(0.68, fit));
   const a = Math.min(1, rawDt * 6), mx = Math.max(0, BOUND + 40 - VW / 2 / ZOOM), my = Math.max(0, BOUND + 40 - VH / 2 / ZOOM);
-  W.camX = clamp(lerp(W.camX, (p.x + h.x) / 2, a), -mx, mx); W.camY = clamp(lerp(W.camY, (p.y + h.y) / 2, a), -my, my);
+  W.camX = clamp(lerp(cx0, (p.x + h.x) / 2, a), -mx, mx); W.camY = clamp(lerp(cy0, (p.y + h.y) / 2, a), -my, my);
 };
 
 // P2 marker under the hero

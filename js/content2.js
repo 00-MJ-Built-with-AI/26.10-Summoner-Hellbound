@@ -1,7 +1,7 @@
 'use strict';
 // ---------- Acts II & III: Celestial rank, new enemies, bosses, stages, relics, companions, trials ----------
 
-const LEVEL_CAP = 50;
+const LEVEL_CAP = 70;
 PLAYER.cap = L => Math.min(20, 4 + Math.floor((L - 1) / 2));
 PLAYER.hp = L => 90 + 14 * (L - 1) + 32 * Math.max(0, L - 20);
 PLAYER.expNext = L => Math.floor(30 * Math.pow(L, 1.7) * (L > 20 ? 1 + (L - 20) * 0.35 : 1));
@@ -231,7 +231,7 @@ STORY.ending3 = [
 // ===== achievements =====
 ACHIEVEMENTS.find(a => a.id === 'all_stages').desc = 'Clear all 8 stages of Act I.';
 ACHIEVEMENTS.find(a => a.id === 'all_stages').check = () => SAVE.cleared.slice(0, 8).every(Boolean);
-ACHIEVEMENTS.find(a => a.id === 'bestiary').check = () => [...Object.keys(ENEMIES), ...Object.keys(BOSSES).filter(k => !BOSSES[k].awakened)].every(k => SAVE.bestiary[k]);
+ACHIEVEMENTS.find(a => a.id === 'bestiary').check = () => [...Object.keys(ENEMIES).filter(k => !ENEMIES[k].hidden), ...Object.keys(BOSSES).filter(k => !BOSSES[k].awakened && !BOSSES[k].event)].every(k => SAVE.bestiary[k]);
 ACHIEVEMENTS.push(
   { id: 'act2',     name: 'Demon Slayer',            reward: 400, desc: 'Clear every stage of Act II.',            check: () => SAVE.cleared.slice(8, 18).every(Boolean) },
   { id: 'act3',     name: 'Godslayer',               reward: 800, desc: 'Clear every stage of Act III.',           check: () => SAVE.cleared.slice(18, 28).every(Boolean) },

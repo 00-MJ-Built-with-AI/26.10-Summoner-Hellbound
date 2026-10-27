@@ -13,7 +13,7 @@ function defaultSave(mode) {
   const cards = {};
   for (const id of CARD_IDS) cards[id] = { lv: 1, exp: 0, enh: 0 };
   return {
-    v: 6, mode, level: 1, exp: 0, stones: 0, cards,
+    v: 7, mode, level: 1, exp: 0, stones: 0, cards,
     hotbar: ['spark_beetle', 'venom_mantis', null, null, null, null],
     cleared: STAGES.map(() => false), best: STAGES.map(() => null), stars: STAGES.map(() => [false, false, false]),
     talents: {}, fused: {}, bestiary: {}, ach: {}, seenStory: {},
@@ -28,6 +28,7 @@ function defaultSave(mode) {
     stats: { kills: 0, deaths: 0, runs: 0 }, towerBest: 0, tutorialDone: false, endingSeen: false, muted: false,
     evo: {}, altar: { pity: 0, draws: 0 }, village: {}, login: { day: 0, last: '' }, weeklyCh: { week: '', list: [] },
     arena: { rating: 1000, best: 1000, wins: 0, losses: 0, week: '', weekStart: 1000, tickets: 5, ticketDay: '' }, playStats: {}, trueEndingSeen: false,
+    skins: { owned: {}, eq: {} }, events: {}, help: {}, tipsSeen: {}, rift: { best: 0, shards: 0, perks: {}, runs: 0 }, lang: null,
   };
 }
 function loadSave() {
@@ -61,7 +62,9 @@ function migrateSave(o) {
   for (const k of ['shard', 'horn', 'star']) if (o.mats[k] === undefined) o.mats[k] = 0;
   if (o.level >= 40 && !o.tierMax) o.tierMax = 1;
   for (const k in d.arena) if (o.arena[k] === undefined) o.arena[k] = d.arena[k];
-  o.v = 6;
+  for (const k of ["owned", "eq"]) if (!o.skins[k]) o.skins[k] = {};
+  for (const k in d.rift) if (o.rift[k] === undefined) o.rift[k] = d.rift[k];
+  o.v = 7;
   return o;
 }
 function saveGame() {

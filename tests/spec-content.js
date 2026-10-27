@@ -17,10 +17,10 @@ group('Boot', () => {
 });
 
 group('Content: cards', () => {
-  test('100 cards across 9 ranks + fusions', () => {
-    expect(CARD_IDS.length, 'card count').toBe(100);
+  test('104 cards across 10 ranks + fusions', () => {
+    expect(CARD_IDS.length, 'card count').toBe(104);
     expect(new Set(CARD_IDS).size, 'unique ids').toBe(CARD_IDS.length);
-    expect(RANKS.length, 'ranks').toBe(9);
+    expect(RANKS.length, 'ranks').toBe(10);
     expect(CARD_IDS.filter(id => CARDS[id].fusion).length, 'fusions').toBe(36);
     for (const r of RANKS) expect(CARD_IDS.filter(id => CARDS[id].rank === r.id).length, r.name + ' cards').toBeAtLeast(3);
   });
@@ -110,8 +110,8 @@ group('Content: enemies & bosses', () => {
 });
 
 group('Content: stages & world', () => {
-  test('38 stages in 4 regions, each fully defined', () => {
-    expect(STAGES.length, 'stages').toBe(38);
+  test('48 stages in 5 regions, each fully defined', () => {
+    expect(STAGES.length, 'stages').toBe(48);
     const bad = [];
     STAGES.forEach((s, i) => {
       if (!BOSSES[s.boss]) bad.push(i + ': unknown boss ' + s.boss);
@@ -120,12 +120,12 @@ group('Content: stages & world', () => {
       if (!s.ch || s.ch.length !== 2) bad.push(i + ': needs 2 challenges');
       else for (const c of s.ch) if (!challengeText(c)) bad.push(i + ': challenge without text');
       if (!(s.map[0] >= 0 && s.map[0] <= 100 && s.map[1] >= 0 && s.map[1] <= 100)) bad.push(i + ': map position off the map');
-      if (![0, 1, 2, 3].includes(s.region)) bad.push(i + ': no region');
+      if (![0, 1, 2, 3, 4].includes(s.region)) bad.push(i + ': no region');
       if (!(s.duration > 0 && s.density > 0 && s.rec > 0)) bad.push(i + ': bad timing');
       if (!THEMES[musicKey(i)]) bad.push(i + ': no music theme ' + musicKey(i));
     });
     expect(bad, 'stages').toBeEmpty();
-    expect(REGIONS.map(r => r.to - r.from + 1), 'stages per region').toEqual([8, 10, 10, 10]);
+    expect(REGIONS.map(r => r.to - r.from + 1), 'stages per region').toEqual([8, 10, 10, 10, 10]);
   });
   test('every stage ground and decorations draw', () => {
     const bad = [];
@@ -134,8 +134,8 @@ group('Content: stages & world', () => {
     }
     expect(bad, 'stage art').toBeEmpty();
   });
-  test('relics: one per original boss (23), all with working descriptions', () => {
-    expect(RELICS.length, 'relics').toBe(23);
+  test('relics: one per boss (28), all with working descriptions', () => {
+    expect(RELICS.length, 'relics').toBe(28);
     const bad = [];
     for (const r of RELICS) {
       if (!BOSSES[r.boss]) bad.push(r.id + ': unknown boss');

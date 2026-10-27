@@ -68,13 +68,13 @@ group('Run upgrades', () => {
 });
 
 group('Evolution paths', () => {
-  test('all 64 base cards have one power path and one support path; fusions have none', () => {
+  test('all 68 base cards have one power path and one support path; fusions have none', () => {
     const base = CARD_IDS.filter(id => !CARDS[id].fusion), bad = [];
     for (const id of base) {
       const p = evoPaths(id);
       if (!p || EVO_STYLES[p[0]].lean !== 'power' || EVO_STYLES[p[1]].lean !== 'support') bad.push(id);
     }
-    expect(base.length, 'base cards').toBe(64);
+    expect(base.length, 'base cards').toBe(68);
     expect(bad, 'cards without two paths').toEqual([]);
     expect(CARD_IDS.filter(id => CARDS[id].fusion && evoPaths(id)).length, 'fusions with paths').toBe(0);
   });
@@ -138,7 +138,7 @@ group('Act IV', () => {
       if (!RELIC_BY_BOSS[id]) bad.push(id + ': no relic');
     }
     expect(bad, 'problems').toEqual([]);
-    expect(LEVEL_CAP, 'level cap').toBe(50);
+    expect(LEVEL_CAP, 'level cap').toBe(70);
   });
   test('every new Act IV boss fights through all of its phases and can be defeated', () => {
     const errs = [];

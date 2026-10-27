@@ -180,7 +180,7 @@ function arenaUnitDef(id, rv_) {
   const c = CARDS[id], k = (1 + 0.11 * (rv_.lv - 1)) * CARD_PROG.mult(rv_.cardLv, 0);
   const ai = c.stationary ? 'turret' : AI_MAP[c.ai] || 'chase';
   return {
-    name: c.name, cardArt: id, hp: (c.hp || 100) * k * 0.9, speed: c.stationary ? 0 : Math.min(200, c.speed || 140), dmg: Math.max(8, c.dmg || c.bite || 10) * 0.45 * k, r: c.r || 13, exp: 5,
+    name: c.name, cardArt: id, hidden: true, hp: (c.hp || 100) * k * 0.9, speed: c.stationary ? 0 : Math.min(200, c.speed || 140), dmg: Math.max(8, c.dmg || c.bite || 10) * 0.45 * k, r: c.r || 13, exp: 5,
     ai, color: c.color, range: c.range || 260, atkCd: Math.max(1.2, (c.atkCd || 1) * 1.6), projSpeed: 340, pcolor: c.color, spread: 1,
   };
 }
@@ -194,7 +194,7 @@ function enterArena(rival) {
   Object.assign(W, { isArena: true, curses: new Set(), rewardMult: 1, sm: { hp: 1, dmg: 1, exp: 0.3, spd: 1 }, tier: 0 });
   W.st = { name: `Arena · vs ${rival.name}`, boss: null, duration: 1e9, density: 0, enemies: {}, theme: STAGES[Math.min(theme, STAGES.length - 1)].theme };
   for (const id of rival.deck) ENEMIES['arena_' + id] = arenaUnitDef(id, rival);
-  ENEMIES.arena_core = { name: rival.name, hp: 2200 * (1 + 0.16 * (rival.lv - 1)), speed: 70, dmg: 10 + 2.2 * rival.lv, r: 16, exp: 0, ai: 'ranged', range: 300, atkCd: 1.6, projSpeed: 330, spread: 3, color: '#ff6b7f', pcolor: '#ffb3c0', draw: 'cultist' };
+  ENEMIES.arena_core = { hidden: true, name: rival.name, hp: 2200 * (1 + 0.16 * (rival.lv - 1)), speed: 70, dmg: 10 + 2.2 * rival.lv, r: 16, exp: 0, ai: 'ranged', range: 300, atkCd: 1.6, projSpeed: 330, spread: 3, color: '#ff6b7f', pcolor: '#ffb3c0', draw: 'cultist' };
   const core = spawnEnemy('arena_core', 0, -420); core.isCore = true;
   W.arena = { rival, core, t: 2.5, i: 0, limit: 150 };
   buildHUD();

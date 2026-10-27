@@ -924,7 +924,7 @@ function buildCodex() {
   const root = $('codexContent'); root.innerHTML = '';
   if (codexTab === 'bestiary') {
     const bossKeys = Object.keys(BOSSES).filter(k => !BOSSES[k].awakened);
-    const keys = [...Object.keys(ENEMIES), ...bossKeys];
+    const keys = [...Object.keys(ENEMIES).filter(k => !ENEMIES[k].hidden), ...bossKeys.filter(k => !BOSSES[k].event)];
     const seen = keys.filter(k => SAVE.bestiary[k]).length;
     root.innerHTML = `<p class="muted intro">${seen} / ${keys.length} discovered. Defeat a creature to record it.</p>`;
     for (const [title, list] of [['Monsters', Object.keys(ENEMIES)], ['Bosses', bossKeys]]) {
