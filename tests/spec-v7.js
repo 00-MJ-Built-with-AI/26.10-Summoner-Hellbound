@@ -318,3 +318,28 @@ group('Online (with a fake server)', () => {
     expect($('accountBox').textContent.includes('not set up'), 'explains').toBe(true);
   });
 });
+
+group('Rewarded ads (app only)', () => {
+  test('the website shows no ad buttons', () => {
+    expect(isNativeApp(), 'not the app').toBe(false);
+    expect(adsOn(), 'ads off').toBe(false);
+  });
+  test('in the app: double stones after a win, free Altar draw, daily caps', async () => {
+    const real = ADS.provider;
+    ADS.provider = { showRewarded: async () => true }; ADS.test = true;
+    try {
+      H.save({ level: 10, cleared: 1 });
+      H.start(1); W.stones = 40;
+      H.killBoss();
+      const b = $('btnAdStones');
+      expect(!!b, 'double-stones button').toBe(true);
+      const s0 = SAVE.stones;
+      await watchAdFor('stones', () => { SAVE.stones += 40; });
+      expect(SAVE.stones, 'stones doubled').toBe(s0 + 40);
+      for (let k = 0; k < 5; k++) await watchAdFor('draw', () => { SAVE.altar.free = (SAVE.altar.free || 0) + 1; });
+      expect(SAVE.altar.free, 'capped at 2 a day').toBe(ADS_CONFIG.dailyCap.draw);
+      ADS.provider = { showRewarded: async () => false };
+      expect(await watchAdFor('ticket', () => {}), 'unfinished ad pays nothing').toBe(false);
+    } finally { ADS.provider = real; ADS.test = false; }
+  });
+});

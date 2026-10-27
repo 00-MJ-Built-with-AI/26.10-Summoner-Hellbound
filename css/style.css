@@ -691,3 +691,5 @@ body.calm .banner, body.calm .boss-intro { animation-duration: 0s !important; }
 .prio-list .pi { width: 22px; text-align: center; font-size: 16px; flex: none; }
 .prio-list .pt { flex: 1; min-width: 0; } .prio-list small { color: var(--muted); }
 .prio-list .pb { display: flex; gap: 2px; flex: none; } .prio-list .pb .btn { padding: 2px 7px; }
+
+.ad-btn { border-color: #5dff9a !important; color: #c9ffd9 !important; margin-top: 6px; }

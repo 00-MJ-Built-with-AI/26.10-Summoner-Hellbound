@@ -6,9 +6,18 @@
   "type": "module",
   "scripts": {
     "start": "python -m http.server 5200",
-    "test": "node tests/run-tests.mjs"
+    "test": "node tests/run-tests.mjs",
+    "build:www": "node scripts/build-www.mjs",
+    "android:sync": "node scripts/build-www.mjs && npx cap sync android",
+    "android": "node scripts/build-www.mjs && npx cap sync android && npx cap open android"
   },
   "devDependencies": {
+    "@capacitor/cli": "^6.2.2",
     "playwright": "^1.48.0"
+  },
+  "dependencies": {
+    "@capacitor-community/admob": "^6.2.0",
+    "@capacitor/android": "^6.2.2",
+    "@capacitor/core": "^6.2.2"
   }
 }

@@ -1,0 +1,8 @@
+{
+  "appId": "com.mjbuiltwithai.summoner",
+  "appName": "Summoner: Hellbound Grimoire",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#0a0618"
+  }
+}
