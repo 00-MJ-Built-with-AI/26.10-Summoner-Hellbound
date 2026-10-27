@@ -319,6 +319,46 @@ group('Online (with a fake server)', () => {
   });
 });
 
+group('Arabic', () => {
+  test('every card, enemy, boss, stage, achievement and system has Arabic text', () => {
+    const miss = [];
+    for (const id of CARD_IDS) { if (!AR_CARDS[id]) miss.push('card ' + id); else if (CARD_SKILLS[id] && !AR_SKILL_DESC[CARD_SKILLS[id].desc]) miss.push('skill desc ' + id); }
+    for (const k in ENEMIES) if (!ENEMIES[k].hidden && !AR_ENEMIES[k]) miss.push('enemy ' + k);
+    for (const k in BOSSES) if (!AR_BOSSES[BOSSES[k].base || k]) miss.push('boss ' + k);
+    for (const k in BOSSES) (BOSSES[k].phases || []).forEach((p, i) => { if (!(AR_BOSSES[BOSSES[k].base || k] || [])[3 + i]) miss.push('phase ' + k + i); });
+    if (AR_STAGES.length !== STAGES.length) miss.push('stages');
+    if (AR_REGIONS.length !== REGIONS.length) miss.push('regions');
+    for (const a of ACHIEVEMENTS) if (!AR_ACH[a.id]) miss.push('ach ' + a.id);
+    for (const r of RELICS) { if (!AR_RELICS[r.id]) miss.push('relic ' + r.id); if (!AR_RELIC_EFF[r.eff]) miss.push('relic effect ' + r.eff); }
+    for (const u of RUN_UPGRADES) if (!AR_RUNUPS[u.id]) miss.push('run upgrade ' + u.id);
+    for (const b of BOOSTS) if (!AR_BOOSTS[b.id]) miss.push('boost ' + b.id);
+    for (const s of SKINS) if (!AR_SKINS[s.id]) miss.push('skin ' + s.id);
+    for (const r of RANKS) if (!AR_RANKS[r.id]) miss.push('rank ' + r.id);
+    for (const k in SYNERGIES) if (!AR_SYN[k]) miss.push('synergy ' + k);
+    for (const o of OUTFITS) if (!AR_OUTFITS[o.id]) miss.push('outfit ' + o.id);
+    for (const b of BUILDINGS) if (!AR_BUILDINGS[b.id]) miss.push('building ' + b.id);
+    for (const k in STORY) {
+      const lines = k === 'pre' ? Object.entries(STORY.pre).filter(([, v]) => v) : [[k, STORY[k]]];
+      for (const [i, l] of lines) { const ar = k === 'pre' ? AR_STORY.pre[i] : AR_STORY[k]; if (!ar || ar.length !== l.length) miss.push('story ' + k + '.' + i); for (const [sp] of l) if (!AR_SPEAKERS[sp]) miss.push('speaker ' + sp); }
+    }
+    expect(miss, 'missing Arabic').toEqual([]);
+  });
+  test('text with numbers and names is translated by patterns', () => {
+    expect(trAr('Lv 12'), 'level').toBe('المستوى 12');
+    expect(trAr('Floor 7 · Boss floor!'), 'floor').toBe('الطابق 7 · طابق الزعيم!');
+    expect(trAr('Act II · Stage 12'), 'act/stage').toBe('الفصل الثاني · المرحلة 12');
+    expect(trAr('Settings'), 'plain').toBe('الإعدادات');
+    expect(trAr('+5% move speed'), 'stat').toBe('+5% سرعة حركة');
+    expect(trAr('Auto-cast Howl'), 'auto-cast keeps the skill name').toBe('تفعيل تلقائي: Howl');
+    expect(trAr('مرحبا'), 'already Arabic').toBe('مرحبا');
+  });
+  test('the language picker is on the title screen and in Settings', () => {
+    expect(document.querySelectorAll('#scr-title .lang-switch [data-lang]').length, 'title buttons').toBe(2);
+    expect(!!$('langSel'), 'settings select').toBe(true);
+    expect(LANG, 'tests run in English').toBe('en');
+  });
+});
+
 group('Rewarded ads (app only)', () => {
   test('the website shows no ad buttons', () => {
     expect(isNativeApp(), 'not the app').toBe(false);

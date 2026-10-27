@@ -31,10 +31,15 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 
 ## What's in it
 
-- **38 stages** in four acts, each ending in a boss, with Awakened rematches and 5 multi-phase Act IV bosses with cinematic intros and a true ending (level cap 50)
-- **100 summon cards**: Insect, Beast, Bird, Grass, Stone, Fish, Spirit, Dragon and Celestial ranks, plus 36 fusions
-- Special skills, card leveling, enhancement, awakening with two evolution paths per card, and rank synergies
+- **48 stages** in five acts, each ending in a boss, with Awakened rematches, multi-phase Act IV and Act V bosses with cinematic intros, a true ending and an epilogue (level cap 70)
+- **104 summon cards**: Insect, Beast, Bird, Grass, Stone, Fish, Spirit, Dragon, Celestial and Primordial ranks, plus 36 fusions; cards level to 40
+- Special skills, card leveling, enhancement, awakening with two evolution paths per card, rank synergies and 20 earned summon skins
 - **Run upgrades**: every run level in a stage offers 3 of 42 upgrades (common, rare, legendary)
+- **Automation**: priority lists that auto-pick run upgrades and soul boosts, auto Enhance and Overdrive, and an auto special skill toggle per card
+- **The Rift**: a draft roguelite mode with permanent perks; **seasonal events** (Night of Pumpkins, Oct 27 – Nov 7)
+- **Arabic** with a right-to-left layout (language picker on the title screen and in Settings)
+- Online (optional, see [FIREBASE_SETUP.md](FIREBASE_SETUP.md)): Google sign-in, cloud saves, real-player arena, leaderboards
+- Android app with optional rewarded ads (see [ANDROID.md](ANDROID.md)); a one-time boost after 3 falls on a stage; controller rumble
 - **Village**: 6 buildings with permanent bonuses, the Summoning Altar, a 28-day login calendar, weekly challenges and an arena against 30 rival summoners
 - Local co-op (Player 2 plays a companion), photo mode with filters and 10-second clips, play stats in the Codex
 - Installs as an app and works offline; accessibility options (colorblind palettes, reduced flashing, text size, high contrast, assist mode) and phone vibration
@@ -45,7 +50,7 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 
 ## Tests
 
-113 automated tests cover every feature: content integrity (all 100 cards, enemies, bosses, 38 stages), run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
+141 automated tests cover every feature: content integrity (all 104 cards, enemies, bosses, 48 stages), Arabic coverage, the Rift, events, skins, automation, online flows (with a fake server), ads, run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
 
 **In a browser:** open `tests/index.html` (locally through `npm start`, or online at https://00-mj-built-with-ai.github.io/summoner-hellbound/tests/). Add `?only=boss` to run a subset.
 

@@ -693,3 +693,9 @@ body.calm .banner, body.calm .boss-intro { animation-duration: 0s !important; }
 .prio-list .pb { display: flex; gap: 2px; flex: none; } .prio-list .pb .btn { padding: 2px 7px; }
 
 .ad-btn { border-color: #5dff9a !important; color: #c9ffd9 !important; margin-top: 6px; }
+
+/* ===== v7: Arabic (right-to-left) ===== */
+:root[lang="ar"] { --display: 'Reem Kufi', 'Cairo', serif; --body: 'Cairo', 'Inter', system-ui, sans-serif; }
+:root[lang="ar"] * { letter-spacing: 0 !important; }
+:root[lang="ar"] .title-name { line-height: 1.25; }
+.lang-switch { position: absolute; top: max(14px, env(safe-area-inset-top, 0px)); inset-inline-end: max(14px, env(safe-area-inset-right, 0px)); display: flex; gap: 6px; z-index: 3; }
