@@ -238,7 +238,7 @@ buildMap = function () {
 ACTIONS.push({ id: 'speed', name: 'Game speed', def: ['KeyG', ''] });
 if (!SETTINGS.keys.speed) SETTINGS.keys.speed = ['KeyG', ''];
 rebuildKeymap();
-const SPEEDS = [1, 1.5, 2];
+const SPEEDS = [1, 1.5, 2, 3, 5, 10];
 let SPEED_ACC = 0;
 const _v8_updateWorld = updateWorld;
 updateWorld = function (rawDt) {
@@ -247,9 +247,9 @@ updateWorld = function (rawDt) {
   SPEED_ACC += sp;
   while (SPEED_ACC >= 1) { SPEED_ACC -= 1; _v8_updateWorld(rawDt); if (!W.active || W.choosing || STATE !== 'play') { SPEED_ACC = 0; break; } }
 };
-function cycleSpeed() {
-  const k = SPEEDS.indexOf(SETTINGS.gameSpeed || 1);
-  SETTINGS.gameSpeed = SPEEDS[(k + 1) % SPEEDS.length]; saveSettings();
+function cycleSpeed(dir = 1) {
+  const k = Math.max(0, SPEEDS.indexOf(+SETTINGS.gameSpeed || 1));
+  SETTINGS.gameSpeed = SPEEDS[(k + dir + SPEEDS.length) % SPEEDS.length]; saveSettings();
   const b = $('btnSpeed'); if (b) b.textContent = `${SETTINGS.gameSpeed}×`;
   toast(`Game speed ${SETTINGS.gameSpeed}×`, 'card');
 }
@@ -259,9 +259,10 @@ function cycleSpeed() {
   const b = document.createElement('button');
   b.className = 'icon-btn speed-btn'; b.id = 'btnSpeed'; b.title = 'Game speed (G)'; b.textContent = `${SETTINGS.gameSpeed || 1}×`;
   b.onclick = () => { SFX.click(); cycleSpeed(); };
+  b.oncontextmenu = ev => { ev.preventDefault(); SFX.click(); cycleSpeed(-1); };
   row.insertBefore(b, row.firstChild);
 })();
-window.addEventListener('keydown', ev => { if (STATE === 'play' && !ev.repeat && KEYMAP[ev.code] === 'speed' && !PHOTO.on) { ev.preventDefault(); cycleSpeed(); } });
+window.addEventListener('keydown', ev => { if (STATE === 'play' && !ev.repeat && KEYMAP[ev.code] === 'speed' && !PHOTO.on) { ev.preventDefault(); cycleSpeed(ev.shiftKey ? -1 : 1); } });
 
 // ================= keep playing when the tab is in the background =================
 const BG = { last: performance.now(), steps: 0 };
@@ -292,14 +293,17 @@ for (const k of ['capMult', 'bgPlay', 'gameSpeed']) if (SETTINGS[k] === undefine
   anchor.insertAdjacentHTML('beforebegin', `<h3>Gameplay</h3>
     <label class="set-row">Summon capacity
       <select data-set="capMult" id="capSel"><option value="1">Normal</option><option value="1.5">×1.5</option><option value="2">×2</option><option value="3">×3</option></select></label>
+    <label class="set-row">Game speed (G)
+      <select id="speedSel">${SPEEDS.map(v => `<option value="${v}">${v}×</option>`).join('')}</select></label>
     <label class="set-row">Keep playing in a background tab <input type="checkbox" data-set="bgPlay" id="bgSel"></label>
     <p class="muted save-note">With this on, the battle keeps going when you switch tabs or windows (turn on auto summon and auto skills in Automation so your army keeps fighting). Browsers slow background tabs down, so the game catches up when it gets time.</p>`);
   // these two need numbers and true/false, which the generic handler doesn't convert for selects
   $('capSel').addEventListener('change', ev => { SETTINGS.capMult = +ev.target.value; saveSettings(); if (W.active) refreshStats(); });
+  $('speedSel').addEventListener('change', ev => { SETTINGS.gameSpeed = +ev.target.value; saveSettings(); const b = $('btnSpeed'); if (b) b.textContent = `${SETTINGS.gameSpeed}×`; });
   $('bgSel').addEventListener('change', ev => { SETTINGS.bgPlay = ev.target.checked; saveSettings(); });
 })();
 const _v8_buildSettings = buildSettings;
-buildSettings = function () { _v8_buildSettings(); const c = $('capSel'); if (c) c.value = String(SETTINGS.capMult || 1); };
+buildSettings = function () { _v8_buildSettings(); const c = $('capSel'); if (c) c.value = String(SETTINGS.capMult || 1); const sp = $('speedSel'); if (sp) sp.value = String(SETTINGS.gameSpeed || 1); };
 
 // ================= wallet bar on the map: everything you own at a glance =================
 function walletItems() {
@@ -344,7 +348,7 @@ WHATS_NEW.splice(0, WHATS_NEW.length,
   ['30 talents up to rank 20', '20 new talents, and every talent now goes to rank 20.'],
   ['Harder for more rewards', 'Pick Hard, Nightmare or Hell on any stage for up to ×4 rewards. Hell Tiers now go to 20, pay up to ×10 and make stages shorter.'],
   ['Faster runs', 'Choose a Fast or Blitz pace, play at 1.5× or 2× speed (G), or skip straight to the boss on 3-starred stages.'],
-  ['Automation', 'Auto summon keeps the number of each card you choose on the field. Auto skills follow slots 1–6 and fire every time they are ready. Find it in Pause → Automation.'],
+  ['Automation', 'Auto summon keeps the number of each card you choose on the field. Auto skills follow slots 1–10 and fire every time they are ready. Find it in Pause → Automation.'],
   ['20 mythic legends', 'Fenrir, Kraken, Kitsune, Bahamut, Metatron, Chimera and more, plus 10 legendary fusions. Every creature now looks more epic.'],
 );
 const _v8_showWhatsNew = showWhatsNew;

@@ -31,7 +31,7 @@ function startStage(idx, kind = 'stage') {
     summons: [], enemies: [], projs: [], pickups: [], tele: [], circles: [], zones: [],
     boss: null, bossSpawned: false, bossWarnT: 0, budget: 3, hordeT: 30,
     kills: 0, expGained: 0, stones: 0, startLevel: SAVE.level, unlocks: [], cardUps: {},
-    shake: 0, hurtFlash: 0, camX: 0, camY: 0, slotCd: [0, 0, 0, 0, 0, 0], cskCd: {}, howlT: 0,
+    shake: 0, hurtFlash: 0, camX: 0, camY: 0, slotCd: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], cskCd: {}, howlT: 0,
     boosts: {}, picks: 0, soul: 0, soulMax: 40, choosing: null,
     dmgTaken: 0, bossDmg: 0, dashes: 0, cardsUsed: new Set(), bossAt: 0, bossKillTime: 0,
     floorPause: 0, achT: 2, tut: null,
@@ -1439,7 +1439,7 @@ function updateWorld(rawDt) {
   W.hurtFlash = Math.max(0, W.hurtFlash - rawDt);
   if (W.howlT > 0) W.howlT -= dt;
   if (W.odT > 0) W.odT -= dt;
-  for (let i = 0; i < 6; i++) if (W.slotCd[i] > 0) W.slotCd[i] -= dt * (buffOn('haste') ? 2 : 1);
+  for (let i = 0; i < W.slotCd.length; i++) if (W.slotCd[i] > 0) W.slotCd[i] -= dt * (buffOn('haste') ? 2 : 1);
   for (const k in W.cskCd) if (W.cskCd[k] > 0) W.cskCd[k] -= dt;
   for (const m of W.circles) m.t += dt;
   W.circles = W.circles.filter(m => m.t < m.dur);

@@ -33,19 +33,19 @@ function synMods(c) {
 }
 
 // ================= Grimoire Overdrive =================
-const OD_MAX = 100;
+const OD_MAX = 100, OD_CHARGES = 5;   // the gauge banks up to 5 charges; each press spends one
 function addOverdrive(v) {
-  if (!W.active || W.odT > 0 || W.won || W.player.dead) return;
-  const was = W.od >= OD_MAX;
-  W.od = Math.min(OD_MAX, W.od + v * (1 + eqv('od')));
-  if (!was && W.od >= OD_MAX) { toast(`Overdrive ready! ${INPUT.touchMode ? 'Tap ❂' : 'Press ' + key1('overdrive')}`, 'ach'); SFX.level(); }
+  if (!W.active || W.won || W.player.dead) return;
+  const was = Math.floor(W.od / OD_MAX);
+  W.od = Math.min(OD_MAX * OD_CHARGES, W.od + v * (1 + eqv('od')));
+  if (Math.floor(W.od / OD_MAX) > was) { toast(`Overdrive ready! ${INPUT.touchMode ? 'Tap ❂' : 'Press ' + key1('overdrive')}`, 'ach'); SFX.level(); }
 }
 function useOverdrive() {
   if (!W.active || W.player.dead || W.won || W.choosing) return;
   if (W.od < OD_MAX) { toast(`Overdrive is ${Math.floor(W.od)}% charged`, 'fail'); SFX.fail(); return; }
   const p = W.player, ids = [...new Set(SAVE.hotbar.filter(Boolean))];
   if (!ids.length) return;
-  W.od = 0; W.odT = 12;
+  W.od -= OD_MAX; W.odT = 12;
   ids.forEach((id, k) => {
     const c = CARDS[id], a = (k / ids.length) * TAU, x = clamp(p.x + Math.cos(a) * 110, -BOUND, BOUND), y = clamp(p.y + Math.sin(a) * 110, -BOUND, BOUND);
     magicCircle(x, y, circleColor(RANK_BY_ID[c.rank].color), 40 + c.r);
@@ -67,7 +67,7 @@ function useOverdrive() {
 // ================= Hell Tiers (no reset: harder enemies, better rewards) =================
 const TIER_MAX = 20;
 const tierHp = () => 1 + 0.25 * (W.tier || 0);
-const tierReward = tier => (tier <= 10 ? 1 + 0.3 * tier : 4 + 0.6 * (tier - 10));   // ×10 at tier 20
+const tierReward = tier => (tier <= 10 ? 1 + 0.9 * tier : 10 + (tier - 10));   // ×10 at tier 10, ×20 at tier 20
 function checkTierUnlock() {
   if (SAVE.level >= 40 && SAVE.tierMax < 1) {
     SAVE.tierMax = 1;

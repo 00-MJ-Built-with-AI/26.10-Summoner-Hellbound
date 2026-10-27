@@ -34,7 +34,7 @@ function refreshTitle() {
   const s = loadSave();
   $('btnContinue').classList.toggle('hidden', !s);
   if (s) $('continueInfo').textContent = `${MODES[s.mode].name} · Lv ${s.level} · ${s.cleared.filter(Boolean).length}/${STAGES.length} stages`;
-  $('titleFoot').textContent = `${key1('up')}${key1('left')}${key1('down')}${key1('right')} to move · ${key1('slot1')}–${key1('slot6')} to summon · hold ${key1('skillMod')} + slot for special skills`;
+  $('titleFoot').textContent = `${key1('up')}${key1('left')}${key1('down')}${key1('right')} to move · ${key1('slot1')}–${key1('slot10')} to summon · hold ${key1('skillMod')} + slot for special skills`;
 }
 let lastHover = null;
 function initMenus() {
@@ -113,7 +113,7 @@ function buildHelp() {
   ] : [
     [`${key1('up')} ${key1('left')} ${key1('down')} ${key1('right')}`, 'Move Allen'],
     ['Mouse', 'Aim where summons appear (the faint circle)'],
-    [`${keyLabel('slot1')} … ${key1('slot6')}`, 'Summon the card in that hotbar slot (costs mana)'],
+    [`${keyLabel('slot1')} … ${key1('slot10')}`, 'Summon the card in that hotbar slot (costs mana)'],
     [`${keyLabel('skillMod')} + slot`, "Use that card's special skill (needs the summon on the field)"],
     [keyLabel('dash'), 'Dash: a quick dodge with brief invulnerability'],
     [keyLabel('enhance'), 'Enhance: summons deal +50% damage, act 30% faster for 6s'],
@@ -477,7 +477,7 @@ function renderRushInfo() {
 function tierSelectorHTML() {
   if (!SAVE.tierMax) return '';
   const t = Math.min(SAVE.tier || 0, SAVE.tierMax);
-  return `<div class="tier-sel" title="Hell Tier: enemies +25% HP and damage per tier, rewards up to ×10 at tier 20, and stages get shorter. Clear Throne of the Fallen on your highest tier to unlock the next.">
+  return `<div class="tier-sel" title="Hell Tier: enemies +25% HP and damage per tier, rewards ×10 at tier 10 and ×20 at tier 20, and stages get shorter. Clear Throne of the Fallen on your highest tier to unlock the next.">
     <span class="tier-l">Hell Tier</span><button class="tbtn" data-tier="-1" ${t <= 0 ? 'disabled' : ''}>◂</button><b class="tier-n">${t}</b><button class="tbtn" data-tier="1" ${t >= SAVE.tierMax ? 'disabled' : ''}>▸</button>
     <span class="tier-d">${t ? `enemies +${t * 25}% · rewards ×${tierReward(t).toFixed(1)} · stage time ${Math.round(100 / (1 + 0.1 * t))}%` : 'normal difficulty'}</span></div>`;
 }
@@ -842,7 +842,8 @@ const LOADOUT_COUNT = 5;
 function loadoutButtons() { return Array.from({ length: LOADOUT_COUNT }, (_, i) => `<button class="pick ${SAVE.loadoutIdx === i ? 'on' : ''}" data-load="${i}" title="Loadout ${i + 1}">${i + 1}</button>`).join(''); }
 // the next empty slot after `from` (wrapping), or `from` itself when the hotbar is full
 function nextEmptySlot(from) {
-  for (let k = 1; k <= 6; k++) { const i = (from + k) % 6; if (!SAVE.hotbar[i]) return i; }
+  const n = SAVE.hotbar.length;
+  for (let k = 1; k <= n; k++) { const i = (from + k) % n; if (!SAVE.hotbar[i]) return i; }
   return from;
 }
 function equipLabel(id) {
@@ -869,7 +870,7 @@ function buildGrimoire() {
   $('grimStones').textContent = SAVE.stones;
   document.querySelectorAll('#grimTabs .tab').forEach(b => b.classList.toggle('active', b.dataset.tab === grimTab));
   const slots = $('grimSlots'); slots.innerHTML = '';
-  if (selectedSlot < 0 || selectedSlot > 5) selectedSlot = 0;
+  if (selectedSlot < 0 || selectedSlot >= SAVE.hotbar.length) selectedSlot = 0;
   SAVE.hotbar.forEach((id, i) => {
     const b = document.createElement('div');
     b.className = 'gslot' + (i === selectedSlot ? ' sel' : '');
@@ -1187,8 +1188,9 @@ function updateHUD() {
     setIf('sk' + i, state, v => { el.querySelector('.sk').className = 'sk ' + v; });
   });
   setIf('od', Math.round(W.od) + (W.odT > 0 ? 'a' + Math.ceil(W.odT) : ''), () => {
-    $('odFill').style.transform = `scaleX(${W.odT > 0 ? W.odT / 12 : W.od / OD_MAX})`;
-    $('odTxt').textContent = W.odT > 0 ? 'OVERDRIVE ACTIVE' : W.od >= OD_MAX ? `OVERDRIVE READY · ${INPUT.touchMode ? '❂' : key1('overdrive')}` : 'OVERDRIVE';
+    const odCh = Math.floor(W.od / OD_MAX);
+    $('odFill').style.transform = `scaleX(${odCh >= OD_CHARGES ? 1 : odCh ? (W.od % OD_MAX) / OD_MAX : W.odT > 0 ? W.odT / 12 : W.od / OD_MAX})`;
+    $('odTxt').textContent = odCh ? `OVERDRIVE ×${odCh} · ${INPUT.touchMode ? '❂' : key1('overdrive')}` : W.odT > 0 ? 'OVERDRIVE ACTIVE' : 'OVERDRIVE';
     const ob = $('odBtn');
     if (ob) { ob.classList.toggle('ready', W.od >= OD_MAX && W.odT <= 0); ob.querySelector('.cd').style.setProperty('--p', (W.odT > 0 ? 0 : 100 - Math.min(100, W.od)) + '%'); }
   });

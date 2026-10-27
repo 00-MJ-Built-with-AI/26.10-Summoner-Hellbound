@@ -113,6 +113,6 @@ group('Progression', () => {
     const e0 = spawnEnemy('goblin', 0, 0);
     expect(e.maxHp / e0.maxHp, 'enemy HP at tier 2').toBeCloseTo(1.5, 0.01);
     SAVE.tier = 2; H.start(5);
-    expect(W.rewardMult, 'reward multiplier').toBeCloseTo(1.6, 0.01);
+    expect(W.rewardMult, 'reward multiplier').toBeCloseTo(tierReward(2), 0.01);   // 2.8 since the ×10-at-tier-10 change
   });
 });

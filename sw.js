@@ -23,9 +23,9 @@ self.addEventListener('activate', ev => {
 self.addEventListener('message', ev => { if (ev.data === 'skipWaiting') self.skipWaiting(); });
 self.addEventListener('fetch', ev => {
   const req = ev.request, url = new URL(req.url);
-  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.includes('/tests/')) return;
-  // pages: network first so you get updates when online, cached copy when offline
-  if (req.mode === 'navigate') {
+  if (req.method !== 'GET' || url.origin !== location.origin || url.pathname.includes('/tests/') || (req.referrer || '').includes('/tests/')) return;
+  // pages (and the page file however it is requested): network first so you get updates when online, cached copy when offline
+  if (req.mode === 'navigate' || /\/(index\.html)?$/.test(url.pathname)) {
     ev.respondWith(fetch(req, { cache: 'no-cache' }).catch(async () => (await caches.match(req)) || caches.match('index.html')));
     return;
   }

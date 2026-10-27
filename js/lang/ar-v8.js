@@ -56,7 +56,7 @@ const AR_DIFFS = ['عادي', 'صعب', 'كابوس', 'جحيم'];
 const AR_PACES = ['عادي', 'سريع', 'خاطف'];
 Object.assign(AR_UI, {
   'Difficulty': 'الصعوبة', 'Pace': 'الإيقاع', 'Skip to the boss': 'انتقل إلى الزعيم مباشرة', 'Paragon': 'الباراغون', 'Gameplay': 'اللعب', 'Summon capacity': 'سعة الاستدعاء',
-  'Keep playing in a background tab': 'واصل اللعب في تبويب بالخلفية', 'Game speed (G)': 'سرعة اللعب (G)', 'Game speed': 'سرعة اللعب', 'Auto summon': 'استدعاء تلقائي', 'Slots 1–6': 'الخانات 1–6',
+  'Keep playing in a background tab': 'واصل اللعب في تبويب بالخلفية', 'Game speed (G)': 'سرعة اللعب (G)', 'Game speed': 'سرعة اللعب', 'Auto summon': 'استدعاء تلقائي', 'Slots 1–6': 'الخانات 1–6', 'Slots 1–10': 'الخانات 1–10',
   'Keep': 'احتفظ', 'Auto skill': 'مهارة تلقائية', 'Empty slot': 'خانة فارغة', 'Magic stones': 'الأحجار السحرية', 'Rift shards': 'شظايا الصدع', 'Arena tickets': 'تذاكر الحلبة', 'Free Altar draws': 'سحبات المذبح المجانية',
   'Paragon points to spend': 'نقاط باراغون للإنفاق', 'Fully awakened': 'مستيقظ بالكامل',
   'With this on, the battle keeps going when you switch tabs or windows (turn on auto summon and auto skills in Automation so your army keeps fighting). Browsers slow background tabs down, so the game catches up when it gets time.': 'مع تفعيله، تستمر المعركة حين تنتقل إلى تبويب أو نافذة أخرى (فعّل الاستدعاء التلقائي والمهارات التلقائية من الأتمتة ليواصل جيشك القتال). المتصفحات تبطئ التبويبات الخلفية، فتلحق اللعبة بما فاتها حين تتاح لها الفرصة.',
@@ -64,11 +64,11 @@ Object.assign(AR_UI, {
   'Casts every time it is ready while you have summons out and enemies nearby.': 'يُفعَّل كلما كان جاهزًا ولديك مستدعون في الساحة وأعداء قريبون.',
   'Fires every time the gauge refills, as soon as enemies are nearby.': 'ينطلق في كل مرة يمتلئ فيها المقياس، فور اقتراب الأعداء.',
   '"Keep" = how many of that card auto summon keeps on the field (0 = never). "Auto skill" casts the slot\'s special skill every time it is ready. During battle you can also right-click a slot (or tap its small A).': '«احتفظ» = عدد ما يُبقيه الاستدعاء التلقائي من تلك البطاقة في الساحة (0 = أبدًا). «مهارة تلقائية» تُفعّل المهارة الخاصة للخانة كلما كانت جاهزة. أثناء المعركة يمكنك أيضًا النقر بالزر الأيمن على الخانة (أو لمس حرف A الصغير).',
-  'Auto-pick upgrades, auto Enhance and Overdrive, auto summon and auto special skills for slots 1–6.': 'اختيار الترقيات تلقائيًا، والتعزيز والفيض التلقائي، والاستدعاء التلقائي، والمهارات الخاصة التلقائية للخانات 1–6.',
+  'Auto-pick upgrades, auto Enhance and Overdrive, auto summon and auto special skills for slots 1–10.': 'اختيار الترقيات تلقائيًا، والتعزيز والفيض التلقائي، والاستدعاء التلقائي، والمهارات الخاصة التلقائية للخانات 1–10.',
 });
 AR_PATTERNS.push(
   [/^enemies \+(\d+)% · rewards ×([\d.]+) · stage time (\d+)%$/, 'الأعداء +$1% · المكافآت ×$2 · وقت المرحلة $3%'], [/^normal difficulty$/, 'صعوبة عادية'],
-  [/^Hell Tier: enemies \+25% HP and damage per tier, rewards up to ×10 at tier 20, and stages get shorter\. Clear Throne of the Fallen on your highest tier to unlock the next\.$/, 'طبقة الجحيم: الأعداء +25% صحة وضرر لكل طبقة، والمكافآت حتى ×10 في الطبقة 20، والمراحل تقصر. أنهِ عرش الساقط على أعلى طبقة لديك لتفتح التالية.'],
+  [/^Hell Tier: enemies \+25% HP and damage per tier, rewards ×10 at tier 10 and ×20 at tier 20, and stages get shorter\. Clear Throne of the Fallen on your highest tier to unlock the next\.$/, 'طبقة الجحيم: الأعداء +25% صحة وضرر لكل طبقة، والمكافآت ×10 في الطبقة 10 و×20 في الطبقة 20، والمراحل تقصر. أنهِ عرش الساقط على أعلى طبقة لديك لتفتح التالية.'],
   [/^Catch (\d+) Treasure Goblins$/, 'أمسك $1 عفاريت كنز'], [/^Summon (\d+) creatures$/, 'استدعِ $1 مخلوقًا'],
   [/^Awaken ([IVX]+) ◆([\d,]+) ✧(\d+)$/, 'أيقظ $1 ◆$2 ✧$3'], [/^✦ Awakened ([IVX]+) \(max\)$/, '✦ مستيقظ $1 (الأقصى)'], [/^Awakening (\d+)\/(\d+): every level adds \+15% HP and damage$/, 'الإيقاظ $1/$2: كل مستوى يضيف +15% صحة وضرر'],
   [/^Slot (\d+): auto special skill (on|off)$/, (m, n, s) => `الخانة ${n}: المهارة الخاصة التلقائية ${s === 'on' ? 'مفعّلة' : 'متوقفة'}`], [/^Game speed ([\d.]+)×$/, 'سرعة اللعب $1×'],
@@ -77,6 +77,25 @@ AR_PATTERNS.push(
   [/^Past rank (\d+): (.+)$/, (m, n, x) => `بعد الرتبة ${n}: ${AR_TL_EXTRA[x] || x}`], [/^· (\d+) points? to spend$/, '· $1 نقاط للإنفاق'], [/^· earn 1 point for every level past (\d+)$/, '· اكسب نقطة عن كل مستوى بعد $1'],
   [/^([+−])([\d.]+)% (summon damage|max HP|mana regeneration|magic stones|card EXP|summon cooldowns)$/, (m, s, v, k) => `${s}${v}% ${{ 'summon damage': 'ضرر المستدعين', 'max HP': 'صحة قصوى', 'mana regeneration': 'تجدد المانا', 'magic stones': 'أحجار سحرية', 'card EXP': 'خبرة البطاقات', 'summon cooldowns': 'انتظار الاستدعاء' }[k]}`],
   [/^(Normal|Hard|Nightmare|Hell)$/, (m, d) => AR_DIFFS[DIFFS.findIndex(x => x.name === d)]], [/^(Fast|Blitz)$/, (m, d) => AR_PACES[PACES.findIndex(x => x.name === d)]],
+);
+// ----- v9: auto-finish, tower checkpoint, Overdrive charges -----
+Object.assign(AR_ACH, { sweep100: ['خبير الكفاءة', 'أنهِ 100 جولة تلقائيًا.'] });
+Object.assign(AR_UI, {
+  'Auto-finish': 'إنهاء تلقائي', 'Auto-climb': 'صعود تلقائي', 'Auto-rush': 'سباق تلقائي', 'Collect': 'استلم', 'Start floor': 'طابق البداية', 'Floor 1': 'الطابق 1',
+  'Team power': 'قوة الفريق', '· needed': '· المطلوب', 'EXP': 'الخبرة', 'Materials': 'المواد', 'Enemies defeated': 'الأعداء المهزومون',
+  'Clear this stage once first': 'أنهِ هذه المرحلة مرة أولًا', 'Your team is too weak for this difficulty': 'فريقك أضعف من هذه الصعوبة', 'Your team is too weak for that yet': 'فريقك أضعف من ذلك حاليًا',
+  'Starting higher pays everything the floors below would have given, and gives you their run upgrades and soul boosts.': 'البدء من طابق أعلى يدفع لك كل ما كانت ستعطيه الطوابق السفلى، ويمنحك ترقيات الجولة ومعززات الروح الخاصة بها.',
+  'Rewards are the average of what these runs pay when played. Change your hotbar in the Grimoire to raise your team power.': 'المكافآت هي متوسط ما تدفعه هذه الجولات عند لعبها. غيّر شريطك في الغريموار لترفع قوة فريقك.',
+  'OVERDRIVE ACTIVE': 'الفيض نشط',
+});
+AR_PATTERNS.push(
+  [/^Your best: floor (\d+)$/, 'أفضل طابق لك: $1'], [/^Defeat ([\d,]+) bosses$/, 'اهزم $1 زعيمًا'], [/^Defeat ([\d,]+) enemies$/, 'اهزم $1 عدو'], [/^Your team would reach about floor (\d+)\.$/, 'سيصل فريقك تقريبًا إلى الطابق $1.'],
+  [/^Each clear: about ◆ ([\d,]+) · (.+) EXP(?: · ✧ (\d+))?$/, (m, s, e, x) => `كل إنهاء: تقريبًا ◆ ${s} · ${e} خبرة${x ? ` · ✧ ${x}` : ''}`],
+  [/^(.+) cleared (\d+)× on (Normal|Hard|Nightmare|Hell)( · Hell Tier (\d+))?\.$/, (m, s, n, d, x, t) => `تم إنهاء ${s} ${n}× على ${AR_DIFFS[DIFFS.findIndex(q => q.name === d)]}${t ? ` · طبقة الجحيم ${t}` : ''}.`],
+  [/^Abyss Tower climbed (\d+)× to floor (\d+)\.$/, 'تم صعود برج الهاوية $1× حتى الطابق $2.'], [/^Boss Rush run (\d+)×: (\d+) of (\d+) bosses defeated each time\.$/, 'سباق الزعماء $1×: هُزم $2 من $3 زعيمًا في كل مرة.'],
+  [/^(.+) \(\+(\d+) levels?\)$/, '$1 (+$2 مستوى)'], [/^OVERDRIVE ×(\d+) · (.+)$/, 'الفيض ×$1 · $2'],
+  [/^Started at floor (\d+): (.+)$/, (m, f, r) => `بدأت من الطابق ${f}: ${r.replace('run upgrades', 'ترقيات جولة').replace('levels', 'مستويات')}`],
+  [/^"Keep" = how many of that card auto summon keeps on the field \(0 = never\), multiplied by your Summon capacity setting \(×([\d.]+) now\)\. "Auto skill" casts the slot's special skill every time it is ready\. During battle you can also right-click a slot \(or tap its small A\)\.$/, '«احتفظ» = عدد ما يُبقيه الاستدعاء التلقائي من تلك البطاقة في الساحة (0 = أبدًا)، مضروبًا في إعداد سعة الاستدعاء (×$1 الآن). «مهارة تلقائية» تُفعّل المهارة الخاصة للخانة كلما كانت جاهزة. أثناء المعركة يمكنك أيضًا النقر بالزر الأيمن على الخانة (أو لمس حرف A الصغير).'],
 );
 // data swaps that need the v8 objects (run from i18n's applyArabicData)
 AR_WHATSNEW.splice(0, AR_WHATSNEW.length,

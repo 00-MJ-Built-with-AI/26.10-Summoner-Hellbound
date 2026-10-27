@@ -50,7 +50,7 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 
 ## Tests
 
-158 automated tests cover every feature: content integrity (all 104 cards, enemies, bosses, 48 stages), Arabic coverage, the Rift, events, skins, automation, online flows (with a fake server), ads, run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
+167 automated tests cover every feature: content integrity (all 104 cards, enemies, bosses, 48 stages), Arabic coverage, the Rift, events, skins, automation, online flows (with a fake server), ads, run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
 
 **In a browser:** open `tests/index.html` (locally through `npm start`, or online at https://00-mj-built-with-ai.github.io/26.10-summoner-hellbound/tests/). Add `?only=boss` to run a subset.
 

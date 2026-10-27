@@ -14,11 +14,11 @@ function defaultSave(mode) {
   for (const id of CARD_IDS) cards[id] = { lv: 1, exp: 0, enh: 0 };
   return {
     v: 7, mode, level: 1, exp: 0, stones: 0, cards,
-    hotbar: ['spark_beetle', 'venom_mantis', null, null, null, null],
+    hotbar: ['spark_beetle', 'venom_mantis', null, null, null, null, null, null, null, null],
     cleared: STAGES.map(() => false), best: STAGES.map(() => null), stars: STAGES.map(() => [false, false, false]),
     talents: {}, fused: {}, bestiary: {}, ach: {}, seenStory: {},
     relics: {}, relicSlots: [null, null, null], essence: 0, awakened: {}, companion: null, curses: [],
-    loadouts: [['spark_beetle', 'venom_mantis', null, null, null, null], ...Array.from({ length: 4 }, () => [null, null, null, null, null, null])], loadoutIdx: 0,
+    loadouts: [['spark_beetle', 'venom_mantis', null, null, null, null, null, null, null, null], ...Array.from({ length: 4 }, () => Array(10).fill(null))], loadoutIdx: 0,
     rushBest: null, savedAt: 0, tier: 0, tierMax: 0, daily: null,
     sanctum: { cards: [null, null, null], since: Date.now() }, cosmetics: { outfit: 'default', circle: 'default' },
     cardStats: {}, history: [],
@@ -29,7 +29,7 @@ function defaultSave(mode) {
     evo: {}, altar: { pity: 0, draws: 0 }, village: {}, login: { day: 0, last: '' }, weeklyCh: { week: '', list: [] },
     arena: { rating: 1000, best: 1000, wins: 0, losses: 0, week: '', weekStart: 1000, tickets: 5, ticketDay: '' }, playStats: {}, trueEndingSeen: false,
     skins: { owned: {}, eq: {} }, events: {}, help: {}, tipsSeen: {}, rift: { best: 0, shards: 0, perks: {}, runs: 0 }, lang: null,
-    auto: { run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {}, slotSkills: [false, false, false, false, false, false], summon: false, keep: [0, 0, 0, 0, 0, 0] },
+    auto: { run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {}, slotSkills: [false, false, false, false, false, false, false, false, false, false], summon: false, keep: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0] },
     paragon: {}, diff: 0, pace: 0, diffClears: {},
   };
 }
@@ -56,7 +56,10 @@ function migrateSave(o) {
   o.stars = STAGES.map((s, i) => (o.stars[i] || [false, false, false]).map((b, k) => b || (k === 0 && !!o.cleared[i])));
   if (o.v < 2) { o.tutorialDone = true; for (let i = 0; i < 8; i++) if (o.cleared[i]) o.seenStory[i] = true; }
   if (o.v < 3) { o.loadouts[0] = [...o.hotbar]; }
-  while (o.loadouts.length < 5) o.loadouts.push([null, null, null, null, null, null]);
+  while (o.loadouts.length < 5) o.loadouts.push(Array(10).fill(null));
+  // 10 hotbar slots (older saves had 6)
+  o.hotbar = Array.from({ length: 10 }, (_, i) => o.hotbar[i] ?? null);
+  o.loadouts = o.loadouts.map(l => Array.from({ length: 10 }, (_, i) => l[i] ?? null));
   o.relicSlots = [0, 1, 2].map(i => (o.relicSlots[i] && o.relics[o.relicSlots[i]] ? o.relicSlots[i] : null));
   o.level = Math.min(o.level, LEVEL_CAP);
   if (o.stats.playTime === undefined) o.stats.playTime = 0;

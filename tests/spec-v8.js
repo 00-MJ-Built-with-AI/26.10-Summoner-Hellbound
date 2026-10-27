@@ -65,7 +65,7 @@ group('Difficulty, pace and tiers', () => {
   });
   test('Hell Tiers go to 20, pay up to ×10 and shorten stages', () => {
     expect(TIER_MAX, 'max tier').toBe(20);
-    expect(tierReward(20), '×10 at tier 20').toBe(10);
+    expect(tierReward(10), '×10 at tier 10').toBe(10); expect(tierReward(20), '×20 at tier 20').toBe(20);
     H.save({ level: 50, cleared: 28 });
     H.start(5); const d0 = W.st.duration;
     SAVE.tierMax = 20; SAVE.tier = 7; H.start(5);

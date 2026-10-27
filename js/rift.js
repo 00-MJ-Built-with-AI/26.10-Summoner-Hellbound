@@ -39,7 +39,7 @@ function enterRift() {
   const saved = [...SAVE.hotbar], pool = riftPool().filter(id => !CARDS[id].fusion), deck = [];
   while (deck.length < 2 + rPerk('start') && pool.length) deck.push(pool.splice(randi(0, pool.length - 1), 1)[0]);
   SAVE.rift.saved = saved;   // restored when the run ends (also after a crash, see below)
-  SAVE.hotbar = [...deck, ...Array(6 - deck.length).fill(null)];
+  SAVE.hotbar = [...deck, ...Array(10 - deck.length).fill(null)];
   SAVE.rift.runs++;
   const st = riftStage(1);
   startCustomStage({ kind: 'rift', baseIdx: st.themeIdx, flags: { isRift: true, rift: { floor: 1, shards: 0, deck: [...deck] } }, st, banner: 'THE RIFT · Floor 1', music: 'a3b' });

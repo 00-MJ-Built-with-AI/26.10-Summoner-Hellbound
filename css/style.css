@@ -723,3 +723,23 @@ body.calm .banner, body.calm .boss-intro { animation-duration: 0s !important; }
 .talent.t-new { border-color: rgba(127,211,255,0.5); }
 .talents .pips { flex-wrap: wrap; }
 .stars-e { white-space: nowrap; }
+
+/* ===== v9: tall overlay screens (settings, help…) scroll from the top instead of being cut off ===== */
+.screen.dim { justify-content: flex-start; padding-block: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-bottom, 0px)); overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.screen.dim > * { margin-block: auto; flex-shrink: 0; }
+.screen { touch-action: pan-y; }
+.info-card-wrap { overflow-y: auto; place-items: start center; }
+.info-card-wrap > .info-card { margin-block: auto; max-height: none; }
+
+/* ===== v9: 10 hotbar slots ===== */
+.hotbar { gap: 6px; }
+#hud .hotbar .slot { width: clamp(42px, 5.2vw, 62px); height: clamp(42px, 5.2vw, 62px); }
+.hud-bottom { flex-wrap: wrap; justify-content: center; }
+#grimSlots { flex-wrap: wrap; }
+.sweep { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; padding: 10px; border-radius: 12px; border: 1px dashed var(--line-2); }
+.sweep-row { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+.sweep-row .pick-h { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-inline-end: 4px; }
+.power-line { font-size: 13px; } .power-line.ok b:first-child { color: #5dff9a; } .power-line.low b:first-child { color: #ff8095; }
+.sweep-y { font-size: 12px; }
+.stage-info .sweep-row .btn, .stage-info .v8-picks .pick-row .btn, #stageInfo .sweep-row .btn, #stageInfo .v8-picks .pick-row .btn { width: auto; flex: 1 1 64px; margin: 0; padding-inline: 8px; }
+#stageInfo .sweep-row .pick-h { flex-basis: 100%; }
