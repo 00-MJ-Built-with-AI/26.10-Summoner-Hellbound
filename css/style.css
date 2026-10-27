@@ -699,3 +699,27 @@ body.calm .banner, body.calm .boss-intro { animation-duration: 0s !important; }
 :root[lang="ar"] * { letter-spacing: 0 !important; }
 :root[lang="ar"] .title-name { line-height: 1.25; }
 .lang-switch { position: absolute; top: max(14px, env(safe-area-inset-top, 0px)); inset-inline-end: max(14px, env(safe-area-inset-right, 0px)); display: flex; gap: 6px; z-index: 3; }
+
+/* ===== v8 ===== */
+.v8-picks { display: flex; flex-direction: column; gap: 6px; margin: 10px 0; }
+.v8-picks .pick-h { font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.v8-picks .pick-row { display: flex; flex-wrap: wrap; gap: 5px; }
+.v8-picks [data-diff] { border-color: var(--dc) !important; }
+.v8-picks [data-diff].primary { background: color-mix(in srgb, var(--dc) 35%, #1a1030) !important; }
+.v8-picks small { opacity: .75; font-size: 10px; }
+.node .dbadge { position: absolute; top: -6px; right: -6px; width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; font: 900 10px Inter, sans-serif; color: #12081a; background: var(--dc); box-shadow: 0 0 8px var(--dc); }
+.wallet-bar { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 6px max(16px, env(safe-area-inset-right, 0px)) 6px max(16px, env(safe-area-inset-left, 0px)); background: rgba(10,6,26,0.75); border-bottom: 1px solid var(--line-2); font-size: 13px; }
+.wallet-bar .w-item b { color: var(--gold); }
+.speed-btn { font: 900 12px Inter, sans-serif !important; min-width: 36px; }
+.slot .keep-b { position: absolute; right: 3px; bottom: 3px; font: 900 10px Inter, sans-serif; color: #04140a; background: #7fd3ff; border-radius: 5px; padding: 0 3px; z-index: 2; }
+.auto-slots { display: flex; flex-direction: column; gap: 6px; }
+.auto-slot { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 10px; border: 1px solid var(--line-2); font-size: 12px; flex-wrap: wrap; }
+.auto-slot canvas { width: 34px; height: 34px; }
+.auto-slot .as-k { font-weight: 900; color: var(--gold); width: 14px; }
+.auto-slot .as-n { flex: 1; min-width: 120px; }
+.auto-slot .as-keep { display: flex; align-items: center; gap: 4px; }
+.auto-slot .as-keep .btn { padding: 1px 8px; }
+.auto-slot .as-skill { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+.talent.t-new { border-color: rgba(127,211,255,0.5); }
+.talents .pips { flex-wrap: wrap; }
+.stars-e { white-space: nowrap; }

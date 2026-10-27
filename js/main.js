@@ -29,7 +29,8 @@ function defaultSave(mode) {
     evo: {}, altar: { pity: 0, draws: 0 }, village: {}, login: { day: 0, last: '' }, weeklyCh: { week: '', list: [] },
     arena: { rating: 1000, best: 1000, wins: 0, losses: 0, week: '', weekStart: 1000, tickets: 5, ticketDay: '' }, playStats: {}, trueEndingSeen: false,
     skins: { owned: {}, eq: {} }, events: {}, help: {}, tipsSeen: {}, rift: { best: 0, shards: 0, perks: {}, runs: 0 }, lang: null,
-    auto: { run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {} },
+    auto: { run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {}, slotSkills: [false, false, false, false, false, false], summon: false, keep: [0, 0, 0, 0, 0, 0] },
+    paragon: {}, diff: 0, pace: 0, diffClears: {},
   };
 }
 function loadSave() {

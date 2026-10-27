@@ -31,8 +31,8 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 
 ## What's in it
 
-- **48 stages** in five acts, each ending in a boss, with Awakened rematches, multi-phase Act IV and Act V bosses with cinematic intros, a true ending and an epilogue (level cap 70)
-- **104 summon cards**: Insect, Beast, Bird, Grass, Stone, Fish, Spirit, Dragon, Celestial and Primordial ranks, plus 36 fusions; cards level to 40
+- **48 stages** in five acts with multi-phase bosses, a true ending and an epilogue. **No level cap** for you or your cards, with Paragon points past level 70
+- **134 summon cards** across 10 ranks, including 20 mythic legends (Fenrir, Kraken, Bahamut, Kitsune…), plus 46 fusions; 20 stars and 10 awakenings per card; 30 talents up to rank 20
 - Special skills, card leveling, enhancement, awakening with two evolution paths per card, rank synergies and 20 earned summon skins
 - **Run upgrades**: every run level in a stage offers 3 of 42 upgrades (common, rare, legendary)
 - **Automation**: priority lists that auto-pick run upgrades and soul boosts, auto Enhance and Overdrive, and an auto special skill toggle per card
@@ -50,7 +50,7 @@ All keys can be rebound in Settings. Phones and tablets get touch controls autom
 
 ## Tests
 
-141 automated tests cover every feature: content integrity (all 104 cards, enemies, bosses, 48 stages), Arabic coverage, the Rift, events, skins, automation, online flows (with a fake server), ads, run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
+155 automated tests cover every feature: content integrity (all 104 cards, enemies, bosses, 48 stages), Arabic coverage, the Rift, events, skins, automation, online flows (with a fake server), ads, run upgrades, evolutions, Act IV boss phases, co-op, the Village, arena, photo mode, accessibility, install files, saving and migrations, progression, combat (every card and its special skill, every enemy, every boss attack pattern), all game modes, menus, keyboard/controller/touch input, rendering at each graphics quality, and audio. The tests load the real game with temporary storage, so they never touch a real save.
 
 **In a browser:** open `tests/index.html` (locally through `npm start`, or online at https://00-mj-built-with-ai.github.io/summoner-hellbound/tests/). Add `?only=boss` to run a subset.
 

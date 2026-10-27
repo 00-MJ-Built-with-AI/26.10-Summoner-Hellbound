@@ -782,13 +782,13 @@ function enterRaid() {
 
 // ---------------- grimoire ----------------
 function cardStatsHTML(id) {
-  const c = CARDS[id], cs = SAVE.cards[id], m = CARD_PROG.mult(cs.lv, cs.enh) * (1 + 0.05 * tl('pact'));
+  const c = CARDS[id], cs = SAVE.cards[id], m = CARD_PROG.mult(cs.lv, cs.enh) * (1 + 0.05 * Math.min(5, tl('pact')));
   const rows = [['HP', Math.round(c.hp * m)]];
   if (c.ai === 'heal') rows.push(['Heal/s', fmt(c.heal * m)]);
   else if (c.ai === 'buffer') rows.push(['Shield', Math.round(c.shield * m)]);
   else if (c.ai === 'dragon') rows.push(['Flame', fmt(c.dmg * m)], ['Bite', Math.round(c.bite * m)]);
   else rows.push(['Attack', fmt(c.dmg * m)]);
-  rows.push(['Mana', c.cost], ['Cooldown', fmt(c.cd * (1 - 0.06 * tl('quickcast'))) + 's'], ['Capacity', fmt((c.weight || 1) * (c.count || 1))]);
+  rows.push(['Mana', c.cost], ['Cooldown', fmt(c.cd * (1 - 0.06 * Math.min(5, tl('quickcast')))) + 's'], ['Capacity', fmt((c.weight || 1) * (c.count || 1))]);
   if (c.life) rows.push(['Duration', c.life + 's']);
   return rows.map(([k, v]) => `<div>${k} <b>${v}</b></div>`).join('');
 }
@@ -876,7 +876,7 @@ function buildGrimoire() {
     if (id) {
       const cv = document.createElement('canvas'); cv.width = cv.height = 96; renderCardIcon(cv, id); b.prepend(cv);
       const cs = SAVE.cards[id], info = document.createElement('div'); info.className = 'gs-info';
-      info.innerHTML = `<span class="gs-lv">Lv ${cs.lv}</span><span class="gs-st">${'★'.repeat(cs.enh)}<span class="off">${'★'.repeat(CARD_PROG.maxEnh - cs.enh)}</span></span>`;
+      info.innerHTML = `<span class="gs-lv">Lv ${cs.lv}</span><span class="gs-st">★${cs.enh}</span>`;
       b.title = `${CARDS[id].name} · Lv ${cs.lv} · ${cs.enh}/${CARD_PROG.maxEnh} stars`;
       b.appendChild(info);
       const x = document.createElement('button'); x.className = 'gx'; x.textContent = '✕'; x.title = 'Clear slot';

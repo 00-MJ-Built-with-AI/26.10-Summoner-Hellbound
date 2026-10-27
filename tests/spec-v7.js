@@ -3,13 +3,13 @@
 
 group('Level 70 and Primordial rank', () => {
   test('level cap 70, Primordial (SS) unlocks at 60 with 4 cards that fight', () => {
-    expect(LEVEL_CAP, 'cap').toBe(70);
-    expect(CARD_PROG.maxLv, 'card cap').toBe(40);
+    expect(LEVEL_CAP >= 9999, 'no cap').toBe(true);
+    expect(CARD_PROG.maxLv >= 9999, 'no card cap').toBe(true);
     const prim = CARD_IDS.filter(id => CARDS[id].rank === 'primordial');
-    expect(prim.length, 'primordial cards').toBe(4);
+    expect(prim.length, 'primordial cards').toBe(6);
     H.save({ level: 59 });
     expect(prim.some(cardUnlocked), 'locked at 59').toBe(false);
-    H.save({ level: 60, cardLv: 30, hotbar: [...prim, null, null] });
+    H.save({ level: 60, cardLv: 30, hotbar: prim.slice(0, 6) });
     expect(prim.every(cardUnlocked), 'unlocked at 60').toBe(true);
     H.start(40);
     H.spawnNear('goblin', 20, 150);
@@ -232,13 +232,13 @@ group('Automation', () => {
     expect(W.player.enhT > 0, 'Enhance cast').toBe(true);
     expect(W.odT > 0, 'Overdrive fired').toBe(true);
   });
-  test('auto special skill per card, toggled from the hotbar', () => {
+  test('auto special skill per slot (1–6), toggled from the hotbar', () => {
     H.save({ level: 30, cardLv: 15, hotbar: ['fang_wolf', 'gale_hawk', null, null, null, null] });
     H.start(5);
     const a = [...document.querySelectorAll('#hotbar .auto-b')];
     expect(a.length, 'badges').toBe(2);
     a[0].click();
-    expect(SAVE.auto.skills.fang_wolf, 'toggled on').toBe(true);
+    expect(SAVE.auto.slotSkills[0], 'slot 1 on').toBe(true);
     W.player.mp = 9999; trySummon(0);
     const wolf = W.summons.find(s => s.id === 'fang_wolf');
     for (let k = 0; k < 10; k++) { const e = spawnEnemy('goblin', wolf.x + 60 + (k % 3) * 12, wolf.y + Math.floor(k / 3) * 12); e.spawnT = 1; }

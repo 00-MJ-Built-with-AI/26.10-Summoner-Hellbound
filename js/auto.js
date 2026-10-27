@@ -2,8 +2,17 @@
 // ---------- Automation: run-upgrade and soul-boost priority lists, auto Enhance (Q), auto Overdrive (F),
 //            and an auto toggle for each card's special skill ----------
 
-const AUTO_DEF = () => ({ run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {} });
-const AUTO = () => { if (!SAVE.auto) SAVE.auto = AUTO_DEF(); return SAVE.auto; };
+const AUTO_DEF = () => ({ run: false, runOrder: [], soul: false, soulOrder: [], q: false, f: false, skills: {}, slotSkills: [false, false, false, false, false, false], summon: false, keep: [0, 0, 0, 0, 0, 0] });
+function AUTO() {
+  if (!SAVE.auto) SAVE.auto = AUTO_DEF();
+  const a = SAVE.auto;
+  if (!Array.isArray(a.slotSkills)) {   // older saves kept auto skills per card; move them to the slots those cards sit in
+    a.slotSkills = SAVE.hotbar.map(id => !!(id && a.skills && a.skills[id]));
+  }
+  if (!Array.isArray(a.keep)) a.keep = [0, 0, 0, 0, 0, 0];
+  if (a.summon === undefined) a.summon = false;
+  return a;
+}
 const RAR_RANK = { legendary: 0, rare: 1, common: 2 };
 // keeps the saved array itself (so an open editor and the game always share one list)
 function normOrder(arr, ids) {
@@ -42,25 +51,37 @@ function autoTick() {
   const p = W.player, a = AUTO();
   if (p.dead || W.won || W.choosing || W.floorPause > 0 || W.endT >= 0) return;
   const boss = W.boss && !W.boss.dead ? W.boss : null;
-  const reserve = p.maxMp * (boss ? 0.1 : 0.2);
-  const near = enemiesAround(p.x, p.y, 420) + (boss && dist2(boss, p) < 520 * 520 ? 8 : 0);
-  // Q: Enhance when summons are out, enemies are close and it is ready
+  const reserve = p.maxMp * 0.1;
+  const near = enemiesAround(p.x, p.y, 520) + (boss ? 8 : 0);
+  // auto summon: keep the number of each slot's card you asked for on the field (one summon per tick)
+  if (a.summon) {
+    for (let slot = 0; slot < 6; slot++) {
+      const id = SAVE.hotbar[slot], want = a.keep[slot] || 0;
+      if (!id || want <= 0 || W.slotCd[slot] > 0) continue;
+      const c = CARDS[id], groups = W.summons.filter(s => s.id === id && !s.dead && !s.od && !s.isSplit).length / (c.count || 1);
+      if (groups >= want || p.mp < c.cost) continue;
+      if (capUsed() + (c.weight ?? 1) * (c.count || 1) > capacity() + 0.01) continue;
+      trySummon(slot);
+      break;
+    }
+  }
+  // Q: Enhance whenever it is ready and there is something to fight
   if (a.q) {
     const sk = SKILLS.find(s => s.key === 'KeyQ'), mine = W.summons.filter(s => !s.c.comp && !s.dead).length;
-    if (sk && p.cds.KeyQ <= 0 && p.enhT <= 0 && mine >= 2 && near >= 3 && p.mp >= sk.mp + reserve) useSkill('KeyQ');
+    if (sk && p.cds.KeyQ <= 0 && p.enhT <= 0 && mine >= 1 && near >= 1 && p.mp >= sk.mp + reserve) useSkill('KeyQ');
   }
-  // F: Overdrive when full and the fight is big (a boss, or a crowd)
-  if (a.f && W.od >= OD_MAX && (boss || near >= 12)) useOverdrive();
-  // special skills: one per tick, so they don't all fire on the same frame
+  // F: Overdrive every time the gauge refills, as soon as there is something to fight
+  if (a.f && W.od >= OD_MAX && near >= 1) useOverdrive();
+  // special skills for slots 1–6: one per tick, so they don't all fire on the same frame
   for (let k = 0; k < 6; k++) {
     const slot = (W.autoSlot = ((W.autoSlot || 0) + 1) % 6), id = SAVE.hotbar[slot];
-    if (!id || !a.skills[id] || (W.cskCd[id] || 0) > 0) continue;
+    if (!id || !a.slotSkills[slot] || (W.cskCd[id] || 0) > 0) continue;
     const sk = CARD_SKILLS[id];
     if (p.mp < sk.mp + reserve) continue;
     const mine = W.summons.filter(s => s.id === id && !s.dead);
     if (!mine.length) continue;
-    const s = mine[0], tgt = boss && dist2(boss, s) < 420 * 420 ? boss : nearestEnemy(s.x, s.y, 360);
-    if (!tgt || (!boss && enemiesAround(tgt.x, tgt.y, 160) < 2)) continue;
+    const s = mine[0], tgt = boss && dist2(boss, s) < 520 * 520 ? boss : nearestEnemy(s.x, s.y, 420);
+    if (!tgt) continue;
     AUTO_AIM = { x: tgt.x, y: tgt.y };
     try { useCardSkill(slot); } finally { AUTO_AIM = null; }
     break;
@@ -75,11 +96,11 @@ updateZones = function (dt) {
 };
 
 // ---------------- HUD: AUTO badges; right-click (or long-press the badge) a slot to toggle its auto skill ----------------
-function toggleAutoSkill(id) {
+function toggleAutoSkill(slot) {
   const a = AUTO();
-  if (a.skills[id]) delete a.skills[id]; else a.skills[id] = true;
+  a.slotSkills[slot] = !a.slotSkills[slot];
   saveGame(); SFX.click();
-  toast(`${CARDS[id].name}: auto ${CARD_SKILLS[id].name} ${a.skills[id] ? 'on' : 'off'}`, 'card');
+  toast(`Slot ${slot + 1}: auto special skill ${a.slotSkills[slot] ? 'on' : 'off'}`, 'card');
   if (W.active) buildHotbar();
 }
 const _au_buildHotbar = buildHotbar;
@@ -88,15 +109,15 @@ buildHotbar = function () {
   if (!SAVE) return;
   const a = AUTO();
   (hudCache.slots || []).forEach((el, i) => {
-    const id = SAVE.hotbar[i];
-    if (!id) return;
+    if (!SAVE.hotbar[i]) return;
     const b = document.createElement('button');
-    b.className = 'auto-b' + (a.skills[id] ? ' on' : '');
-    b.textContent = 'A'; b.title = `Auto special skill: ${a.skills[id] ? 'on' : 'off'} (right-click the slot to toggle)`;
+    b.className = 'auto-b' + (a.slotSkills[i] ? ' on' : '');
+    b.textContent = 'A'; b.title = `Auto special skill: ${a.slotSkills[i] ? 'on' : 'off'} (right-click the slot to toggle)`;
     b.onpointerdown = ev => ev.stopPropagation();
-    b.onclick = ev => { ev.stopPropagation(); toggleAutoSkill(id); };
+    b.onclick = ev => { ev.stopPropagation(); toggleAutoSkill(i); };
     el.appendChild(b);
-    el.addEventListener('contextmenu', ev => { ev.preventDefault(); toggleAutoSkill(id); });
+    if ((a.keep[i] || 0) > 0 && a.summon) el.insertAdjacentHTML('beforeend', `<span class="keep-b" title="Auto summon keeps ${a.keep[i]} on the field">×${a.keep[i]}</span>`);
+    el.addEventListener('contextmenu', ev => { ev.preventDefault(); toggleAutoSkill(i); });
   });
   markAutoSkills();
 };
@@ -118,17 +139,21 @@ function automationHTML() {
     <button class="btn small" data-order="run">Set run upgrade priority</button>
     ${chk('soul', 'Auto-pick soul boosts', 'Same, for the boosts offered when the soul gauge fills.')}
     <button class="btn small" data-order="soul">Set soul boost priority</button>
-    ${chk('q', `Auto Enhance (${key1('enhance')})`, 'Casts when 2+ summons are out, enemies are close and you have mana to spare.')}
-    ${chk('f', `Auto Overdrive (${key1('overdrive')})`, 'Fires when the gauge is full during a boss fight or against a big crowd.')}
-    <h4>Auto special skills</h4>
-    <p class="muted">Each card remembers its own setting. You can also right-click a slot (or tap its small A) during battle.</p>
-    <div class="auto-cards">${ids.length ? ids.map(id => `<label class="auto-card"><input type="checkbox" data-askill="${id}" ${a.skills[id] ? 'checked' : ''}><canvas width="40" height="40" data-icon="${id}"></canvas><span><b>${CARDS[id].name}</b><br><span class="muted">${CARD_SKILLS[id].name}</span></span></label>`).join('') : '<span class="muted">Your hotbar is empty.</span>'}</div>
+    ${chk('q', `Auto Enhance (${key1('enhance')})`, 'Casts every time it is ready while you have summons out and enemies nearby.')}
+    ${chk('f', `Auto Overdrive (${key1('overdrive')})`, 'Fires every time the gauge refills, as soon as enemies are nearby.')}
+    ${chk('summon', 'Auto summon', 'Keeps the number of each card you choose below on the field, whenever you have the mana and capacity.')}
+    <h4>Slots 1–6</h4>
+    <p class="muted">"Keep" = how many of that card auto summon keeps on the field (0 = never). "Auto skill" casts the slot's special skill every time it is ready. During battle you can also right-click a slot (or tap its small A).</p>
+    <div class="auto-slots">${SAVE.hotbar.map((id, i) => id ? `<div class="auto-slot"><span class="as-k">${i + 1}</span><canvas width="40" height="40" data-icon="${id}"></canvas><span class="as-n"><b>${CARDS[id].name}</b><br><span class="muted">${CARD_SKILLS[id].name}</span></span>
+      <span class="as-keep"><span class="muted">Keep</span><button class="btn small ghost" data-keep="${i}" data-d="-1">−</button><b>${a.keep[i] || 0}</b><button class="btn small ghost" data-keep="${i}" data-d="1">+</button></span>
+      <label class="as-skill"><input type="checkbox" data-askill="${i}" ${a.slotSkills[i] ? 'checked' : ''}> Auto skill</label></div>` : `<div class="auto-slot empty"><span class="as-k">${i + 1}</span><span class="muted">Empty slot</span></div>`).join('')}</div>
   </div>`;
 }
 function bindAutomation(root, rerender) {
   const a = AUTO();
   root.querySelectorAll('[data-auto]').forEach(c => c.onchange = () => { a[c.dataset.auto] = c.checked; saveGame(); SFX.click(); if (W.active) markAutoSkills(); });
-  root.querySelectorAll('[data-askill]').forEach(c => c.onchange = () => { if (c.checked) a.skills[c.dataset.askill] = true; else delete a.skills[c.dataset.askill]; saveGame(); SFX.click(); if (W.active) buildHotbar(); });
+  root.querySelectorAll('[data-askill]').forEach(c => c.onchange = () => { a.slotSkills[+c.dataset.askill] = c.checked; saveGame(); SFX.click(); if (W.active) buildHotbar(); });
+  root.querySelectorAll('[data-keep]').forEach(b => b.onclick = () => { const i = +b.dataset.keep; a.keep[i] = clamp((a.keep[i] || 0) + +b.dataset.d, 0, 20); saveGame(); SFX.click(); if (W.active) buildHotbar(); rerender && rerender(); });
   root.querySelectorAll('[data-order]').forEach(b => b.onclick = () => { SFX.click(); openPriorityEditor(b.dataset.order, rerender); });
   root.querySelectorAll('[data-icon]').forEach(cv => renderCardIcon(cv, cv.dataset.icon));
 }
@@ -172,20 +197,7 @@ function openPriorityEditor(kind, back) {
   if (pause) { const b = document.createElement('button'); b.className = 'btn ghost'; b.id = 'btnAutomation'; b.textContent = 'Automation'; b.onclick = () => { SFX.click(); openAutomation(); }; pause.insertBefore(b, $('btnRetreat')); }
   const anchor = [...document.querySelectorAll('#scr-settings h3')].find(h => h.textContent === 'Co-op');
   if (anchor) {
-    anchor.insertAdjacentHTML('beforebegin', '<h3>Automation</h3><p class="muted save-note">Auto-pick upgrades, auto Enhance and Overdrive, and auto special skills per card.</p><button class="btn small" id="btnAutoSettings">Open automation settings</button>');
+    anchor.insertAdjacentHTML('beforebegin', '<h3>Automation</h3><p class="muted save-note">Auto-pick upgrades, auto Enhance and Overdrive, auto summon and auto special skills for slots 1–6.</p><button class="btn small" id="btnAutoSettings">Open automation settings</button>');
     $('btnAutoSettings').onclick = () => { SFX.click(); if (!SAVE) { toast('Start or continue a game first', 'fail'); return; } openAutomation(); };
   }
 })();
-const _au_cardEl = cardEl;
-cardEl = function (id) {
-  const el = _au_cardEl(id);
-  if (!cardUnlocked(id) || !CARD_SKILLS[id]) return el;
-  const row = document.createElement('label');
-  row.className = 'auto-skill-row';
-  row.innerHTML = `<input type="checkbox" ${AUTO().skills[id] ? 'checked' : ''}> Auto-cast ${CARD_SKILLS[id].name}`;
-  row.onclick = ev => ev.stopPropagation();
-  row.querySelector('input').onchange = ev => { if (ev.target.checked) AUTO().skills[id] = true; else delete AUTO().skills[id]; saveGame(); SFX.click(); };
-  const host = el.querySelector('.desc');
-  (host ? host.parentNode : el).insertBefore(row, host ? host.nextSibling : null);
-  return el;
-};

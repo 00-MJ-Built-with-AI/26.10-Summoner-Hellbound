@@ -17,11 +17,11 @@ group('Boot', () => {
 });
 
 group('Content: cards', () => {
-  test('104 cards across 10 ranks + fusions', () => {
-    expect(CARD_IDS.length, 'card count').toBe(104);
+  test('134 cards across 10 ranks + fusions', () => {
+    expect(CARD_IDS.length, 'card count').toBe(134);
     expect(new Set(CARD_IDS).size, 'unique ids').toBe(CARD_IDS.length);
     expect(RANKS.length, 'ranks').toBe(10);
-    expect(CARD_IDS.filter(id => CARDS[id].fusion).length, 'fusions').toBe(36);
+    expect(CARD_IDS.filter(id => CARDS[id].fusion).length, 'fusions').toBe(46);
     for (const r of RANKS) expect(CARD_IDS.filter(id => CARDS[id].rank === r.id).length, r.name + ' cards').toBeAtLeast(3);
   });
   test('every card has valid stats, AI, tags and rank', () => {

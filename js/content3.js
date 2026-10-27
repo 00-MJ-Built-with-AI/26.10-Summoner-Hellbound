@@ -65,9 +65,9 @@ function useOverdrive() {
 }
 
 // ================= Hell Tiers (no reset: harder enemies, better rewards) =================
-const TIER_MAX = 10;
+const TIER_MAX = 20;
 const tierHp = () => 1 + 0.25 * (W.tier || 0);
-const tierReward = tier => 1 + 0.3 * tier;
+const tierReward = tier => (tier <= 10 ? 1 + 0.3 * tier : 4 + 0.6 * (tier - 10));   // ×10 at tier 20
 function checkTierUnlock() {
   if (SAVE.level >= 40 && SAVE.tierMax < 1) {
     SAVE.tierMax = 1;

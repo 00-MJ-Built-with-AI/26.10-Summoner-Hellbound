@@ -11,13 +11,13 @@ group('Progression', () => {
     expect(SAVE.hotbar.filter(id => id && CARDS[id].rank === 'beast').length, 'beast cards equipped').toBeAtLeast(1);
     expect(W.player.hp, 'healed on level up').toBe(W.player.maxHp);
   });
-  test('level stops at the cap of 40 and unlocks Hell Tier 1', () => {
+  test('levels have no cap, stats keep growing past 70, and Hell Tier 1 unlocks at 40', () => {
     H.save({ level: 39 });
     H.start(0);
     gainExp(1e9);
-    expect(SAVE.level, 'level').toBe(LEVEL_CAP);
-    gainExp(1e9);
-    expect(SAVE.level, 'still capped').toBe(LEVEL_CAP);
+    expect(SAVE.level > 70, 'past 70').toBe(true);
+    const hp = PLAYER.hp(SAVE.level), lv = SAVE.level; gainExp(PLAYER.expNext(lv) + 1);
+    expect(SAVE.level > lv, 'keeps leveling').toBe(true); expect(PLAYER.hp(SAVE.level) > hp, 'HP grows').toBe(true);
     expect(SAVE.tierMax, 'tier unlocked').toBe(1);
   });
   test('cards level up from kills made by their summons', () => {
@@ -53,8 +53,8 @@ group('Progression', () => {
     expect(cardUnlocked('plague_swarm'), 'unlocked').toBe(true);
     expect(SAVE.stones, 'cost').toBe(10000 - CARDS.plague_swarm.fuseCost);
   });
-  test('every one of the 36 fusions can be fused once its parents qualify', () => {
-    H.save({ level: 40, stones: 1e7, cardLv: 5 });
+  test('every one of the 46 fusions can be fused once its parents qualify', () => {
+    H.save({ level: 70, stones: 1e7, cardLv: 5 });
     const bad = CARD_IDS.filter(id => CARDS[id].fusion).filter(id => {
       for (const f of CARDS[id].fusion) if (CARDS[f].fusion) SAVE.fused[f] = true;
       return !doFuse(id);

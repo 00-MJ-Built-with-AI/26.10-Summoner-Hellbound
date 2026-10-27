@@ -86,6 +86,7 @@ function applyArabicData() {
   for (const k in AR_TIPS) TIPS[k] = AR_TIPS[k];
   if (typeof EQUIP !== 'undefined') for (const e of EQUIP) if (AR_EQUIP[e.id]) e.name = AR_EQUIP[e.id];
   for (const a of ACTIONS) a.name = T(a.name);
+  if (typeof applyArabicV8 === "function") applyArabicV8();
 }
 
 // translate text already on the page, then everything added or changed later

@@ -61,7 +61,7 @@ group('Menus', () => {
     const beasts = document.querySelectorAll('#cardList .card').length;
     expect(beasts, 'beast cards').toBe(CARD_IDS.filter(id => CARDS[id].rank === 'beast').length);
     const s = document.getElementById('cardSearch'); s.value = 'wolf'; s.dispatchEvent(new Event('input'));
-    expect(document.querySelectorAll('#cardList .card').length, 'search "wolf"').toBe(2);
+    expect(document.querySelectorAll('#cardList .card').length, 'search "wolf"').toBe(3);   // Fang Wolf, Frost Wolf and Fenrir (Wolf of Ragnarok)
     expect(all, 'all cards').toBeGreaterThan(beasts);
     GF.rank = 'all'; GF.q = '';
   });
@@ -85,8 +85,7 @@ group('Menus', () => {
     const slots = document.querySelectorAll('#grimSlots .gslot');
     expect(slots[1].querySelector('.gs-lv').textContent, 'level').toBe('Lv 17');
     const st = slots[1].querySelector('.gs-st');
-    expect(st.textContent.length - st.querySelector('.off').textContent.length, 'lit stars').toBe(3);
-    expect(st.textContent.length, 'total stars').toBe(CARD_PROG.maxEnh);
+    expect(st.textContent, 'stars').toBe('★3');
     expect(slots[2].querySelector('.gs-info'), 'empty slot has no info').toBe(null);
   });
   test('every Codex tab renders', () => {
