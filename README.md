@@ -1,5 +1,7 @@
 # Summoner: Hellbound Grimoire
 
+[![Feature tests](https://github.com/00-MJ-Built-with-AI/summoner-hellbound/actions/workflows/tests.yml/badge.svg)](https://github.com/00-MJ-Built-with-AI/summoner-hellbound/actions/workflows/tests.yml) · [Play](https://00-mj-built-with-ai.github.io/summoner-hellbound/) · [Test report](https://00-mj-built-with-ai.github.io/summoner-hellbound/tests/)
+
 A neon-fantasy action game for the browser, inspired by the summoner from *Hell Mode*. You play Allen, a summoner who barely fights himself: your power is the grimoire, a growing army of 100 summon cards across 9 ranks.
 
 No install, no build step. Open `index.html` in a browser, or serve the folder with any static web server.
