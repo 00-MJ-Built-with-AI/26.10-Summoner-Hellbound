@@ -78,6 +78,17 @@ group('Menus', () => {
     H.key('Numpad1');
     expect(selectedSlot, 'numpad 1').toBe(0);
   });
+  test('Grimoire slots show each summon\'s level and stars', () => {
+    H.save({ level: 10, hotbar: ['spark_beetle', 'fang_wolf', null, null, null, null] });
+    SAVE.cards.fang_wolf.lv = 17; SAVE.cards.fang_wolf.enh = 3;
+    grimTab = 'cards'; showScreen('grimoire');
+    const slots = document.querySelectorAll('#grimSlots .gslot');
+    expect(slots[1].querySelector('.gs-lv').textContent, 'level').toBe('Lv 17');
+    const st = slots[1].querySelector('.gs-st');
+    expect(st.textContent.length - st.querySelector('.off').textContent.length, 'lit stars').toBe(3);
+    expect(st.textContent.length, 'total stars').toBe(CARD_PROG.maxEnh);
+    expect(slots[2].querySelector('.gs-info'), 'empty slot has no info').toBe(null);
+  });
   test('every Codex tab renders', () => {
     H.save({ level: 20, cleared: 9 });
     const bad = [];

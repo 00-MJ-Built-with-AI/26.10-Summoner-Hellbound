@@ -29,7 +29,9 @@ group('Save system', () => {
     const v1 = { v: 1, mode: 'normal', level: 7, exp: 40, stones: 149, cards: { spark_beetle: { lv: 3, exp: 0, enh: 1 } }, hotbar: ['spark_beetle', null, null, null, null, null], cleared: [true, false, false, false, false, false, false, false], best: [100, null, null, null, null, null, null, null], stats: { kills: 600, deaths: 0, runs: 1 }, muted: false };
     localStorage.setItem(SAVE_KEY, JSON.stringify(v1));
     const m = loadSave();
-    expect(m.v, 'version').toBe(5);
+    expect(m.v, 'version').toBe(6);
+    expect(m.evo, 'v6 fields added').toEqual({});
+    expect(m.arena.rating, 'arena rating').toBe(1000);
     expect(m.level, 'level kept').toBe(7);
     expect(m.cards.spark_beetle.lv, 'card kept').toBe(3);
     expect(m.cleared.length, 'stage slots').toBe(28);

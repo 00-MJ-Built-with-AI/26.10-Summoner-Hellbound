@@ -875,6 +875,10 @@ function buildGrimoire() {
     b.innerHTML = `<span class="k">${keyName(SETTINGS.keys['slot' + (i + 1)][0])}</span>`;
     if (id) {
       const cv = document.createElement('canvas'); cv.width = cv.height = 96; renderCardIcon(cv, id); b.prepend(cv);
+      const cs = SAVE.cards[id], info = document.createElement('div'); info.className = 'gs-info';
+      info.innerHTML = `<span class="gs-lv">Lv ${cs.lv}</span><span class="gs-st">${'★'.repeat(cs.enh)}<span class="off">${'★'.repeat(CARD_PROG.maxEnh - cs.enh)}</span></span>`;
+      b.title = `${CARDS[id].name} · Lv ${cs.lv} · ${cs.enh}/${CARD_PROG.maxEnh} stars`;
+      b.appendChild(info);
       const x = document.createElement('button'); x.className = 'gx'; x.textContent = '✕'; x.title = 'Clear slot';
       x.onclick = ev => { ev.stopPropagation(); SAVE.hotbar[i] = null; selectedSlot = i; saveGame(); SFX.click(); rebuildGrimoireKeepScroll(); };
       b.appendChild(x);

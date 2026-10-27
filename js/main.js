@@ -13,7 +13,7 @@ function defaultSave(mode) {
   const cards = {};
   for (const id of CARD_IDS) cards[id] = { lv: 1, exp: 0, enh: 0 };
   return {
-    v: 5, mode, level: 1, exp: 0, stones: 0, cards,
+    v: 6, mode, level: 1, exp: 0, stones: 0, cards,
     hotbar: ['spark_beetle', 'venom_mantis', null, null, null, null],
     cleared: STAGES.map(() => false), best: STAGES.map(() => null), stars: STAGES.map(() => [false, false, false]),
     talents: {}, fused: {}, bestiary: {}, ach: {}, seenStory: {},
@@ -26,6 +26,8 @@ function defaultSave(mode) {
     quests: { dayKey: '', daily: [], weekKey: '', weekly: [] }, worldBoss: { week: '', maxHp: 1, hpLeft: 1, claimed: [false, false, false, false], attempts: 0, bestDmg: 0 },
     counters: { summoned: {}, skills: 0, bosses: 0, flawless: 0, trial3: 0, rushDone: 0 },
     stats: { kills: 0, deaths: 0, runs: 0 }, towerBest: 0, tutorialDone: false, endingSeen: false, muted: false,
+    evo: {}, altar: { pity: 0, draws: 0 }, village: {}, login: { day: 0, last: '' }, weeklyCh: { week: '', list: [] },
+    arena: { rating: 1000, best: 1000, wins: 0, losses: 0, week: '', weekStart: 1000, tickets: 5, ticketDay: '' }, playStats: {}, trueEndingSeen: false,
   };
 }
 function loadSave() {
@@ -58,7 +60,8 @@ function migrateSave(o) {
   if (!o.counters.rankKills) o.counters.rankKills = {};
   for (const k of ['shard', 'horn', 'star']) if (o.mats[k] === undefined) o.mats[k] = 0;
   if (o.level >= LEVEL_CAP && !o.tierMax) o.tierMax = 1;
-  o.v = 5;
+  for (const k in d.arena) if (o.arena[k] === undefined) o.arena[k] = d.arena[k];
+  o.v = 6;
   return o;
 }
 function saveGame() {
