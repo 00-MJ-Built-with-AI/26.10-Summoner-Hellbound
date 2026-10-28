@@ -632,7 +632,7 @@ function buildCardsTab(root) {
       sec.className = 'rank-sec'; sec.style.setProperty('--c', rk.color);
       sec.innerHTML = `<div class="rank-head"><span class="grade">${rk.grade}</span><span class="rname">${rk.name}</span><span class="rlock">${rk.id === 'fusion' ? `${Object.keys(SAVE.fused).length} / ${FUSION_COUNT} discovered` : unlocked ? `${ids.length} card${ids.length > 1 ? 's' : ''}` : '🔒 Unlocks at summoner Lv ' + rk.level}</span></div>`;
       const grid = document.createElement('div'); grid.className = 'cards';
-      for (const id of ids) grid.appendChild(cardEl(id));
+      for (const id of ids) { try { grid.appendChild(cardEl(id)); } catch (e) { reportUIError('card ' + id, e); } }
       sec.appendChild(grid); list.appendChild(sec);
     }
     if (!shown) list.innerHTML = '<p class="muted intro">No cards match. Try another filter or search.</p>';
@@ -888,16 +888,30 @@ function buildGrimoire() {
     b.onclick = () => { SFX.click(); selectGrimSlot(i); };
     slots.appendChild(b);
   });
+  try {
   const ps = pstat(false);
   $('grimStats').innerHTML = `<div class="loadouts">Loadout ${loadoutButtons()}</div><div>Essence <b>✧ ${SAVE.essence}</b></div><div>Summoner level <b>${SAVE.level}</b></div><div>Capacity <b>${ps.cap}</b></div><div>Max HP <b>${ps.hp}</b></div><div>Max mana <b>${ps.mp}</b></div><div>Mana regen <b>${fmt(ps.regen)}/s</b></div><div>Stone throw <b>${fmt(ps.stone)}</b></div>` + synergyHTML();
+  $('grimStats').querySelectorAll('[data-load]').forEach(b => b.onclick = () => { SFX.click(); switchLoadout(+b.dataset.load); buildGrimoire(); });
+  } catch (e) { reportUIError('stats', e); }
   const root = $('grimContent'); root.innerHTML = '';
   requestAnimationFrame(measureGrimSticky);
-  if (grimTab === 'cards') buildCardsTab(root);
-  else if (grimTab === 'fusion') buildFusionTab(root);
-  else if (grimTab === 'talents') buildTalentsTab(root);
-  else if (grimTab === 'equip') buildEquipTab(root);
-  else buildRelicsTab(root);
-  $('grimStats').querySelectorAll('[data-load]').forEach(b => b.onclick = () => { SFX.click(); switchLoadout(+b.dataset.load); buildGrimoire(); });
+  try {
+    if (grimTab === 'cards') buildCardsTab(root);
+    else if (grimTab === 'fusion') buildFusionTab(root);
+    else if (grimTab === 'talents') buildTalentsTab(root);
+    else if (grimTab === 'equip') buildEquipTab(root);
+    else buildRelicsTab(root);
+  } catch (e) {
+    reportUIError(grimTab + ' tab', e);
+    const p = document.createElement('p'); p.className = 'muted intro ui-err';
+    p.textContent = `This tab could not be shown (${e && e.message || e}). Your save is safe. Try reloading the page.`;
+    root.appendChild(p);
+  }
+}
+// one broken card or panel should never blank a whole screen: log it and keep going
+function reportUIError(where, e) {
+  console.error('[UI] ' + where, e);
+  if (!reportUIError.shown) { reportUIError.shown = true; try { toast(`Display error in ${where}: ${e && e.message || e} (v${typeof APP_V !== 'undefined' ? APP_V : '?'})`); } catch (_) {} }
 }
 function buildTalentsTab(root) {
   root.innerHTML = `<p class="muted intro">Permanent upgrades for Allen, bought with ◆ magic stones.</p>`;

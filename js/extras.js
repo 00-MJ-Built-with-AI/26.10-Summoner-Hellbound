@@ -225,6 +225,8 @@ const PWA = { waiting: null, prompt: null };
       const watch = sw => sw && sw.addEventListener('statechange', () => { if (sw.state === 'installed' && navigator.serviceWorker.controller) showUpdateBanner(sw); });
       if (reg.waiting && navigator.serviceWorker.controller) showUpdateBanner(reg.waiting);
       reg.addEventListener('updatefound', () => watch(reg.installing));
+      // look for a new release whenever the player comes back to the tab
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) reg.update().catch(() => {}); });
     }).catch(() => { /* offline support is optional */ });
     // only reload when the player pressed "Reload" on the update banner (not on the very first install)
     navigator.serviceWorker.addEventListener('controllerchange', () => { if (!PWA.reloading) return; PWA.reloading = false; saveGame(); location.reload(); });
@@ -232,16 +234,26 @@ const PWA = { waiting: null, prompt: null };
 })();
 function showUpdateBanner(sw) {
   PWA.waiting = sw;
+  // outside a fight there is nothing to lose: save and switch to the new version right away
+  if (STATE !== 'play' && STATE !== 'pause' && STATE !== 'result') { applyUpdate(); return; }
   let b = $('updateBanner');
   if (!b) {
     b = document.createElement('div'); b.id = 'updateBanner'; b.className = 'update-banner';
     b.innerHTML = '<span>A new version of the game is ready.</span><button class="btn small primary" id="btnUpdateNow">Reload</button><button class="btn small ghost" id="btnUpdateLater">Later</button>';
     document.body.appendChild(b);
-    $('btnUpdateNow').onclick = () => { saveGame(); PWA.reloading = true; if (PWA.waiting) PWA.waiting.postMessage('skipWaiting'); };
+    $('btnUpdateNow').onclick = applyUpdate;
     $('btnUpdateLater').onclick = () => b.classList.add('hidden');
   }
   b.classList.remove('hidden');
 }
+function applyUpdate() { if (SAVE) saveGame(); PWA.reloading = true; if (PWA.waiting) PWA.waiting.postMessage('skipWaiting'); }
+// the version number in the title screen corner, so it is easy to tell which release is running
+(function showVersion() {
+  const t = document.getElementById('scr-title');
+  if (!t) return;
+  const v = document.createElement('div'); v.className = 'app-ver'; v.textContent = 'v' + APP_V;
+  t.appendChild(v);
+})();
 // "Install app" button on the title screen when the browser offers it
 window.addEventListener('beforeinstallprompt', ev => {
   ev.preventDefault(); PWA.prompt = ev;

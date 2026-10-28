@@ -54,6 +54,14 @@ group('v9 controls', () => {
     expect(SAVE.tier, 'tier 10 selected').toBe(10);
     expect(document.querySelector('.tier-d').textContent.includes('rewards ×10.0'), 'shows ×10').toBe(true);
   });
+  test('one broken card cannot blank the Grimoire: the stats and other cards still show', () => {
+    H.save({ level: 6000, cardLv: 4682, hotbar: ['spark_beetle', 'banshee', null, null, null, null, null, null, null, null] });
+    SAVE.cards.fang_wolf = null;   // a damaged card entry
+    grimTab = 'cards'; showScreen('grimoire');
+    expect(document.querySelectorAll('#cardList .card').length > 50, 'other cards listed').toBe(true);
+    expect($('grimStats').textContent.includes('Summoner level'), 'stats row shown').toBe(true);
+    showScreen('map');
+  });
   test('tall settings screen can scroll to the top and bottom', () => {
     showScreen('settings');
     const s = $('scr-settings'), p = s.querySelector('.panel');

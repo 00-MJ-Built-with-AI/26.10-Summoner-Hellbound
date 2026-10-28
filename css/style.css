@@ -743,3 +743,6 @@ body.calm .banner, body.calm .boss-intro { animation-duration: 0s !important; }
 .sweep-y { font-size: 12px; }
 .stage-info .sweep-row .btn, .stage-info .v8-picks .pick-row .btn, #stageInfo .sweep-row .btn, #stageInfo .v8-picks .pick-row .btn { width: auto; flex: 1 1 64px; margin: 0; padding-inline: 8px; }
 #stageInfo .sweep-row .pick-h { flex-basis: 100%; }
+/* release number in the title screen corner */
+.app-ver { position: absolute; right: max(10px, env(safe-area-inset-right, 0px)); bottom: max(8px, env(safe-area-inset-bottom, 0px)); font-size: 11px; color: rgba(236,230,255,0.45); pointer-events: none; }
+.ui-err { color: #ffb3c0; }
