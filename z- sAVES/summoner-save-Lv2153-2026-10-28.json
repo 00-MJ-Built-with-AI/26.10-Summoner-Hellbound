@@ -1,0 +1,2310 @@
+{
+ "v": 7,
+ "mode": "normal",
+ "level": 2153,
+ "exp": 46185376.815652475,
+ "stones": 447899028,
+ "cards": {
+  "spark_beetle": {
+   "lv": 6,
+   "exp": 172.2,
+   "enh": 1
+  },
+  "venom_mantis": {
+   "lv": 5,
+   "exp": 44.19999999999999,
+   "enh": 1
+  },
+  "fang_wolf": {
+   "lv": 7,
+   "exp": 48,
+   "enh": 0
+  },
+  "iron_boar": {
+   "lv": 9,
+   "exp": 109.79999999999984,
+   "enh": 0
+  },
+  "gale_hawk": {
+   "lv": 27,
+   "exp": 1124.0150400000002,
+   "enh": 4
+  },
+  "healing_sprout": {
+   "lv": 5,
+   "exp": 50.259999999999984,
+   "enh": 3
+  },
+  "thorn_vine": {
+   "lv": 4,
+   "exp": 51.96768000000001,
+   "enh": 0
+  },
+  "stone_golem": {
+   "lv": 8,
+   "exp": 10.700000000000017,
+   "enh": 1
+  },
+  "tide_koi": {
+   "lv": 7,
+   "exp": 106.19999999999995,
+   "enh": 0
+  },
+  "arcane_wisp": {
+   "lv": 20,
+   "exp": 685.7350399999997,
+   "enh": 0
+  },
+  "frost_spirit": {
+   "lv": 21,
+   "exp": 16.899999999999636,
+   "enh": 1
+  },
+  "ember_wyrm": {
+   "lv": 20,
+   "exp": 445.90000000000066,
+   "enh": 0
+  },
+  "plague_swarm": {
+   "lv": 5752,
+   "exp": 5000751.458256699,
+   "enh": 20
+  },
+  "warbeast": {
+   "lv": 14,
+   "exp": 621.6399999999999,
+   "enh": 20
+  },
+  "griffin": {
+   "lv": 5790,
+   "exp": 1200508.0975525174,
+   "enh": 20
+  },
+  "grove_guardian": {
+   "lv": 5752,
+   "exp": 5015276.78836868,
+   "enh": 20
+  },
+  "leviathan": {
+   "lv": 30,
+   "exp": 21.808000000001357,
+   "enh": 20
+  },
+  "phoenix": {
+   "lv": 30,
+   "exp": 854.7999999999979,
+   "enh": 20
+  },
+  "seraph": {
+   "lv": 26,
+   "exp": 899.400000000001,
+   "enh": 0
+  },
+  "archon": {
+   "lv": 19,
+   "exp": 571.8,
+   "enh": 0
+  },
+  "ember_moth": {
+   "lv": 1,
+   "exp": 10,
+   "enh": 1
+  },
+  "iron_ant": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "firefly_swarm": {
+   "lv": 6,
+   "exp": 164.80959999999996,
+   "enh": 0
+  },
+  "scorpion": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "hornet_queen": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "stag_beetle": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "frost_wolf": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "shadow_panther": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "war_bear": {
+   "lv": 1,
+   "exp": 10,
+   "enh": 0
+  },
+  "thunder_ram": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "dire_hyena": {
+   "lv": 16,
+   "exp": 354.80320000000046,
+   "enh": 0
+  },
+  "sun_lion": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "raven": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "thunderhawk": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "owl_sage": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "fire_falcon": {
+   "lv": 15,
+   "exp": 515.7350400000012,
+   "enh": 0
+  },
+  "storm_crane": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "vulture": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "mandrake": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "lotus": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "venus_trap": {
+   "lv": 10,
+   "exp": 236.65576000000027,
+   "enh": 0
+  },
+  "spore_shroom": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "treant_sapling": {
+   "lv": 5,
+   "exp": 66.04000000000002,
+   "enh": 0
+  },
+  "granite_turtle": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "crystal_sentinel": {
+   "lv": 19,
+   "exp": 986.6800000000003,
+   "enh": 0
+  },
+  "obsidian_golem": {
+   "lv": 16,
+   "exp": 652.6000000000005,
+   "enh": 0
+  },
+  "gargoyle": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "rock_titan": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "pufferfish": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "shark": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "jellyfish": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "electric_eel": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "manta_ray": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "will_o_wisp": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "banshee": {
+   "lv": 18,
+   "exp": 496.33000000000084,
+   "enh": 0
+  },
+  "phantom_knight": {
+   "lv": 6,
+   "exp": 144.43999999999994,
+   "enh": 0
+  },
+  "soul_lantern": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "storm_spirit": {
+   "lv": 30,
+   "exp": 12.570000000006985,
+   "enh": 0
+  },
+  "void_eye": {
+   "lv": 21,
+   "exp": 1072.2400000000011,
+   "enh": 0
+  },
+  "frost_drake": {
+   "lv": 2,
+   "exp": 5,
+   "enh": 1
+  },
+  "venom_drake": {
+   "lv": 2,
+   "exp": 0,
+   "enh": 1
+  },
+  "storm_drake": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "wyvern_hatchling": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "elder_wyrm": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "cherub": {
+   "lv": 1,
+   "exp": 5,
+   "enh": 0
+  },
+  "valkyrie": {
+   "lv": 30,
+   "exp": 140.0399999999961,
+   "enh": 0
+  },
+  "star_titan": {
+   "lv": 26,
+   "exp": 994.319999999999,
+   "enh": 0
+  },
+  "moon_oracle": {
+   "lv": 9,
+   "exp": 39.17504000000008,
+   "enh": 5
+  },
+  "solar_disc": {
+   "lv": 30,
+   "exp": 87.9600000000014,
+   "enh": 0
+  },
+  "arch_angel": {
+   "lv": 30,
+   "exp": 195.5471999999995,
+   "enh": 4
+  },
+  "blaze_swarm": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "iron_legion": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "deathstalker": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "hive_empress": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "glacier_fang": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "night_terror": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "ursa_titan": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "tempest_ram": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "pride_king": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "raven_lord": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "sky_sovereign": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "sage_of_winds": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "inferno_falcon": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 20
+  },
+  "world_root": {
+   "lv": 7,
+   "exp": 80.15999999999997,
+   "enh": 20
+  },
+  "lotus_queen": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "devouring_maw": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "mycolord": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "aegis_tortoise": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "prism_colossus": {
+   "lv": 5761,
+   "exp": 630988.5526165748,
+   "enh": 20
+  },
+  "gargoyle_lord": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "megalodon": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "moonjelly_queen": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "phantom_lord": {
+   "lv": 5753,
+   "exp": 1809617.316952685,
+   "enh": 20
+  },
+  "lantern_saint": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "eye_of_the_void": {
+   "lv": 5754,
+   "exp": 2447162.413216809,
+   "enh": 20
+  },
+  "cryo_wyrm": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "plague_drake": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "thunder_dragon": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "dragon_emperor": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "seraphic_king": {
+   "lv": 30,
+   "exp": 8.1599999999994,
+   "enh": 20
+  },
+  "chaos_wyrm": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "void_seraph": {
+   "lv": 4274,
+   "exp": 114709.42824695446,
+   "enh": 0
+  },
+  "world_turtle": {
+   "lv": 4240,
+   "exp": 1659950.1082467828,
+   "enh": 0
+  },
+  "genesis_bloom": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "golden_scarab": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "myrmidon": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "fenrir": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "qilin": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "thunderbird": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "simurgh": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "yggdrasil": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "alraune": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "golem_king": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "basilisk": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "kraken": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "nereid": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "kitsune": {
+   "lv": 4252,
+   "exp": 66204.70824692585,
+   "enh": 0
+  },
+  "jinn": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "bahamut": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "tiamat": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "metatron": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "garuda": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "ouroboros": {
+   "lv": 4346,
+   "exp": 2737806.708246926,
+   "enh": 0
+  },
+  "chimera": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "ragnarok_fenrir": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "storm_kirin": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "tempest_thunderbird": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "world_tree": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "gorgon_basilisk": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "abyssal_kraken": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "nine_sun_kitsune": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "bahamut_zero": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "sun_garuda": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  },
+  "eternal_ouroboros": {
+   "lv": 1,
+   "exp": 0,
+   "enh": 0
+  }
+ },
+ "hotbar": [
+  "plague_swarm",
+  "griffin",
+  "phantom_lord",
+  "eye_of_the_void",
+  "prism_colossus",
+  "grove_guardian",
+  "kitsune",
+  "ouroboros",
+  "void_seraph",
+  "world_turtle"
+ ],
+ "cleared": [
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  true,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false,
+  false
+ ],
+ "best": [
+  105.42351925600018,
+  115.91772321200006,
+  119.00457930600041,
+  157.20259999998828,
+  131.72603305400074,
+  144.20229999999677,
+  171.05679999999433,
+  271.6573999999986,
+  144.73740362000157,
+  152.09452014200127,
+  174.03444102599545,
+  152.5609592260011,
+  191.27778123999866,
+  160.5415261300035,
+  158.86421127599243,
+  165.55152666800535,
+  161.60917807800132,
+  163.00348706000193,
+  164.27326168400182,
+  164.99694771600173,
+  168.31210254600163,
+  169.86441694800092,
+  174.35549010600167,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null,
+  null
+ ],
+ "stats": {
+  "kills": 174380186,
+  "deaths": 1,
+  "runs": 1472,
+  "playTime": 12806.196800008727
+ },
+ "muted": true,
+ "stars": [
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   false,
+   false
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   false,
+   false
+  ],
+  [
+   true,
+   false,
+   false
+  ],
+  [
+   true,
+   false,
+   true
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   false,
+   true
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   false,
+   true
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   true,
+   false,
+   false
+  ],
+  [
+   true,
+   true,
+   false
+  ],
+  [
+   true,
+   true,
+   true
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ],
+  [
+   false,
+   false,
+   false
+  ]
+ ],
+ "talents": {
+  "grimoire": 20,
+  "swift": 20,
+  "magnet": 20,
+  "sling": 20,
+  "quickcast": 20,
+  "vitality": 20,
+  "manaflow": 20,
+  "soul_harvest": 20,
+  "pact": 20,
+  "reserves": 20,
+  "ironwill": 20,
+  "lastingpact": 20,
+  "divinefavor": 20,
+  "dragonrider": 20,
+  "mountain": 20,
+  "tidecall": 20,
+  "spiritbind": 20,
+  "greenheart": 20,
+  "skylord": 20,
+  "alphacall": 20,
+  "secondwind": 20,
+  "soulleech": 20,
+  "broodlord": 20,
+  "thickskin": 20,
+  "scholar": 20,
+  "overcharge": 20,
+  "keeneye": 20,
+  "prospector": 20,
+  "arcfocus": 20,
+  "wrath": 20
+ },
+ "fused": {
+  "griffin": true,
+  "plague_swarm": true,
+  "phoenix": true,
+  "leviathan": true,
+  "warbeast": true,
+  "seraphic_king": true,
+  "world_root": true,
+  "grove_guardian": true,
+  "phantom_lord": true,
+  "eye_of_the_void": true,
+  "prism_colossus": true,
+  "inferno_falcon": true
+ },
+ "bestiary": {
+  "slime": 1786,
+  "slimelet": 3527,
+  "goblin": 1603,
+  "goblin_chief": 25,
+  "wolf": 972,
+  "goblin_archer": 360,
+  "elder_treant": 25,
+  "bat": 1552,
+  "shardling": 775,
+  "rock_crab": 486,
+  "crystal_golem": 21,
+  "wraith": 8577,
+  "toad": 1058,
+  "marsh_hydra": 24,
+  "bomber": 5932,
+  "imp": 4986,
+  "skeleton": 7205,
+  "bone_lord": 24,
+  "ice_wolf": 1311,
+  "yeti": 499,
+  "frost_wyvern": 21,
+  "demon": 16723,
+  "cultist": 11602,
+  "hellhound": 2129,
+  "shield_demon": 1244,
+  "cerberus": 10,
+  "magma_blob": 2177,
+  "lava_golem": 838,
+  "demon_general": 21,
+  "demon_lord": 14,
+  "blood_bat": 725,
+  "hex_witch": 1155,
+  "treasure_goblin": 41,
+  "blood_queen": 8,
+  "dark_priest": 708,
+  "behemoth": 8,
+  "void_stalker": 907,
+  "world_titan": 1,
+  "spiderling": 2023,
+  "brood_spider": 560,
+  "broodmother": 8,
+  "demon_emperor": 8,
+  "star_wisp": 1996,
+  "angel_sentinel": 1486,
+  "storm_harpy": 1517,
+  "seraph_construct": 7,
+  "arena_cherub": 1,
+  "arena_core": 5,
+  "arena_hornet_queen": 2,
+  "arena_owl_sage": 1,
+  "arena_frost_wolf": 1,
+  "arena_vulture": 2,
+  "arena_dire_hyena": 2,
+  "golden_guardian": 213,
+  "halo_turret": 87,
+  "storm_roc": 5,
+  "astral_serpent": 5
+ },
+ "ach": {
+  "first_blood": 1793051361712,
+  "slayer1k": 1793051361713,
+  "all_stages": 1793051361713,
+  "dragon": 1793051361713,
+  "card20": 1793051361713,
+  "talent": 1793051365031,
+  "first_boss": 1793051598889,
+  "flawless": 1793051598889,
+  "fusion1": 1793051615190,
+  "skills100": 1793053939227,
+  "tower10": 1793053942179,
+  "slayer10k": 1793053979722,
+  "trial3": 1793055640367,
+  "rush": 1793056415371,
+  "cards50": 1793056982612,
+  "awaken1": 1793057217837,
+  "lv40": 1793058018364,
+  "relic6": 1793058477312,
+  "fusion6": 1793090813621,
+  "enh5": 1793091161222,
+  "worldboss": 1793092260607,
+  "od50": 1793094660673,
+  "act2": 1793094741426,
+  "village": 1793095590113,
+  "comps": 1793096030442,
+  "sanctum": 1793098237199,
+  "craft3": 1793099646892,
+  "lv50": 1793101460800,
+  "tower25": 1793104030061,
+  "goblins": 1793105083467,
+  "lv60": 1793106893496,
+  "cards90": 1793110868287,
+  "legends": 1793110868287,
+  "lv70": 1793114550737,
+  "sweep100": 1793114550737,
+  "tier5": 1793229824553,
+  "tier10": 1793229824553,
+  "lv100": 1793229824553,
+  "vilmax": 1793229825724,
+  "equip10": 1793229855125,
+  "awk10": 1793230068193,
+  "star20": 1793230073798
+ },
+ "seenStory": {
+  "0": true,
+  "1": true,
+  "2": true,
+  "3": true,
+  "4": true,
+  "5": true,
+  "6": true,
+  "7": true,
+  "8": true,
+  "10": true,
+  "11": true,
+  "14": true,
+  "17": true,
+  "18": true,
+  "19": true,
+  "22": true,
+  "tower": true,
+  "ending2": true
+ },
+ "counters": {
+  "summoned": {
+   "fang_wolf": 7,
+   "healing_sprout": 171,
+   "tide_koi": 58,
+   "arcane_wisp": 50,
+   "spark_beetle": 15,
+   "venom_mantis": 10,
+   "griffin": 305,
+   "plague_swarm": 5888,
+   "ember_wyrm": 26,
+   "frost_spirit": 50,
+   "stone_golem": 2,
+   "warbeast": 17,
+   "leviathan": 48,
+   "phoenix": 18,
+   "seraph": 16,
+   "archon": 7,
+   "solar_disc": 4,
+   "arch_angel": 36,
+   "void_eye": 5,
+   "crystal_sentinel": 7,
+   "obsidian_golem": 6,
+   "treant_sapling": 5,
+   "valkyrie": 14,
+   "star_titan": 1,
+   "cherub": 10,
+   "grove_guardian": 86,
+   "world_root": 8,
+   "seraphic_king": 16,
+   "phantom_knight": 29,
+   "banshee": 30,
+   "storm_spirit": 3,
+   "venus_trap": 6,
+   "moon_oracle": 17,
+   "phantom_lord": 228,
+   "soul_lantern": 9,
+   "eye_of_the_void": 73,
+   "prism_colossus": 69,
+   "gale_hawk": 19,
+   "firefly_swarm": 39,
+   "pufferfish": 11,
+   "dire_hyena": 28,
+   "fire_falcon": 6,
+   "thorn_vine": 1,
+   "kitsune": 3,
+   "ouroboros": 2,
+   "void_seraph": 3,
+   "world_turtle": 3
+  },
+  "skills": 5814,
+  "bosses": 120535,
+  "flawless": 228,
+  "trial3": 16,
+  "rushDone": 208,
+  "rankKills": {
+   "celestial": 6327,
+   "insect": 2607,
+   "spirit": 15175,
+   "stone": 10601,
+   "grass": 3240,
+   "fish": 976,
+   "beast": 29131,
+   "bird": 29708,
+   "dragon": 343,
+   "primordial": 5717
+  },
+  "overdrives": 983,
+  "goblins": 41,
+  "clears": 15,
+  "sanctum": 17,
+  "quests": 9,
+  "shrines": 9,
+  "worldKills": 1,
+  "altar": 40,
+  "runPicks": 521,
+  "dailies": 1,
+  "sweeps": 1400
+ },
+ "towerBest": 508,
+ "tutorialDone": true,
+ "endingSeen": false,
+ "relics": {
+  "collar": 1,
+  "bonecrown": 1,
+  "chalice": 1,
+  "banner": 1,
+  "plate": 1,
+  "fang": 1,
+  "broodsac": 1,
+  "heartwood": 1,
+  "horn": 1,
+  "seal": 1,
+  "prism": 2,
+  "halo": 1,
+  "frostscale": 1,
+  "feather": 1,
+  "astral": 1
+ },
+ "relicSlots": [
+  "banner",
+  "seal",
+  "broodsac"
+ ],
+ "essence": 113241,
+ "awakened": {
+  "arch_angel": true,
+  "plague_swarm": 10,
+  "seraphic_king": 3,
+  "grove_guardian": 10,
+  "leviathan": 3,
+  "phantom_lord": 10,
+  "phoenix": 3,
+  "griffin": 10,
+  "prism_colossus": 10,
+  "eye_of_the_void": 10
+ },
+ "companion": "lysa",
+ "curses": [
+  "brutal",
+  "horde",
+  "swift"
+ ],
+ "loadouts": [
+  [
+   "plague_swarm",
+   "arch_angel",
+   "valkyrie",
+   "cherub",
+   "leviathan",
+   "healing_sprout",
+   null,
+   null,
+   null,
+   null
+  ],
+  [
+   "plague_swarm",
+   "seraphic_king",
+   "banshee",
+   "storm_spirit",
+   "venus_trap",
+   "grove_guardian",
+   null,
+   null,
+   null,
+   null
+  ],
+  [
+   "spark_beetle",
+   "venom_mantis",
+   "fang_wolf",
+   "iron_boar",
+   "gale_hawk",
+   "thorn_vine",
+   null,
+   null,
+   null,
+   null
+  ],
+  [
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ],
+  [
+   "plague_swarm",
+   "seraphic_king",
+   "grove_guardian",
+   null,
+   null,
+   null,
+   null,
+   null,
+   null,
+   null
+  ]
+ ],
+ "loadoutIdx": 0,
+ "rushBest": {
+  "n": 23,
+  "time": 189.50177532399692
+ },
+ "savedAt": 1793230419286,
+ "tier": 10,
+ "tierMax": 10,
+ "daily": {
+  "key": "2026-10-27",
+  "done": true
+ },
+ "sanctum": {
+  "cards": [
+   "prism_colossus",
+   "phantom_lord",
+   "arch_angel"
+  ],
+  "since": 1793230415888
+ },
+ "cosmetics": {
+  "outfit": "nightbane",
+  "circle": "void"
+ },
+ "cardStats": {
+  "solar_disc": {
+   "kills": 284,
+   "dmg": 214888.3858459715
+  },
+  "plague_swarm": {
+   "kills": 2562,
+   "dmg": 91967073.25203417
+  },
+  "arch_angel": {
+   "kills": 3705,
+   "dmg": 9606993.447457992
+  },
+  "void_eye": {
+   "kills": 122,
+   "dmg": 73462.90415803237
+  },
+  "crystal_sentinel": {
+   "kills": 76,
+   "dmg": 81395.55300072415
+  },
+  "healing_sprout": {
+   "kills": 5,
+   "dmg": 4159.053418534227
+  },
+  "treant_sapling": {
+   "kills": 2,
+   "dmg": 1678.8205059413187
+  },
+  "obsidian_golem": {
+   "kills": 44,
+   "dmg": 51692.53663727595
+  },
+  "star_titan": {
+   "kills": 164,
+   "dmg": 163040.76500328424
+  },
+  "valkyrie": {
+   "kills": 960,
+   "dmg": 991342.9651689406
+  },
+  "cherub": {
+   "kills": 0,
+   "dmg": 3088.0147395559684
+  },
+  "leviathan": {
+   "kills": 976,
+   "dmg": 1434064.5932963386
+  },
+  "grove_guardian": {
+   "kills": 3194,
+   "dmg": 97090562.33175671
+  },
+  "world_root": {
+   "kills": 9,
+   "dmg": 15722.063969551988
+  },
+  "seraphic_king": {
+   "kills": 1209,
+   "dmg": 4273172.5002981825
+  },
+  "banshee": {
+   "kills": 85,
+   "dmg": 104588.71218166257
+  },
+  "phantom_knight": {
+   "kills": 5,
+   "dmg": 154891.0000803481
+  },
+  "storm_spirit": {
+   "kills": 581,
+   "dmg": 333286.2775840996
+  },
+  "venus_trap": {
+   "kills": 28,
+   "dmg": 12197.724100589247
+  },
+  "phantom_lord": {
+   "kills": 11908,
+   "dmg": 13348642540.560324
+  },
+  "moon_oracle": {
+   "kills": 5,
+   "dmg": 23017.47841666326
+  },
+  "griffin": {
+   "kills": 28785,
+   "dmg": 3343275134769.246
+  },
+  "phoenix": {
+   "kills": 343,
+   "dmg": 848997.30955419
+  },
+  "eye_of_the_void": {
+   "kills": 693,
+   "dmg": 50992354513.61167
+  },
+  "prism_colossus": {
+   "kills": 7287,
+   "dmg": 83787855671.99203
+  },
+  "gale_hawk": {
+   "kills": 685,
+   "dmg": 836135.1781528651
+  },
+  "firefly_swarm": {
+   "kills": 45,
+   "dmg": 6894.358160794058
+  },
+  "dire_hyena": {
+   "kills": 346,
+   "dmg": 398379.3666233447
+  },
+  "fire_falcon": {
+   "kills": 238,
+   "dmg": 481573.95144103956
+  },
+  "thorn_vine": {
+   "kills": 2,
+   "dmg": 1270.0556906435745
+  },
+  "arcane_wisp": {
+   "kills": 24,
+   "dmg": 69763.75560904804
+  },
+  "ouroboros": {
+   "kills": 4434,
+   "dmg": 147293137778.44376
+  },
+  "void_seraph": {
+   "kills": 1283,
+   "dmg": 75197870774.21596
+  },
+  "kitsune": {
+   "kills": 438,
+   "dmg": 6363052327.946909
+  }
+ },
+ "history": [
+  {
+   "t": 1793230392152,
+   "kind": "tower",
+   "name": "Abyss Tower (floor 508)",
+   "won": false,
+   "retreat": true,
+   "time": 2,
+   "kills": 0,
+   "exp": 61306422,
+   "stones": 410918,
+   "tier": 10
+  },
+  {
+   "t": 1793230384259,
+   "kind": "tower",
+   "name": "Abyss Tower (floor 508)",
+   "won": false,
+   "retreat": true,
+   "time": 330,
+   "kills": 12251,
+   "exp": 179594946,
+   "stones": 572134,
+   "tier": 10
+  },
+  {
+   "t": 1793114306800,
+   "kind": "tower",
+   "name": "Abyss Tower (floor 44)",
+   "won": false,
+   "retreat": true,
+   "time": 1639,
+   "kills": 7051,
+   "exp": 429343,
+   "stones": 8659,
+   "tier": 1
+  },
+  {
+   "t": 1793113036338,
+   "kind": "tower",
+   "name": "Abyss Tower (floor 44)",
+   "won": false,
+   "retreat": true,
+   "time": 1664,
+   "kills": 6569,
+   "exp": 393886,
+   "stones": 7667,
+   "tier": 1
+  },
+  {
+   "t": 1793111229448,
+   "kind": "rush",
+   "name": "Boss Rush (23/23)",
+   "won": true,
+   "retreat": false,
+   "time": 190,
+   "kills": 23,
+   "exp": 43056,
+   "stones": 8996,
+   "tier": 1
+  },
+  {
+   "t": 1793109584300,
+   "kind": "tower",
+   "name": "Abyss Tower (floor 123)",
+   "won": false,
+   "retreat": true,
+   "time": 4605,
+   "kills": 30849,
+   "exp": 5649705,
+   "stones": 52902,
+   "tier": 1
+  },
+  {
+   "t": 1793103000517,
+   "kind": "rush",
+   "name": "Boss Rush (23/23)",
+   "won": true,
+   "retreat": false,
+   "time": 190,
+   "kills": 23,
+   "exp": 43056,
+   "stones": 8996,
+   "tier": 1
+  },
+  {
+   "t": 1793102610719,
+   "kind": "rush",
+   "name": "Boss Rush (23/23)",
+   "won": true,
+   "retreat": false,
+   "time": 191,
+   "kills": 23,
+   "exp": 43056,
+   "stones": 8996,
+   "tier": 1
+  },
+  {
+   "t": 1793102319078,
+   "kind": "rush",
+   "name": "Boss Rush (23/23)",
+   "won": true,
+   "retreat": false,
+   "time": 192,
+   "kills": 23,
+   "exp": 43056,
+   "stones": 8996,
+   "tier": 1
+  },
+  {
+   "t": 1793101462908,
+   "kind": "stage",
+   "name": "Starfield",
+   "won": true,
+   "retreat": false,
+   "time": 177,
+   "kills": 1462,
+   "exp": 403656,
+   "stones": 2830,
+   "tier": 1
+  },
+  {
+   "t": 1793101198065,
+   "kind": "stage",
+   "name": "Storm Spire",
+   "won": true,
+   "retreat": false,
+   "time": 173,
+   "kills": 862,
+   "exp": 245631,
+   "stones": 1173,
+   "tier": 1
+  },
+  {
+   "t": 1793100988426,
+   "kind": "stage",
+   "name": "Marble Ruins",
+   "won": true,
+   "retreat": false,
+   "time": 171,
+   "kills": 1189,
+   "exp": 348400,
+   "stones": 2096,
+   "tier": 1
+  },
+  {
+   "t": 1793100716078,
+   "kind": "rush",
+   "name": "Boss Rush (20/20)",
+   "won": true,
+   "retreat": false,
+   "time": 166,
+   "kills": 20,
+   "exp": 32760,
+   "stones": 7134,
+   "tier": 1
+  },
+  {
+   "t": 1793099517476,
+   "kind": "rush",
+   "name": "Boss Rush (20/20)",
+   "won": true,
+   "retreat": false,
+   "time": 169,
+   "kills": 20,
+   "exp": 32760,
+   "stones": 7134,
+   "tier": 1
+  },
+  {
+   "t": 1793098571765,
+   "kind": "stage",
+   "name": "Cloud Isles",
+   "won": true,
+   "retreat": false,
+   "time": 168,
+   "kills": 1330,
+   "exp": 306044,
+   "stones": 1748,
+   "tier": 1
+  },
+  {
+   "t": 1793097839969,
+   "kind": "stage",
+   "name": "Cloud Isles",
+   "won": false,
+   "retreat": true,
+   "time": 9,
+   "kills": 12,
+   "exp": 1835,
+   "stones": 4,
+   "tier": 1
+  },
+  {
+   "t": 1793096765490,
+   "kind": "tower",
+   "name": "Abyss Tower (floor 13)",
+   "won": false,
+   "retreat": true,
+   "time": 463,
+   "kills": 1846,
+   "exp": 21928,
+   "stones": 1156,
+   "tier": 1
+  },
+  {
+   "t": 1793096030442,
+   "kind": "stage",
+   "name": "Rift Gate",
+   "won": true,
+   "retreat": false,
+   "time": 167,
+   "kills": 1292,
+   "exp": 330191,
+   "stones": 2183,
+   "tier": 1
+  },
+  {
+   "t": 1793095403858,
+   "kind": "rush",
+   "name": "Boss Rush (18/18)",
+   "won": true,
+   "retreat": false,
+   "time": 168,
+   "kills": 18,
+   "exp": 26676,
+   "stones": 5994,
+   "tier": 1
+  },
+  {
+   "t": 1793095161517,
+   "kind": "daily",
+   "name": "Daily Trial: Crystal Caverns",
+   "won": true,
+   "retreat": false,
+   "time": 122,
+   "kills": 393,
+   "exp": 8439,
+   "stones": 704,
+   "tier": 1
+  },
+  {
+   "t": 1793094741427,
+   "kind": "stage",
+   "name": "Emperor's Keep",
+   "won": true,
+   "retreat": false,
+   "time": 166,
+   "kills": 1550,
+   "exp": 301473,
+   "stones": 3412,
+   "tier": 1
+  },
+  {
+   "t": 1793094034613,
+   "kind": "stage",
+   "name": "Throne Road",
+   "won": true,
+   "retreat": false,
+   "time": 164,
+   "kills": 1214,
+   "exp": 0,
+   "stones": 1449,
+   "tier": 1
+  },
+  {
+   "t": 1793093618580,
+   "kind": "stage",
+   "name": "Hellforge",
+   "won": true,
+   "retreat": false,
+   "time": 168,
+   "kills": 1909,
+   "exp": 0,
+   "stones": 1026,
+   "tier": 1
+  },
+  {
+   "t": 1793093092533,
+   "kind": "stage",
+   "name": "Webbed Hollow",
+   "won": true,
+   "retreat": false,
+   "time": 162,
+   "kills": 2572,
+   "exp": 0,
+   "stones": 1997,
+   "tier": 1
+  },
+  {
+   "t": 1793092260608,
+   "kind": "stage",
+   "name": "Verdant Meadow",
+   "won": true,
+   "retreat": false,
+   "time": 106,
+   "kills": 25,
+   "exp": 0,
+   "stones": 8,
+   "tier": 1
+  },
+  {
+   "t": 1793091960464,
+   "kind": "stage",
+   "name": "Verdant Meadow",
+   "won": true,
+   "retreat": false,
+   "time": 107,
+   "kills": 20,
+   "exp": 0,
+   "stones": 1,
+   "tier": 0
+  },
+  {
+   "t": 1793091780745,
+   "kind": "stage",
+   "name": "Verdant Meadow",
+   "won": true,
+   "retreat": false,
+   "time": 107,
+   "kills": 20,
+   "exp": 0,
+   "stones": 1,
+   "tier": 0
+  },
+  {
+   "t": 1793091121299,
+   "kind": "stage",
+   "name": "Ashgate Pass",
+   "won": true,
+   "retreat": false,
+   "time": 148,
+   "kills": 866,
+   "exp": 0,
+   "stones": 767,
+   "tier": 0
+  },
+  {
+   "t": 1793058477312,
+   "kind": "stage",
+   "name": "Sea of Cinders",
+   "won": true,
+   "retreat": false,
+   "time": 163,
+   "kills": 1532,
+   "exp": 0,
+   "stones": 1083,
+   "tier": 0
+  },
+  {
+   "t": 1793058019624,
+   "kind": "stage",
+   "name": "Howling Canyon",
+   "won": true,
+   "retreat": false,
+   "time": 194,
+   "kills": 1315,
+   "exp": 145267,
+   "stones": 1454,
+   "tier": 0
+  }
+ ],
+ "mats": {
+  "shard": 2827,
+  "horn": 4409,
+  "star": 112882
+ },
+ "equip": {
+  "owned": {
+   "haste_ring": 1,
+   "soul_ring": 10,
+   "demonhide": 3,
+   "ember_scepter": 8,
+   "starweave": 10,
+   "astral_rod": 10
+  },
+  "slots": {
+   "staff": "ember_scepter",
+   "robe": "starweave",
+   "ring": "soul_ring"
+  }
+ },
+ "quests": {
+  "dayKey": "2026-10-29",
+  "daily": [
+   {
+    "type": "bosses",
+    "param": null,
+    "n": 2,
+    "base": 75733,
+    "reward": {
+     "stones": 19206,
+     "essence": 0,
+     "mat": "star",
+     "mats": 1
+    },
+    "claimed": true
+   },
+   {
+    "type": "bosses",
+    "param": null,
+    "n": 3,
+    "base": 75733,
+    "reward": {
+     "stones": 19206,
+     "essence": 0,
+     "mat": "star",
+     "mats": 1
+    },
+    "claimed": true
+   },
+   {
+    "type": "rankKills",
+    "param": "beast",
+    "n": 150,
+    "base": 26850,
+    "reward": {
+     "stones": 19206,
+     "essence": 0,
+     "mat": "star",
+     "mats": 1
+    },
+    "claimed": true
+   }
+  ],
+  "weekKey": "w42",
+  "weekly": [
+   {
+    "type": "summons",
+    "param": null,
+    "n": 1200,
+    "base": 1455,
+    "reward": {
+     "stones": 2070,
+     "essence": 3,
+     "mat": "horn",
+     "mats": 4
+    },
+    "claimed": true
+   },
+   {
+    "type": "clears",
+    "param": null,
+    "n": 15,
+    "base": 0,
+    "reward": {
+     "stones": 2070,
+     "essence": 3,
+     "mat": "horn",
+     "mats": 4
+    },
+    "claimed": true
+   },
+   {
+    "type": "bosses",
+    "param": null,
+    "n": 15,
+    "base": 22,
+    "reward": {
+     "stones": 2070,
+     "essence": 3,
+     "mat": "horn",
+     "mats": 4
+    },
+    "claimed": true
+   }
+  ]
+ },
+ "worldBoss": {
+  "week": "w42",
+  "maxHp": 1604646,
+  "hpLeft": 0,
+  "claimed": [
+   true,
+   true,
+   true,
+   true
+  ],
+  "attempts": 3,
+  "bestDmg": 565863
+ },
+ "evo": {},
+ "altar": {
+  "pity": 2,
+  "draws": 40,
+  "free": 0
+ },
+ "village": {
+  "library": 5,
+  "market": 5,
+  "forge": 5,
+  "training": 5,
+  "shrine": 5,
+  "sanctum": 5
+ },
+ "login": {
+  "day": 2,
+  "last": "2026-10-29"
+ },
+ "weeklyCh": {
+  "week": "w42",
+  "list": [
+   {
+    "id": "picks",
+    "start": 0,
+    "claimed": true
+   },
+   {
+    "id": "kills",
+    "start": 23698,
+    "claimed": true
+   },
+   {
+    "id": "flawless",
+    "start": 24,
+    "claimed": true
+   }
+  ]
+ },
+ "arena": {
+  "rating": 1089,
+  "best": 1089,
+  "wins": 5,
+  "losses": 0,
+  "week": "w42",
+  "weekStart": 1000,
+  "tickets": 5,
+  "ticketDay": "2026-10-29",
+  "played": true,
+  "weekBest": 1089
+ },
+ "playStats": {
+  "17": {
+   "plays": 1,
+   "wins": 1,
+   "deaths": 0,
+   "quits": 0,
+   "time": 163.00348706000193,
+   "deathAt": 0
+  },
+  "18": {
+   "plays": 1,
+   "wins": 1,
+   "deaths": 0,
+   "quits": 0,
+   "time": 164.27326168400182,
+   "deathAt": 0
+  },
+  "19": {
+   "plays": 2,
+   "wins": 1,
+   "deaths": 0,
+   "quits": 1,
+   "time": 173.57054771600173,
+   "deathAt": 0
+  },
+  "20": {
+   "plays": 1,
+   "wins": 1,
+   "deaths": 0,
+   "quits": 0,
+   "time": 168.31210254600163,
+   "deathAt": 0
+  },
+  "21": {
+   "plays": 1,
+   "wins": 1,
+   "deaths": 0,
+   "quits": 0,
+   "time": 169.86441694800092,
+   "deathAt": 0
+  },
+  "22": {
+   "plays": 1,
+   "wins": 1,
+   "deaths": 0,
+   "quits": 0,
+   "time": 174.35549010600167,
+   "deathAt": 0
+  }
+ },
+ "trueEndingSeen": false,
+ "skins": {
+  "owned": {},
+  "eq": {
+   "plague_swarm": "crimson",
+   "griffin": "crimson",
+   "phantom_lord": "crimson"
+  }
+ },
+ "events": {
+  "halloween2026": {
+   "cur": 10534215,
+   "earned": 10534215,
+   "bought": {},
+   "clears": 0
+  }
+ },
+ "help": {
+  "19": {
+   "falls": 0,
+   "offered": false,
+   "armed": false
+  },
+  "20": {
+   "falls": 0,
+   "offered": false,
+   "armed": false
+  },
+  "21": {
+   "falls": 0,
+   "offered": false,
+   "armed": false
+  },
+  "22": {
+   "falls": 0,
+   "offered": false,
+   "armed": false
+  }
+ },
+ "tipsSeen": {
+  "rift": true,
+  "run": true,
+  "village": true,
+  "arena": true
+ },
+ "rift": {
+  "best": 9,
+  "shards": 13,
+  "perks": {},
+  "runs": 2
+ },
+ "lang": null,
+ "auto": {
+  "run": true,
+  "runOrder": [
+   "twin",
+   "phoenix",
+   "execute",
+   "godhand",
+   "timewarp",
+   "starfall",
+   "page",
+   "split",
+   "firetrail",
+   "chain",
+   "echo",
+   "orbit",
+   "nova",
+   "vamp",
+   "bomb",
+   "venom",
+   "overflow",
+   "soulfeed",
+   "quickskill",
+   "meteor",
+   "thorns",
+   "swarmx",
+   "stonex",
+   "birdx",
+   "grassx",
+   "fishx",
+   "spiritx",
+   "dragonx",
+   "celestx",
+   "might",
+   "vigor",
+   "focus",
+   "wellspring",
+   "heart",
+   "stride",
+   "sling",
+   "reach",
+   "insight",
+   "greed",
+   "ward",
+   "mend",
+   "haste"
+  ],
+  "soul": true,
+  "soulOrder": [
+   "bloodlust",
+   "swarm",
+   "pack",
+   "sky",
+   "bloom",
+   "bedrock",
+   "tide",
+   "spirit_surge",
+   "dragonfire",
+   "arcane_well",
+   "iron_skin",
+   "wide_grimoire",
+   "quick_pages",
+   "sharp_stones",
+   "fleet",
+   "lucky",
+   "soul_echo",
+   "mana_burst"
+  ],
+  "q": true,
+  "f": true,
+  "skills": {
+   "plague_swarm": true,
+   "griffin": true,
+   "phantom_lord": true,
+   "eye_of_the_void": true,
+   "prism_colossus": true,
+   "grove_guardian": true,
+   "thorn_vine": true,
+   "fire_falcon": true,
+   "venus_trap": true,
+   "gale_hawk": true,
+   "pufferfish": true
+  },
+  "slotSkills": [
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true,
+   true
+  ],
+  "keep": [
+   10,
+   20,
+   20,
+   2,
+   4,
+   4,
+   2,
+   2,
+   2,
+   2
+  ],
+  "summon": true
+ },
+ "seenRelease": 8,
+ "paragon": {
+  "might": 300,
+  "fortune": 300,
+  "wisdom": 300,
+  "fort": 300,
+  "flow": 400,
+  "haste": 100
+ },
+ "diff": 0,
+ "pace": 0,
+ "diffClears": {},
+ "towerFromBest": true
+}
